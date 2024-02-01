@@ -8,6 +8,7 @@
 -   `python -m venv menv`
 -   `./menv/Scripts/activate`
 -   Select python interpreter to be venv
+-   Install the dependencies using `pip install -r requirements.txt`
 -   `uvicorn app:app`
 
 ## Then run the frontend -
