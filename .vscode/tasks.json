@@ -1,37 +1,25 @@
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "Start Backend Server",
-      "type": "shell",
-      "command": "uvicorn",
-      "args": ["backend.app:app", "--reload"],
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
-    },
-    {
-      "label": "Start Frontend Server",
-      "type": "shell",
-      "command": "npm",
-      "args": ["run", "dev"],
-      "options": {
-        "cwd": "${workspaceFolder}/frontend"
-      },
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
-    },
-    {
-      "label": "Run Backend and Frontend",
-      "dependsOrder": "sequence",
-      "dependsOn": ["Start Backend Server", "Start Frontend Server"],
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
-    }
-  ]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Start Backend Server",
+            "type": "shell",
+            "command": "cd backend && source ./menv/bin/activate && uvicorn app:app --reload",
+            "isBackground": true,
+            "problemMatcher": []
+        },
+        {
+            "label": "Start Frontend Server",
+            "type": "shell",
+            "command": "cd frontend && npm run dev",
+            "isBackground": true,
+            "problemMatcher": []
+        },
+        {
+            "label": "Run Backend and Frontend",
+            "dependsOrder": "parallel",
+            "dependsOn": ["Start Backend Server", "Start Frontend Server"],
+            "problemMatcher": []
+        }
+    ]
 }
