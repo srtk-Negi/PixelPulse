@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 
 origins = [
-    "http://localhost:5173",  # Adjust this to the origin of your client application
+    "http://localhost:5173", 
 ]
 
 app.add_middleware(
@@ -16,11 +16,4 @@ app.add_middleware(
 )
 
 
-@app.get("/api/data1")
-def data_one():
-    return {"message": "The is PixelPulse Data 1"}
 
-
-@app.get("/api/data2")
-def data_two():
-    return {"message": "This is PixelPulse Data 2"}

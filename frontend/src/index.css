@@ -7,28 +7,3 @@ body {
     font-family: Georgia, "Times New Roman", Times, serif;
     height: 100vh;
 }
-
-.homecomp:hover {
-    color: aqua;
-    animation: pulsate 1s infinite;
-}
-.datacompone {
-    color: aqua;
-    animation: pulsate 1s infinite;
-}
-.datacomptwo {
-    color: aqua;
-    animation: pulsate 1s infinite;
-}
-
-@keyframes pulsate {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.5);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
