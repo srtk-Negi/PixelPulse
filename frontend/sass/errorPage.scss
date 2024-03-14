@@ -1,0 +1,28 @@
+@import "variables";
+
+#errorPageContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $main-text-color;
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 5rem;
+
+    img {
+        width: 100%;
+        max-width: 400px;
+        margin-bottom: 20px;
+    }
+
+    @media (max-width: 948px) {
+        .errorText {
+            font-size: 1.5rem;
+        }
+        .sadMan {
+            width: 100%;
+            max-width: 200px;
+        }
+    }
+}

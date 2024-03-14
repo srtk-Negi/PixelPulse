@@ -5,19 +5,26 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import "primeflex/primeflex.css";
 
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    Route,
+    Routes,
+    Navigate,
+} from "react-router-dom";
 
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
     return (
         <PrimeReactProvider>
             <Router>
                 <Routes>
-                    <Route path="/" element={<Register />} />
+                    <Route path="/" element={<Navigate to="/login" />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="*" element={<ErrorPage />} />
                 </Routes>
             </Router>
         </PrimeReactProvider>
