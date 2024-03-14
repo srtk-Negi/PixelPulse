@@ -4,12 +4,12 @@
 
 ## Then run the backend server -
 
--   `cd backend`
 -   `python -m venv menv`
--   `./menv/Scripts/activate`
+-   For windows - `./menv/Scripts/activate`
+-   For mac - `source menv/bin/activate`
 -   Select python interpreter to be venv
 -   Install the dependencies using `pip install -r requirements.txt`
--   `uvicorn app:app`
+-   `uvicorn app:app --reload`
 
 ## Then run the frontend -
 
@@ -18,6 +18,3 @@
 -   `npm run dev`
 
 This will launch the home page.
-
-You can also look at 2 other pages that are served data from 2 different endpoints.
-Just add `data1` or `data2` to the base url.
