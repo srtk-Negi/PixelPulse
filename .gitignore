@@ -2,3 +2,4 @@ menv
 .env
 *pycache*
 aliases*
+.DS_Store
