@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status, Response
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from .. import schemas, models
 from ..database import get_db
@@ -10,7 +10,7 @@ router = APIRouter()
 @router.post(
     "/register",
     status_code=status.HTTP_201_CREATED,
-    response_model=schemas.UserResponse,
+    response_model=schemas.UserResponseRegister,
 )
 def register(user: schemas.User, db: Session = Depends(get_db)):
     """Register a new user.
@@ -49,60 +49,12 @@ def register(user: schemas.User, db: Session = Depends(get_db)):
     return new_user
 
 
-@router.get("/user/{user_id}", response_model=schemas.UserResponse)
-def get_user(user_id: int, db: Session = Depends(get_db)):
-    """Get a user by id.
-
-    Args:
-        user_id (int): The id of the user to get.
-        db (Session): The database session.
-
-    Returns:
-        schemas.UserResponse: The user with the given id.
-    """
-    user = db.query(models.User).filter(models.User.user_id == user_id).first()
-    if user:
-        return user
-    else:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"User with id={user_id} not found",
-        )
-
-
-@router.delete(
-    "/user/delete/{user_id}",
-    status_code=status.HTTP_204_NO_CONTENT,
-)
-def delete_user(user_id: int, db: Session = Depends(get_db)):
-    """Delete a user.
-
-    Args:
-        user_id (int): The id of the user to delete.
-        db (Session): The database session.
-
-    Returns:
-        schemas.UserResponse: The user that was deleted.
-    """
-    db_user_query = db.query(models.User).filter(models.User.user_id == user_id)
-    db_user = db_user_query.first()
-
-    if db_user:
-        db.delete(db_user)
-        db.commit()
-        return Response(status_code=status.HTTP_204_NO_CONTENT)
-    else:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
-        )
-
-
 @router.put(
     "/user/update/{user_id}",
     status_code=status.HTTP_202_ACCEPTED,
-    response_model=schemas.UserResponse,
+    response_model=schemas.UserResponseLogin,
 )
-def update_user(user_id: int, user: schemas.UserUpdate, db: Session = Depends(get_db)):
+def update_user(user_id: int, user: schemas.User, db: Session = Depends(get_db)):
     """Update a user.
 
     Args:

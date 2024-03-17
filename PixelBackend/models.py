@@ -14,6 +14,7 @@ class User(Base):
     last_name = Column(String, nullable=False)
     email = Column(String, nullable=False, unique=True)
     password = Column(String, nullable=False)
+    user_type = Column(String, nullable=False)
     phone = Column(String, nullable=False, unique=True)
     address = Column(String, nullable=False)
     created_at = Column(
@@ -25,7 +26,7 @@ class Product(Base):
     __tablename__ = "Products"
 
     prod_id = Column(Integer, primary_key=True, index=True, nullable=False)
-    name = Column(String, nullable=False)
+    name = Column(String, nullable=False, unique=True)
     brand = Column(String, nullable=False)
     price = Column(Float, nullable=False)
     description = Column(String, nullable=False)

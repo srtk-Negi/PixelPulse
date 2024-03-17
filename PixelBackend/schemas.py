@@ -10,6 +10,7 @@ class User(BaseModel):
     last_name: str
     email: EmailStr
     password: str
+    user_type: str
     phone: str
     address: str
 
@@ -17,9 +18,16 @@ class User(BaseModel):
         from_attributes = True
 
 
-class UserResponse(BaseModel):
+class UserResponseRegister(BaseModel):
     user_id: int
     first_name: str
+    user_type: str
+
+    class Config:
+        from_attributes = True
+
+
+class UserResponseLogin(UserResponseRegister):
     access_token: str
     token_type: str
 
