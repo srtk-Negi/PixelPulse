@@ -19,6 +19,7 @@ def login(user: schemas.UserLogin, db: Session = Depends(get_db)):
     Returns:
         schemas.UserResponse: The user that was logged in.
     """
+    print(user)
     db_user_query = db.query(models.User).filter(models.User.email == user.email)
     db_user = db_user_query.first()
 

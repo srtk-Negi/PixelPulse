@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Response
 from sqlalchemy.orm import Session
 from PixelBackend import schemas, models
 from PixelBackend.database import get_db
@@ -31,7 +31,6 @@ def add_category(category: schemas.Category, db: Session = Depends(get_db)):
 @router.delete(
     "/category/delete/{category_id}",
     status_code=status.HTTP_204_NO_CONTENT,
-    response_model=schemas.CategoryResponse,
 )
 def delete_category(category_id: int, db: Session = Depends(get_db)):
     """Delete a category from the database.
@@ -51,6 +50,6 @@ def delete_category(category_id: int, db: Session = Depends(get_db)):
     if db_category:
         db.delete(db_category)
         db.commit()
-        return db_category
+        return Response(status_code=status.HTTP_204_NO_CONTENT)
     else:
         raise HTTPException(status_code=404, detail="Category not found")

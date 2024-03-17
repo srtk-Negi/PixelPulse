@@ -21,104 +21,104 @@ class User(Base):
     )
 
 
-class Product(Base):
-    __tablename__ = "Products"
+# class Product(Base):
+#     __tablename__ = "Products"
 
-    prod_id = Column(Integer, primary_key=True, index=True, nullable=False)
-    name = Column(String, nullable=False)
-    brand = Column(String, nullable=False)
-    price = Column(Float, nullable=False)
-    description = Column(String, nullable=False)
-    category = Column(String, nullable=False)
-    image_url = Column(String, nullable=False)
-    items_in_stock = Column(Integer, nullable=False)
-
-
-class Category(Base):
-    __tablename__ = "Categories"
-
-    category_id = Column(Integer, primary_key=True, index=True, nullable=False)
-    name = Column(String, nullable=False)
+#     prod_id = Column(Integer, primary_key=True, index=True, nullable=False)
+#     name = Column(String, nullable=False)
+#     brand = Column(String, nullable=False)
+#     price = Column(Float, nullable=False)
+#     description = Column(String, nullable=False)
+#     category = Column(String, nullable=False)
+#     image_url = Column(String, nullable=False)
+#     items_in_stock = Column(Integer, nullable=False)
 
 
-class Cart(Base):
-    __tablename__ = "Carts"
+# class Category(Base):
+#     __tablename__ = "Categories"
 
-    cart_id = Column(Integer, primary_key=True, index=True, nullable=False)
-    user_id = Column(Integer, ForeignKey("Users.user_id"), nullable=False)
-    created_at = Column(
-        TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
-    )
+#     category_id = Column(Integer, primary_key=True, index=True, nullable=False)
+#     name = Column(String, nullable=False)
 
 
-class CartItem(Base):
-    __tablename__ = "CartItems"
+# class Cart(Base):
+#     __tablename__ = "Carts"
 
-    cart_item_id = Column(Integer, primary_key=True, index=True, nullable=False)
-    cart_id = Column(Integer, ForeignKey("Carts.cart_id"), nullable=False)
-    prod_id = Column(Integer, ForeignKey("Products.prod_id"), nullable=False)
-    prod_name = Column(String, ForeignKey("Products.name"), nullable=False)
-    quantity = Column(Integer, nullable=False)
-    total_price = Column(Float, nullable=False)
-    created_at = Column(
-        TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
-    )
+#     cart_id = Column(Integer, primary_key=True, index=True, nullable=False)
+#     user_id = Column(Integer, ForeignKey("Users.user_id"), nullable=False)
+#     created_at = Column(
+#         TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
+#     )
 
 
-class Order(Base):
-    __tablename__ = "Orders"
+# class CartItem(Base):
+#     __tablename__ = "CartItems"
 
-    order_id = Column(Integer, primary_key=True, index=True, nullable=False)
-    user_id = Column(Integer, ForeignKey("Users.user_id"), nullable=False)
-    created_at = Column(
-        TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
-    )
-    total_price = Column(Float, nullable=False)
-    address = Column(String, nullable=False)
-    payment_method = Column(String, nullable=False)
-    order_status = Column(String, nullable=False)
-    tax = Column(Float, nullable=False)
-    discount = Column(Float, nullable=False)
-    discount_code = Column(String, nullable=False)
+#     cart_item_id = Column(Integer, primary_key=True, index=True, nullable=False)
+#     cart_id = Column(Integer, ForeignKey("Carts.cart_id"), nullable=False)
+#     prod_id = Column(Integer, ForeignKey("Products.prod_id"), nullable=False)
+#     prod_name = Column(String, ForeignKey("Products.name"), nullable=False)
+#     quantity = Column(Integer, nullable=False)
+#     total_price = Column(Float, nullable=False)
+#     created_at = Column(
+#         TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
+#     )
 
 
-class OrderItem(Base):
-    __tablename__ = "OrderItems"
+# class Order(Base):
+#     __tablename__ = "Orders"
 
-    order_item_id = Column(Integer, primary_key=True, index=True, nullable=False)
-    order_id = Column(Integer, ForeignKey("Orders.order_id"), nullable=False)
-    prod_id = Column(Integer, ForeignKey("Products.prod_id"), nullable=False)
-    prod_name = Column(String, ForeignKey("Products.name"), nullable=False)
-    quantity = Column(Integer, nullable=False)
-    total_price = Column(Float, nullable=False)
-    created_at = Column(
-        TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
-    )
-
-
-class DiscountCode(Base):
-    __tablename__ = "DiscountCodes"
-
-    discount_code_id = Column(Integer, primary_key=True, index=True, nullable=False)
-    code = Column(String, nullable=False)
-    discount = Column(Float, nullable=False)
-    active = Column(String, nullable=False)
-    expiration_date = Column(String, nullable=False)
-    created_at = Column(
-        TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
-    )
+#     order_id = Column(Integer, primary_key=True, index=True, nullable=False)
+#     user_id = Column(Integer, ForeignKey("Users.user_id"), nullable=False)
+#     created_at = Column(
+#         TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
+#     )
+#     total_price = Column(Float, nullable=False)
+#     address = Column(String, nullable=False)
+#     payment_method = Column(String, nullable=False)
+#     order_status = Column(String, nullable=False)
+#     tax = Column(Float, nullable=False)
+#     discount = Column(Float, nullable=False)
+#     discount_code = Column(String, nullable=False)
 
 
-class DiscountedProduct(Base):
-    __tablename__ = "DiscountedProducts"
+# class OrderItem(Base):
+#     __tablename__ = "OrderItems"
 
-    discounted_product_id = Column(
-        Integer, primary_key=True, index=True, nullable=False
-    )
-    prod_id = Column(Integer, ForeignKey("Products.prod_id"), nullable=False)
-    discount_code_id = Column(
-        Integer, ForeignKey("DiscountCodes.discount_code_id"), nullable=False
-    )
-    created_at = Column(
-        TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
-    )
+#     order_item_id = Column(Integer, primary_key=True, index=True, nullable=False)
+#     order_id = Column(Integer, ForeignKey("Orders.order_id"), nullable=False)
+#     prod_id = Column(Integer, ForeignKey("Products.prod_id"), nullable=False)
+#     prod_name = Column(String, ForeignKey("Products.name"), nullable=False)
+#     quantity = Column(Integer, nullable=False)
+#     total_price = Column(Float, nullable=False)
+#     created_at = Column(
+#         TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
+#     )
+
+
+# class DiscountCode(Base):
+#     __tablename__ = "DiscountCodes"
+
+#     discount_code_id = Column(Integer, primary_key=True, index=True, nullable=False)
+#     code = Column(String, nullable=False)
+#     discount = Column(Float, nullable=False)
+#     active = Column(String, nullable=False)
+#     expiration_date = Column(String, nullable=False)
+#     created_at = Column(
+#         TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
+#     )
+
+
+# class DiscountedProduct(Base):
+#     __tablename__ = "DiscountedProducts"
+
+#     discounted_product_id = Column(
+#         Integer, primary_key=True, index=True, nullable=False
+#     )
+#     prod_id = Column(Integer, ForeignKey("Products.prod_id"), nullable=False)
+#     discount_code_id = Column(
+#         Integer, ForeignKey("DiscountCodes.discount_code_id"), nullable=False
+#     )
+#     created_at = Column(
+#         TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
+#     )

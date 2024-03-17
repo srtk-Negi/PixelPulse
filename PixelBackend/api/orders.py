@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Response
 from sqlalchemy.orm import Session
 from PixelBackend import schemas, models
 from PixelBackend.database import get_db
@@ -31,7 +31,6 @@ def add_order(order: schemas.Order, db: Session = Depends(get_db)):
 @router.delete(
     "/order/delete/{order_id}",
     status_code=status.HTTP_204_NO_CONTENT,
-    response_model=schemas.OrderResponse,
 )
 def delete_order(order_id: int, db: Session = Depends(get_db)):
     """Delete an order from the database.
@@ -49,7 +48,7 @@ def delete_order(order_id: int, db: Session = Depends(get_db)):
     if db_order:
         db.delete(db_order)
         db.commit()
-        return db_order
+        return Response(status_code=status.HTTP_204_NO_CONTENT)
     else:
         raise HTTPException(status_code=404, detail="Order not found")
 

@@ -13,7 +13,7 @@ class User(BaseModel):
     address: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class UserResponse(BaseModel):
@@ -22,7 +22,7 @@ class UserResponse(BaseModel):
     last_name: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class UserLogin(BaseModel):
@@ -50,7 +50,7 @@ class Product(BaseModel):
     items_in_stock: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class ProductUpdate(BaseModel):
@@ -74,35 +74,35 @@ class ProductResponse(BaseModel):
     items_in_stock: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class Category(BaseModel):
     name: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class CategoryResponse(BaseModel):
     name: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class Cart(BaseModel):
     user_id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class CartResponse(BaseModel):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class CartItem(BaseModel):
@@ -113,14 +113,14 @@ class CartItem(BaseModel):
     total_price: float
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class CartItemResponse(BaseModel):
     prod_name: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class Order(BaseModel):
@@ -134,14 +134,14 @@ class Order(BaseModel):
     discount_code: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class OrderResponse(BaseModel):
     order_id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class OrderItem(BaseModel):
@@ -152,7 +152,7 @@ class OrderItem(BaseModel):
     total_price: float
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class DiscountCode(BaseModel):
@@ -162,7 +162,7 @@ class DiscountCode(BaseModel):
     expiration_date: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class DiscountCodeResponse(BaseModel):
@@ -172,4 +172,4 @@ class DiscountCodeResponse(BaseModel):
     expiration_date: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True

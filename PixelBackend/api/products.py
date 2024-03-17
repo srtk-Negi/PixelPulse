@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Response
 from sqlalchemy.orm import Session
 from PixelBackend import schemas, models
 from PixelBackend.database import get_db
@@ -31,7 +31,6 @@ def add_product(product: schemas.Product, db: Session = Depends(get_db)):
 @router.delete(
     "/product/delete/{prod_id}",
     status_code=status.HTTP_204_NO_CONTENT,
-    response_model=schemas.ProductResponse,
 )
 def delete_product(prod_id: int, db: Session = Depends(get_db)):
     """Delete a product from the database.
@@ -50,7 +49,7 @@ def delete_product(prod_id: int, db: Session = Depends(get_db)):
     if db_product:
         db.delete(db_product)
         db.commit()
-        return db_product
+        return Response(status_code=status.HTTP_204_NO_CONTENT)
     else:
         raise HTTPException(status_code=404, detail="Product not found")
 
