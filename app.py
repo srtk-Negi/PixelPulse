@@ -7,13 +7,13 @@ from PixelBackend import auth
 
 app = FastAPI()
 
-app.include_router(adminRoutes.router)
-app.include_router(carts.router)
-app.include_router(categories.router)
-app.include_router(orders.router)
-app.include_router(products.router)
-app.include_router(users.router)
-app.include_router(auth.router)
+app.include_router(adminRoutes.router, prefix="/api/admin")
+app.include_router(carts.router, prefix="/api/cart")
+app.include_router(categories.router, prefix="/api/category")
+app.include_router(orders.router, prefix="/api/order")
+app.include_router(products.router, prefix="/api/product")
+app.include_router(users.router, prefix="/api/user")
+app.include_router(auth.router, prefix="/api/auth")
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -29,8 +29,3 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-@app.get("/")
-def root():
-    return {"message": "Hello World"}

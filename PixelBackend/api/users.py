@@ -26,13 +26,18 @@ def register(user: schemas.User, db: Session = Depends(get_db)):
     db_user = db_user_query.first()
 
     if db_user:
-        raise HTTPException(status_code=400, detail="Email already registered")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Email already registered"
+        )
 
     db_user_query = db.query(models.User).filter(models.User.phone == user.phone)
     db_user = db_user_query.first()
 
     if db_user:
-        raise HTTPException(status_code=400, detail="Phone number already registered")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Phone number already registered",
+        )
 
     hashed_password = hash_password(user.password)
     user.password = hashed_password
@@ -59,7 +64,10 @@ def get_user(user_id: int, db: Session = Depends(get_db)):
     if user:
         return user
     else:
-        raise HTTPException(status_code=404, detail=f"User with id={user_id} not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"User with id={user_id} not found",
+        )
 
 
 @router.delete(
@@ -84,7 +92,9 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
         db.commit()
         return Response(status_code=status.HTTP_204_NO_CONTENT)
     else:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
+        )
 
 
 @router.put(
@@ -107,7 +117,9 @@ def update_user(user_id: int, user: schemas.UserUpdate, db: Session = Depends(ge
     db_user = db_user_query.first()
 
     if not db_user:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
+        )
     db_user_query.update(user.model_dump(), synchronize_session=False)
     db.commit()
 
