@@ -12,8 +12,12 @@ class User(BaseModel):
     phone: str
     address: str
 
+    class Config:
+        orm_mode = True
+
 
 class UserResponse(BaseModel):
+    user_id: int
     first_name: str
     last_name: str
 
@@ -27,6 +31,7 @@ class UserLogin(BaseModel):
 
 
 class UserUpdate(BaseModel):
+    user_id: int
     first_name: str
     last_name: str
     email: EmailStr
@@ -35,6 +40,7 @@ class UserUpdate(BaseModel):
 
 
 class Product(BaseModel):
+    prod_id: int
     name: str
     brand: str
     price: float
@@ -42,6 +48,9 @@ class Product(BaseModel):
     category: str
     image_url: str
     items_in_stock: int
+
+    class Config:
+        orm_mode = True
 
 
 class ProductUpdate(BaseModel):
@@ -55,6 +64,7 @@ class ProductUpdate(BaseModel):
 
 
 class ProductResponse(BaseModel):
+    prod_id: int
     name: str
     brand: str
     price: float
@@ -63,20 +73,54 @@ class ProductResponse(BaseModel):
     image_url: str
     items_in_stock: int
 
+    class Config:
+        orm_mode = True
+
 
 class Category(BaseModel):
     name: str
+
+    class Config:
+        orm_mode = True
+
+
+class CategoryResponse(BaseModel):
+    name: str
+
+    class Config:
+        orm_mode = True
 
 
 class Cart(BaseModel):
     user_id: int
 
+    class Config:
+        orm_mode = True
+
+
+class CartResponse(BaseModel):
+    created_at: datetime
+
+    class Config:
+        orm_mode = True
+
 
 class CartItem(BaseModel):
     cart_id: int
     prod_id: int
+    prod_name: str
     quantity: int
     total_price: float
+
+    class Config:
+        orm_mode = True
+
+
+class CartItemResponse(BaseModel):
+    prod_name: str
+
+    class Config:
+        orm_mode = True
 
 
 class Order(BaseModel):
@@ -89,12 +133,26 @@ class Order(BaseModel):
     discount: float
     discount_code: str
 
+    class Config:
+        orm_mode = True
+
+
+class OrderResponse(BaseModel):
+    order_id: int
+
+    class Config:
+        orm_mode = True
+
 
 class OrderItem(BaseModel):
     order_id: int
     prod_id: int
+    prod_name: str
     quantity: int
     total_price: float
+
+    class Config:
+        orm_mode = True
 
 
 class DiscountCode(BaseModel):
@@ -103,9 +161,15 @@ class DiscountCode(BaseModel):
     active: bool
     expiration_date: datetime
 
+    class Config:
+        orm_mode = True
+
 
 class DiscountCodeResponse(BaseModel):
     code: str
     discount: float
     active: bool
     expiration_date: datetime
+
+    class Config:
+        orm_mode = True
