@@ -26,7 +26,7 @@ def get_users(
     return users
 
 
-@router.put(
+@router.patch(
     "/users/update/{user_id}",
     status_code=status.HTTP_202_ACCEPTED,
     response_model=schemas.User,

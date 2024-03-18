@@ -40,6 +40,16 @@ class UserLogin(BaseModel):
     password: str
 
 
+class UserPatchRequest(BaseModel):
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    phone: Optional[str] = None
+    address: Optional[str] = None
+
+    class Config:
+        from_attributes = True
+
+
 class Product(BaseModel):
     name: str
     brand: str
