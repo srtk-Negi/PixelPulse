@@ -1,13 +1,15 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Response
 from sqlalchemy.orm import Session
-from PixelBackend import models, schemas
+from PixelBackend import models, schemas, OAuth
 from PixelBackend.database import get_db
 
 router = APIRouter()
 
 
 @router.get("/users", response_model=list[schemas.User])
-def get_users(db: Session = Depends(get_db)):
+def get_users(
+    db: Session = Depends(get_db), token_data=Depends(OAuth.get_current_user)
+):
     """Get all users from the database.
 
     Args:
@@ -16,6 +18,10 @@ def get_users(db: Session = Depends(get_db)):
     Returns:
         list[schemas.UserResponse]: A list of all users in the database.
     """
+    if token_data.user_type != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized user"
+        )
     users = db.query(models.User).all()
     return users
 
@@ -25,7 +31,12 @@ def get_users(db: Session = Depends(get_db)):
     status_code=status.HTTP_202_ACCEPTED,
     response_model=schemas.User,
 )
-def update_user(user_id: int, user: schemas.User, db: Session = Depends(get_db)):
+def update_user(
+    user_id: int,
+    user: schemas.User,
+    db: Session = Depends(get_db),
+    token_data=Depends(OAuth.get_current_user),
+):
     """Update a user.
 
     Args:
@@ -39,6 +50,10 @@ def update_user(user_id: int, user: schemas.User, db: Session = Depends(get_db))
     Raises:
         HTTPException: If the user does not exist.
     """
+    if token_data.user_type != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized user"
+        )
     db_user_query = db.query(models.User).filter(models.User.user_id == user_id)
     db_user = db_user_query.first()
 
@@ -51,7 +66,9 @@ def update_user(user_id: int, user: schemas.User, db: Session = Depends(get_db))
 
 
 @router.get("/orders", response_model=list[schemas.Order])
-def get_orders(db: Session = Depends(get_db)):
+def get_orders(
+    db: Session = Depends(get_db), token_data=Depends(OAuth.get_current_user)
+):
     """Get all orders from the database.
 
     Args:
@@ -60,12 +77,18 @@ def get_orders(db: Session = Depends(get_db)):
     Returns:
         list[schemas.Order]: A list of all orders in the database.
     """
+    if token_data.user_type != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized user"
+        )
     orders = db.query(models.Order).all()
     return orders
 
 
 @router.get("/orders/active", response_model=list[schemas.OrderResponse])
-def get_active_orders(db: Session = Depends(get_db)):
+def get_active_orders(
+    db: Session = Depends(get_db), token_data=Depends(OAuth.get_current_user)
+):
     """Get all active orders from the database.
 
     Args:
@@ -74,12 +97,18 @@ def get_active_orders(db: Session = Depends(get_db)):
     Returns:
         list[schemas.Order]: A list of all active orders in the database.
     """
+    if token_data.user_type != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized user"
+        )
     orders = db.query(models.Order).filter(models.Order.order_status == "active").all()
     return orders
 
 
 @router.get("/orders/completed", response_model=list[schemas.OrderResponse])
-def get_completed_orders(db: Session = Depends(get_db)):
+def get_completed_orders(
+    db: Session = Depends(get_db), token_data=Depends(OAuth.get_current_user)
+):
     """Get all completed orders from the database.
 
     Args:
@@ -88,6 +117,10 @@ def get_completed_orders(db: Session = Depends(get_db)):
     Returns:
         list[schemas.Order]: A list of all completed orders in the database.
     """
+    if token_data.user_type != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized user"
+        )
     orders = (
         db.query(models.Order).filter(models.Order.order_status == "completed").all()
     )
@@ -95,7 +128,11 @@ def get_completed_orders(db: Session = Depends(get_db)):
 
 
 @router.get("/orders/sorted/{sort_by}", response_model=list[schemas.OrderResponse])
-def sort_orders(sort_by: str, db: Session = Depends(get_db)):
+def sort_orders(
+    sort_by: str,
+    db: Session = Depends(get_db),
+    token_data=Depends(OAuth.get_current_user),
+):
     """Sort orders by a given field.
 
     Args:
@@ -105,6 +142,10 @@ def sort_orders(sort_by: str, db: Session = Depends(get_db)):
     Returns:
         list[schemas.Order]: A list of all orders sorted by the given field.
     """
+    if token_data.user_type != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized user"
+        )
     if sort_by not in models.Order.__table__.columns:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid sort field"
@@ -114,7 +155,9 @@ def sort_orders(sort_by: str, db: Session = Depends(get_db)):
 
 
 @router.get("/products", response_model=list[schemas.ProductResponse])
-def get_products(db: Session = Depends(get_db)):
+def get_products(
+    db: Session = Depends(get_db), token_data=Depends(OAuth.get_current_user)
+):
     """Get all products from the database.
 
     Args:
@@ -123,12 +166,18 @@ def get_products(db: Session = Depends(get_db)):
     Returns:
         list[schemas.ProductResponse]: A list of all products in the database.
     """
+    if token_data.user_type != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized user"
+        )
     products = db.query(models.Product).all()
     return products
 
 
 @router.get("/categories", response_model=list[schemas.CategoryResponse])
-def get_categories(db: Session = Depends(get_db)):
+def get_categories(
+    db: Session = Depends(get_db), token_data=Depends(OAuth.get_current_user)
+):
     """Get all categories from the database.
 
     Args:
@@ -137,12 +186,18 @@ def get_categories(db: Session = Depends(get_db)):
     Returns:
         list[schemas.CategoryResponse]: A list of all categories in the database.
     """
+    if token_data.user_type != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized user"
+        )
     categories = db.query(models.Category).all()
     return categories
 
 
 @router.get("/order_items", response_model=list[schemas.OrderItemResponse])
-def get_order_items(db: Session = Depends(get_db)):
+def get_order_items(
+    db: Session = Depends(get_db), token_data=Depends(OAuth.get_current_user)
+):
     """Get all order items from the database.
 
     Args:
@@ -151,12 +206,18 @@ def get_order_items(db: Session = Depends(get_db)):
     Returns:
         list[schemas.OrderItem]: A list of all order items in the database.
     """
+    if token_data.user_type != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized user"
+        )
     order_items = db.query(models.OrderItem).all()
     return order_items
 
 
 @router.get("/carts", response_model=list[schemas.CartResponse])
-def get_carts(db: Session = Depends(get_db)):
+def get_carts(
+    db: Session = Depends(get_db), token_data=Depends(OAuth.get_current_user)
+):
     """Get all carts from the database.
 
     Args:
@@ -165,6 +226,10 @@ def get_carts(db: Session = Depends(get_db)):
     Returns:
         list[schemas.Cart]: A list of all carts in the database.
     """
+    if token_data.user_type != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized user"
+        )
     carts = db.query(models.Cart).all()
     return carts
 
@@ -174,7 +239,11 @@ def get_carts(db: Session = Depends(get_db)):
     status_code=status.HTTP_201_CREATED,
     response_model=schemas.ProductResponse,
 )
-def add_product(product: schemas.Product, db: Session = Depends(get_db)):
+def add_product(
+    product: schemas.Product,
+    db: Session = Depends(get_db),
+    token_data=Depends(OAuth.get_current_user),
+):
     """Add a new product to the database.
 
     Args:
@@ -187,6 +256,10 @@ def add_product(product: schemas.Product, db: Session = Depends(get_db)):
     Raises:
         HTTPException: If the product already exists.
     """
+    if token_data.user_type != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized user"
+        )
     db_product = (
         db.query(models.Product).filter(models.Product.name == product.name).first()
     )
@@ -208,7 +281,11 @@ def add_product(product: schemas.Product, db: Session = Depends(get_db)):
     "/product/delete/{prod_id}",
     status_code=status.HTTP_204_NO_CONTENT,
 )
-def delete_product(prod_id: int, db: Session = Depends(get_db)):
+def delete_product(
+    prod_id: int,
+    db: Session = Depends(get_db),
+    token_data=Depends(OAuth.get_current_user),
+):
     """Delete a product from the database.
 
     Args:
@@ -218,6 +295,10 @@ def delete_product(prod_id: int, db: Session = Depends(get_db)):
     Returns:
         schemas.ProductResponse: The product that was deleted.
     """
+    if token_data.user_type != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized user"
+        )
     db_product_query = db.query(models.Product).filter(
         models.Product.prod_id == prod_id
     )
@@ -236,8 +317,15 @@ def delete_product(prod_id: int, db: Session = Depends(get_db)):
     response_model=schemas.ProductResponse,
 )
 def update_product(
-    prod_id: int, product: schemas.Product, db: Session = Depends(get_db)
+    prod_id: int,
+    product: schemas.Product,
+    db: Session = Depends(get_db),
+    token_data=Depends(OAuth.get_current_user),
 ):
+    if token_data.user_type != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized user"
+        )
     db_product_query = db.query(models.Product).filter(
         models.Product.prod_id == prod_id
     )
@@ -256,7 +344,11 @@ def update_product(
     status_code=status.HTTP_201_CREATED,
     response_model=schemas.DiscountCodeResponse,
 )
-def add_discount(discount: schemas.DiscountCode, db: Session = Depends(get_db)):
+def add_discount(
+    discount: schemas.DiscountCode,
+    db: Session = Depends(get_db),
+    token_data=Depends(OAuth.get_current_user),
+):
     """Add a new discount code to the database.
 
     Args:
@@ -266,6 +358,10 @@ def add_discount(discount: schemas.DiscountCode, db: Session = Depends(get_db)):
     Returns:
         schemas.DiscountCodeResponse: The discount code that was added.
     """
+    if token_data.user_type != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized user"
+        )
     db_discount = (
         db.query(models.DiscountCode)
         .filter(models.DiscountCode.code == discount.code)

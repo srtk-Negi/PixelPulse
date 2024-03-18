@@ -142,7 +142,8 @@ class Token(BaseModel):
 
 
 class TokenData(BaseModel):
-    user_id: Optional[str] = None
+    user_id: Optional[int] = None
+    user_type: Optional[str] = None
 
     class Config:
         from_attributes = True
