@@ -13,7 +13,7 @@ import {
 } from "react-router-dom";
 
 import Register from "./pages/Register";
-import Login from "./pages/Login";
+import LoginPage from "./pages/LoginPage";
 import ErrorPage from "./pages/ErrorPage";
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Navigate to="/login" />} />
                     <Route path="/register" element={<Register />} />
-                    <Route path="/login" element={<Login />} />
+                    <Route path="/login" element={<LoginPage />} />
                     <Route path="*" element={<ErrorPage />} />
                 </Routes>
             </Router>
