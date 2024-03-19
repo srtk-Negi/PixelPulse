@@ -12,7 +12,7 @@ import {
     Navigate,
 } from "react-router-dom";
 
-import Register from "./pages/Register";
+import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import ErrorPage from "./pages/ErrorPage";
 
@@ -22,7 +22,7 @@ function App() {
             <Router>
                 <Routes>
                     <Route path="/" element={<Navigate to="/login" />} />
-                    <Route path="/register" element={<Register />} />
+                    <Route path="/register" element={<RegisterPage />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="*" element={<ErrorPage />} />
                 </Routes>

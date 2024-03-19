@@ -4,24 +4,13 @@ import { Button } from "primereact/button";
 import "../assets/css/login.css";
 import { loginSchema } from "../schemas";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const LoginPage = () => {
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
     const [userData, setUserData] = useState({});
-
-    const login = async (values) => {
-        try {
-            const response = await axios.post("/api/auth/login", values);
-            setUserData(response.data);
-            setSuccess("Login successful");
-            setError(null);
-        } catch (error) {
-            setError(error.response.data.detail);
-            setSuccess(null);
-        }
-    };
 
     return (
         <div className="loginContainer">
@@ -31,8 +20,20 @@ const LoginPage = () => {
                     email: "",
                     password: "",
                 }}
-                onSubmit={(values) => {
-                    login(values);
+                onSubmit={async (values, { resetForm }) => {
+                    try {
+                        const response = await axios.post(
+                            "/api/auth/login",
+                            values
+                        );
+                        setUserData(response.data);
+                        setSuccess("Login successful");
+                        setError(null);
+                    } catch (error) {
+                        setError(error.response.data.detail);
+                        setSuccess(null);
+                    }
+                    resetForm();
                 }}
             >
                 {({ values, handleSubmit, handleChange }) => (
@@ -48,8 +49,11 @@ const LoginPage = () => {
                             />
                             <ErrorMessage
                                 name="email"
-                                component="div"
-                                className="error"
+                                render={(msg) => (
+                                    <small id="title-help" className="p-error">
+                                        {msg}
+                                    </small>
+                                )}
                             />
                         </div>
                         <div className="formField">
@@ -63,13 +67,18 @@ const LoginPage = () => {
                             />
                             <ErrorMessage
                                 name="password"
-                                component="div"
-                                className="error"
+                                render={(msg) => (
+                                    <small id="title-help" className="p-error">
+                                        {msg}
+                                    </small>
+                                )}
                             />
                         </div>
                         <div className="buttons">
                             <Button type="submit" label="Login" />
-                            <Button type="button" label="Register" />
+                            <Link to="/register">
+                                <Button type="button" label="Register" />
+                            </Link>
                         </div>
                     </Form>
                 )}
