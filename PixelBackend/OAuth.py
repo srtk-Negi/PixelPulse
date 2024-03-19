@@ -3,8 +3,9 @@ from datetime import datetime, timedelta
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from dotenv import load_dotenv
-from . import schemas
+from . import schemas, database, models
 import os
+from sqlalchemy.orm import Session
 
 load_dotenv()
 
@@ -54,7 +55,9 @@ def verify_access_token(token: str, credentials_exception):
     return token_data
 
 
-def get_current_user(token: str = Depends(oauth2_scheme)):
+def get_current_user(
+    token: str = Depends(oauth2_scheme), db: Session = Depends(database.get_db)
+):
     """Get the current user.
 
     Args:
@@ -68,4 +71,12 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
-    return verify_access_token(token, credentials_exception)
+    token_data = verify_access_token(token, credentials_exception)
+
+    current_user = (
+        db.query(models.User).filter(models.User.user_id == token_data.user_id).first()
+    )
+
+    if current_user is None:
+        raise credentials_exception
+    return current_user

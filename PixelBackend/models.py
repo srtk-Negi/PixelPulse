@@ -1,12 +1,26 @@
 """ This file contains the models for the database. Each class represents a table in the database. """
 
 from .database import Base
-from sqlalchemy import Column, String, Integer, ForeignKey, Float
+from sqlalchemy import Column, String, Integer, ForeignKey, Float, DateTime
 from sqlalchemy.sql.expression import text
 from sqlalchemy.sql.sqltypes import TIMESTAMP
 
 
 class User(Base):
+    """This class represents the Users table in the database.
+
+    Attributes:
+    user_id: The primary key of the table. It is an integer.
+    first_name: The first name of the user. It is a string.
+    last_name: The last name of the user. It is a string.
+    email: The email of the user. It is a string.
+    password: The password of the user. It is a string.
+    user_type: The type of the user. It is a string.
+    phone: The phone number of the user. It is a string.
+    address: The address of the user. It is a string.
+    created_at: The timestamp of when the user was created. It is a timestamp.
+    """
+
     __tablename__ = "Users"
 
     user_id = Column(Integer, primary_key=True, index=True, nullable=False)
@@ -46,7 +60,9 @@ class Cart(Base):
     __tablename__ = "Carts"
 
     cart_id = Column(Integer, primary_key=True, index=True, nullable=False)
-    user_id = Column(Integer, ForeignKey("Users.user_id"), nullable=False)
+    user_id = Column(
+        Integer, ForeignKey("Users.user_id", ondelete="CASCADE"), nullable=False
+    )
     created_at = Column(
         TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
     )
@@ -70,7 +86,9 @@ class Order(Base):
     __tablename__ = "Orders"
 
     order_id = Column(Integer, primary_key=True, index=True, nullable=False)
-    user_id = Column(Integer, ForeignKey("Users.user_id"), nullable=False)
+    user_id = Column(
+        Integer, ForeignKey("Users.user_id", ondelete="CASCADE"), nullable=False
+    )
     created_at = Column(
         TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
     )
@@ -87,7 +105,9 @@ class OrderItem(Base):
     __tablename__ = "OrderItems"
 
     order_item_id = Column(Integer, primary_key=True, index=True, nullable=False)
-    order_id = Column(Integer, ForeignKey("Orders.order_id"), nullable=False)
+    order_id = Column(
+        Integer, ForeignKey("Orders.order_id", ondelete="CASCADE"), nullable=False
+    )
     prod_id = Column(Integer, ForeignKey("Products.prod_id"), nullable=False)
     prod_name = Column(String, ForeignKey("Products.name"), nullable=False)
     quantity = Column(Integer, nullable=False)
@@ -104,7 +124,7 @@ class DiscountCode(Base):
     code = Column(String, nullable=False)
     discount = Column(Float, nullable=False)
     active = Column(String, nullable=False)
-    expiration_date = Column(String, nullable=False)
+    expiration_date = Column(DateTime, nullable=False)
     created_at = Column(
         TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
     )

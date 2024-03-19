@@ -18,6 +18,14 @@ class User(BaseModel):
         from_attributes = True
 
 
+class UserResponse(User):
+    user_id: int
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
 class UserResponseRegister(BaseModel):
     user_id: int
     first_name: str
