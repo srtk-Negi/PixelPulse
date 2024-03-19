@@ -1,4 +1,11 @@
+// UNCOMMENT THIS CODE TO USE BLACK FORMATTER
+// {
+//     "editor.defaultFormatter": "ms-python.black-formatter",
+//     "editor.formatOnSave": true,
+// }
+
+// UNCOMMENT THIS CODE TO USE PRETTIER FORMATTER
 {
-    "editor.defaultFormatter": "ms-python.black-formatter",
-    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
 }

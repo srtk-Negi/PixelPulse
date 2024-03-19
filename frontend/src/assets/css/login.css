@@ -1,3 +1,44 @@
 .loginContainer {
   color: #f5f5f5;
+  font-size: 1.5rem;
+}
+.loginContainer Form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.loginContainer Form .error {
+  color: red;
+  font-size: 1rem;
+  margin: 10px;
+}
+.loginContainer Form .formField {
+  margin: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #2f2727;
+  color: #f5f5f5;
+  font-family: 'font-family: Georgia, " Times New Roman ", Times, serif;';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.loginContainer Form .buttons {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.loginContainer Form .buttons Button {
+  border: none;
+  border-radius: 5px;
+  color: #f5f5f5;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.loginContainer Form .buttons Button:hover {
+  background-color: #4f4f4f;
 }/*# sourceMappingURL=login.css.map */
