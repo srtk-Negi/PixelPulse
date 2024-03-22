@@ -7,9 +7,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
+    const navigate = useNavigate();
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
-    const navigate = useNavigate();
 
     return (
         <div className="registrationContainer">
@@ -24,21 +24,17 @@ const RegisterPage = () => {
                     phone: "",
                     address: "",
                 }}
-                onSubmit={async (values, { resetForm }) => {
+                onSubmit={async (values) => {
                     try {
                         const response = await axios.post(
                             "/api/user/register",
                             values
                         );
-                        setUserData(response.data);
                         setSuccess("Registration successful");
-                        setError(null);
-                        navigate("/login");
                     } catch (error) {
-                        setError(error);
-                        setSuccess(null);
+                        setError(error.response.data.detail);
+                        console.log(error.response.data);
                     }
-                    resetForm();
                 }}
             >
                 {({ values, handleSubmit, handleChange }) => (
@@ -159,6 +155,11 @@ const RegisterPage = () => {
                         </div>
                         <div className="buttons">
                             <Button type="submit" label="Register" />
+                            <Button
+                                type="button"
+                                label="Back to Login"
+                                onClick={() => navigate("/login")}
+                            />
                         </div>
                     </Form>
                 )}

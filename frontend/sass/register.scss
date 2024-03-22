@@ -3,14 +3,19 @@
 .registrationContainer {
     color: $main-text-color;
     width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
     Form {
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         margin-top: 50px;
         margin-bottom: 50px;
+        width: 100%;
 
         .formField {
             margin: 20px;
@@ -19,24 +24,24 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
+        }
+        .buttons {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            margin-top: 20px;
 
-            .buttons {
-                width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: space-evenly;
-                margin-top: 20px;
+            Button {
+                border: none;
+                border-radius: 5px;
+                font-size: 1rem;
+                cursor: pointer;
+                transition: 0.3s;
+                width: 200px;
 
-                Button {
-                    border: none;
-                    border-radius: 5px;
-                    font-size: 1rem;
-                    cursor: pointer;
-                    transition: 0.3s;
-
-                    &:hover {
-                        background-color: $hover-color;
-                    }
+                &:hover {
+                    background-color: $hover-color;
                 }
             }
         }
