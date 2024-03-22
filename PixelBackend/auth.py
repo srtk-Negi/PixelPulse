@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from PixelBackend import models, schemas
 from PixelBackend.database import get_db
 from .utils import verify_password
-from .OAuth import create_access_token
+from .OAuth import create_access_token, get_current_user
 
 router = APIRouter()
 
@@ -44,3 +44,25 @@ def login(user: schemas.UserLogin, db: Session = Depends(get_db)):
     )
 
     return user_data_response
+
+
+@router.get(
+    "/userType",
+    status_code=status.HTTP_201_CREATED,
+)
+def get_user_type(
+    db: Session = Depends(get_db), current_user=Depends(get_current_user)
+):
+    """Get the user type of a user.
+
+    Args:
+        user_id (int): The user id.
+        db (Session): The database session.
+
+    Returns:
+        schemas.UserResponseRegister: The user type of the user.
+    """
+    if current_user.user_type == "admin":
+        return {"user_type": "admin"}
+    else:
+        return {"user_type": "user"}

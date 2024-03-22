@@ -5,10 +5,12 @@ import "../assets/css/register.css";
 import { registrationSchema } from "../schemas";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
+    const navigate = useNavigate();
 
     return (
         <div className="registrationContainer">
@@ -19,7 +21,7 @@ const RegisterPage = () => {
                     last_name: "",
                     email: "",
                     password: "",
-                    user_type: "",
+                    user_type: "user",
                     phone: "",
                     address: "",
                 }}
@@ -32,6 +34,7 @@ const RegisterPage = () => {
                         setUserData(response.data);
                         setSuccess("Registration successful");
                         setError(null);
+                        navigate("/login");
                     } catch (error) {
                         setError(error);
                         setSuccess(null);
@@ -41,6 +44,7 @@ const RegisterPage = () => {
             >
                 {({ values, handleSubmit, handleChange }) => (
                     <Form onSubmit={handleSubmit}>
+                        {/* first_name*/}
                         <div className="formField">
                             <label htmlFor="first_name">First Name</label>
                             <InputText
@@ -59,6 +63,7 @@ const RegisterPage = () => {
                                 )}
                             />
                         </div>
+                        {/* last_name*/}
                         <div className="formField">
                             <label htmlFor="last_name">Last Name</label>
                             <InputText
@@ -77,6 +82,7 @@ const RegisterPage = () => {
                                 )}
                             />
                         </div>
+                        {/* email*/}
                         <div className="formField">
                             <label htmlFor="email">Email</label>
                             <InputText
@@ -95,6 +101,7 @@ const RegisterPage = () => {
                                 )}
                             />
                         </div>
+                        {/* password*/}
                         <div className="formField">
                             <label htmlFor="password">Password</label>
                             <InputText
@@ -113,24 +120,7 @@ const RegisterPage = () => {
                                 )}
                             />
                         </div>
-                        <div className="formField">
-                            <label htmlFor="user_type">User Type</label>
-                            <InputText
-                                id="user_type"
-                                type="text"
-                                name="user_type"
-                                values={values.user_type}
-                                onChange={handleChange}
-                            />
-                            <ErrorMessage
-                                name="user_type"
-                                render={(msg) => (
-                                    <small id="title-help" className="p-error">
-                                        {msg}
-                                    </small>
-                                )}
-                            />
-                        </div>
+                        {/* phone*/}
                         <div className="formField">
                             <label htmlFor="phone">Phone</label>
                             <InputText
@@ -149,6 +139,7 @@ const RegisterPage = () => {
                                 )}
                             />
                         </div>
+                        {/* address*/}
                         <div className="formField">
                             <label htmlFor="address">Address</label>
                             <InputText
@@ -166,9 +157,9 @@ const RegisterPage = () => {
                                     </small>
                                 )}
                             />
-                            <div className="buttons">
-                                <Button type="submit" label="Register" />
-                            </div>
+                        </div>
+                        <div className="buttons">
+                            <Button type="submit" label="Register" />
                         </div>
                     </Form>
                 )}
