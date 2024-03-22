@@ -4,13 +4,29 @@ import { Button } from "primereact/button";
 import "../assets/css/login.css";
 import { loginSchema } from "../schemas";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const LoginPage = () => {
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
-    const [userData, setUserData] = useState({});
+    const navigate = useNavigate();
+
+    const parseJwt = (token) => {
+        const base64Url = token.split(".")[1];
+        const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+        const jsonPayload = decodeURIComponent(
+            atob(base64)
+                .split("")
+                .map((c) => {
+                    return (
+                        "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)
+                    );
+                })
+                .join("")
+        );
+        return JSON.parse(jsonPayload);
+    };
 
     return (
         <div className="loginContainer">
@@ -26,9 +42,21 @@ const LoginPage = () => {
                             "/api/auth/login",
                             values
                         );
-                        setUserData(response.data);
                         setSuccess("Login successful");
                         setError(null);
+                        axios.defaults.headers.common[
+                            "Authorization"
+                        ] = `Bearer ${response.data.access_token}`;
+
+                        const decodedToken = parseJwt(
+                            response.data.access_token
+                        );
+
+                        if (decodedToken.user_type === "admin") {
+                            navigate("/admin");
+                        } else {
+                            navigate("/home");
+                        }
                     } catch (error) {
                         setError(error.response.data.detail);
                         setSuccess(null);

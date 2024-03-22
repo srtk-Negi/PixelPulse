@@ -39,9 +39,6 @@ def login(user: schemas.UserLogin, db: Session = Depends(get_db)):
     )
 
     user_data_response = schemas.UserResponseLogin(
-        user_id=db_user.user_id,
-        first_name=db_user.first_name,
-        user_type=db_user.user_type,
         access_token=access_token,
         token_type="bearer",
     )

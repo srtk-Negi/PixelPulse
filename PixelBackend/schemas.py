@@ -28,14 +28,13 @@ class UserResponse(User):
 
 class UserResponseRegister(BaseModel):
     user_id: int
-    first_name: str
     user_type: str
 
     class Config:
         from_attributes = True
 
 
-class UserResponseLogin(UserResponseRegister):
+class UserResponseLogin(BaseModel):
     access_token: str
     token_type: str
 

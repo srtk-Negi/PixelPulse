@@ -15,6 +15,8 @@ import {
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import ErrorPage from "./pages/ErrorPage";
+import HomePage from "./pages/HomePage";
+import AdminHomePage from "./pages/AdminHomePage";
 
 function App() {
     return (
@@ -24,6 +26,8 @@ function App() {
                     <Route path="/" element={<Navigate to="/login" />} />
                     <Route path="/register" element={<RegisterPage />} />
                     <Route path="/login" element={<LoginPage />} />
+                    <Route path="/home" element={<HomePage />} />
+                    <Route path="/admin" element={<AdminHomePage />} />
                     <Route path="*" element={<ErrorPage />} />
                 </Routes>
             </Router>

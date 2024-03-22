@@ -67,6 +67,42 @@ def update_user(
     return db_user_query.first()
 
 
+
+@router.delete(
+    "/users/delete/{user_id}",
+    status_code=status.HTTP_204_NO_CONTENT,
+)
+def delete_user(
+    user_id: int,
+    db: Session = Depends(get_db),
+    current_user=Depends(OAuth.get_current_user),
+):
+    """Delete a user from the database.
+
+    Args:
+        user_id (int): The id of the user to delete.
+        db (Session): The database session.
+        current_user: The current user.
+
+    Returns:
+        schemas.User: The user that was deleted.
+    """
+    if current_user.user_type != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized user"
+        )
+    db_user_query = db.query(models.User).filter(models.User.user_id == user_id)
+    db_user = db_user_query.first()
+    if db_user:
+        db.delete(db_user)
+        db.commit()
+        return Response(status_code=status.HTTP_204_NO_CONTENT)
+    else:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    
+
+
 @router.get("/orders", response_model=list[schemas.Order])
 def get_orders(
     db: Session = Depends(get_db), current_user=Depends(OAuth.get_current_user)
