@@ -9,7 +9,6 @@ const AdminHomePage = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = React.useState(true);
     const [users, setUsers] = React.useState(null);
-    let message = null;
 
     useEffect(() => {
         const checkUser = async () => {
@@ -17,7 +16,6 @@ const AdminHomePage = () => {
                 await axios.get("/api/auth/userType");
             } catch (error) {
                 navigate("/unauthorized");
-                message = error.response.data.detail;
             } finally {
                 setLoading(false);
             }

@@ -67,7 +67,6 @@ def update_user(
     return db_user_query.first()
 
 
-
 @router.delete(
     "/users/delete/{user_id}",
     status_code=status.HTTP_204_NO_CONTENT,
@@ -99,8 +98,6 @@ def delete_user(
         return Response(status_code=status.HTTP_204_NO_CONTENT)
     else:
         raise HTTPException(status_code=404, detail="User not found")
-    
-    
 
 
 @router.get("/orders", response_model=list[schemas.Order])
@@ -244,9 +241,13 @@ def add_product(
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized user"
         )
-    db_product = (
-        db.query(models.Product).filter(models.Product.name == product.name).first()
-    )
+
+    try:
+        db_product = (
+            db.query(models.Product).filter(models.Product.name == product.name).first()
+        )
+    except Exception:
+        pass
 
     if db_product:
         raise HTTPException(

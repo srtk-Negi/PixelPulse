@@ -48,7 +48,7 @@ def login(user: schemas.UserLogin, db: Session = Depends(get_db)):
 
 @router.get(
     "/userType",
-    status_code=status.HTTP_201_CREATED,
+    status_code=status.HTTP_200_OK,
 )
 def get_user_type(
     db: Session = Depends(get_db), current_user=Depends(get_current_user)
