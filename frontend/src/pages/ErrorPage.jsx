@@ -1,5 +1,3 @@
-import "../assets/css/errorPage.css";
-
 const ErrorPage = () => {
     return (
         <div id="errorPageContainer">

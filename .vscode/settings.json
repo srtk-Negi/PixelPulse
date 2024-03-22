@@ -1,11 +1,12 @@
-// UNCOMMENT THIS CODE TO USE BLACK FORMATTER
 {
-    "editor.defaultFormatter": "ms-python.black-formatter",
-    "editor.formatOnSave": true
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    // "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true,
+    "liveSassCompile.settings.formats": [
+        {
+            "format": "expanded",
+            "extensionName": ".css",
+            "savePath": "/frontend/src/assets/css"
+        }
+    ]
 }
-
-// // UNCOMMENT THIS CODE TO USE PRETTIER FORMATTER
-// {
-//     "editor.defaultFormatter": "esbenp.prettier-vscode",
-//     "editor.formatOnSave": true
-// }

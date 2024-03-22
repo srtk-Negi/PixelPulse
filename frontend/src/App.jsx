@@ -5,6 +5,7 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import "primeflex/primeflex.css";
 
+//REACT-ROUTER IMPORTS
 import {
     BrowserRouter as Router,
     Route,
@@ -12,12 +13,21 @@ import {
     Navigate,
 } from "react-router-dom";
 
+// PAGES IMPORTS
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import ErrorPage from "./pages/ErrorPage";
 import HomePage from "./pages/HomePage";
 import AdminHomePage from "./pages/AdminHomePage";
 import Unauthorized from "./pages/Unauthorized";
+
+//STYLES IMPORTS
+import "./assets/css/adminHomePage.css";
+import "./assets/css/errorPage.css";
+import "./assets/css/homePage.css";
+import "./assets/css/login.css";
+import "./assets/css/register.css";
+import "./assets/css/unauthorized.css";
 
 function App() {
     return (

@@ -1,7 +1,6 @@
 import { InputText } from "primereact/inputtext";
 import { Formik, Form, ErrorMessage } from "formik";
 import { Button } from "primereact/button";
-import "../assets/css/register.css";
 import { registrationSchema } from "../schemas";
 import { useState } from "react";
 import axios from "axios";

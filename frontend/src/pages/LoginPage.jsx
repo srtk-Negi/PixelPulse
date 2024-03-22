@@ -1,7 +1,6 @@
 import { InputText } from "primereact/inputtext";
 import { Formik, Form, ErrorMessage } from "formik";
 import { Button } from "primereact/button";
-import "../assets/css/login.css";
 import { loginSchema } from "../schemas";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";

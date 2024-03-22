@@ -6,17 +6,18 @@ import LoadingSpinner from "../components/LoadingSpinner";
 const AdminHomePage = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = React.useState(true);
+    let message = null;
 
     useEffect(() => {
         const checkUser = async () => {
             try {
-                const response = await axios.get("/api/auth/userType");
-                if (response.user_type !== "admin") {
-                    navigate("/unauthorized");
-                }
+                await axios.get("/api/auth/userType");
             } catch (error) {
-                console.error(error);
-            }
+                navigate("/unauthorized");
+                message = error.response.data.detail;
+            } finally {
+                setLoading(false);
+                        }
         };
         checkUser();
     }, []);
