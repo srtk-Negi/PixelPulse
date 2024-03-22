@@ -3,15 +3,14 @@ import { Column } from "primereact/column";
 
 const AdminDashboard = ({ users }) => {
     return (
-        <div id="adminPageContainer" className="card">
+        <div className="card">
             <DataTable
                 value={users}
+                showGridlines
                 stripedRows
-                className="p-datatable-striped"
-                resizableColumns
-                columnResizeMode="expand"
                 scrollable
-                scrollHeight="50vh"
+                tableStyle={{ minWidth: "40rem" }}
+                scrollHeight="60vh"
             >
                 <Column field="user_id" header="User ID" />
                 <Column field="first_name" header="First Name" />

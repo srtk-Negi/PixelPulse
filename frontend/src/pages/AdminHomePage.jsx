@@ -8,7 +8,7 @@ import AdminDashboard from "../components/AdminDashboard";
 const AdminHomePage = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = React.useState(true);
-    const [users, setUsers] = React.useState([]);
+    const [users, setUsers] = React.useState(null);
     let message = null;
 
     useEffect(() => {
