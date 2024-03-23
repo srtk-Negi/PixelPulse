@@ -13,6 +13,9 @@ import {
     Navigate,
 } from "react-router-dom";
 
+// COMPONENTS IMPORTS
+import Navbar from "./components/Navbar";
+
 // PAGES IMPORTS
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
@@ -28,21 +31,28 @@ import "./assets/css/homePage.css";
 import "./assets/css/login.css";
 import "./assets/css/register.css";
 import "./assets/css/unauthorized.css";
+import "./assets/css/navbar.css";
 
 function App() {
     return (
         <PrimeReactProvider>
-            <Router>
-                <Routes>
-                    <Route path="/" element={<Navigate to="/login" />} />
-                    <Route path="/register" element={<RegisterPage />} />
-                    <Route path="/login" element={<LoginPage />} />
-                    <Route path="/home" element={<HomePage />} />
-                    <Route path="/admin" element={<AdminHomePage />} />
-                    <Route path="/unauthorized" element={<Unauthorized />} />
-                    <Route path="*" element={<ErrorPage />} />
-                </Routes>
-            </Router>
+            <div className="app">
+                <Router>
+                    <Navbar />
+                    <Routes>
+                        <Route path="/" element={<Navigate to="/login" />} />
+                        <Route path="/register" element={<RegisterPage />} />
+                        <Route path="/login" element={<LoginPage />} />
+                        <Route path="/home" element={<HomePage />} />
+                        <Route path="/admin" element={<AdminHomePage />} />
+                        <Route
+                            path="/unauthorized"
+                            element={<Unauthorized />}
+                        />
+                        <Route path="*" element={<ErrorPage />} />
+                    </Routes>
+                </Router>
+            </div>
         </PrimeReactProvider>
     );
 }

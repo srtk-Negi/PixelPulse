@@ -1,18 +1,22 @@
 @import "variables";
 
-#root {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-}
-
 body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
     background-color: $background-color;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-family: $font_fam;
-    height: 98vh;
+
+    #root {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+
+        .app {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+    }
 }
