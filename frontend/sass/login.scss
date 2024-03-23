@@ -16,7 +16,7 @@
         justify-content: center;
         background-color: $login-register-card-color;
         border-radius: 100px;
-        margin: 20px;
+        margin-top: 100px;
         padding: 20px;
 
         .success {
@@ -57,30 +57,32 @@
                 justify-content: space-evenly;
 
                 Button {
+                    background-color: $button-color;
                     border: none;
                     border-radius: 5px;
-                    color: $main-text-color;
+                    color: $button-text-color;
                     font-size: 1rem;
                     cursor: pointer;
                     transition: 0.3s;
 
                     &:hover {
-                        background-color: $hover-color;
+                        background-color: $button-hover-color;
                     }
                 }
             }
         }
     }
     Button {
+        background-color: $button-color;
         border: none;
         border-radius: 5px;
-        color: $main-text-color;
+        color: $button-text-color;
         font-size: 1rem;
         cursor: pointer;
         transition: 0.3s;
 
         &:hover {
-            background-color: $hover-color;
+            background-color: $button-hover-color;
         }
     }
 }

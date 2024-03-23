@@ -24,10 +24,10 @@
             text-decoration: none;
             color: $main-text-color;
             &:hover {
-                color: $hover-color;
+                color: $button-hover-color;
             }
             &.active {
-                color: $hover-color;
+                color: $button-hover-color;
             }
         }
     }
@@ -39,7 +39,7 @@
         color: $main-text-color;
         text-decoration: none;
         &:hover {
-            color: $hover-color;
+            color: $button-hover-color;
         }
     }
 

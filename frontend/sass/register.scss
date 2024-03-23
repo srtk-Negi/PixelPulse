@@ -3,11 +3,28 @@
 #signUpPage {
     color: $main-text-color;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100%;
     font-size: 1.5rem;
     width: 50%;
+
+    Button {
+        background-color: $button-color;
+        color: $button-text-color;
+        margin-top: 30px;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: 0.3s;
+        width: 150px;
+
+        &:hover {
+            background-color: $button-hover-color;
+        }
+    }
 
     .registrationContainer {
         background-color: $login-register-card-color;
@@ -16,45 +33,47 @@
         align-items: center;
         justify-content: center;
         border-radius: 100px;
-        margin: 20px;
+        margin-top: 60px;
         padding: 20px;
         width: 80%;
+
+        h2 {
+            margin-bottom: 0;
+        }
 
         Form {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin-top: 50px;
-            margin-bottom: 50px;
+            margin-bottom: 10px;
             width: 100%;
 
-            .formField {
-                margin: 20px;
-                border: none;
+            .formFieldGroup {
                 display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-direction: column;
-            }
-            .buttons {
-                width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: space-evenly;
-                margin-top: 20px;
 
-                Button {
+                .formField {
+                    margin: 20px;
                     border: none;
-                    border-radius: 5px;
-                    font-size: 1rem;
-                    cursor: pointer;
-                    transition: 0.3s;
-                    width: 200px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                }
+            }
 
-                    &:hover {
-                        background-color: $hover-color;
-                    }
+            Button {
+                background-color: $button-color;
+                color: $button-text-color;
+                border: none;
+                border-radius: 5px;
+                font-size: 1rem;
+                cursor: pointer;
+                transition: 0.3s;
+                width: 200px;
+
+                &:hover {
+                    background-color: $button-hover-color;
                 }
             }
         }
