@@ -2,12 +2,16 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from PixelBackend import schemas, models
 from PixelBackend.database import get_db
+from PixelBackend import OAuth
 
 router = APIRouter()
 
 
 @router.get("/products", response_model=list[schemas.Product])
-def get_products(db: Session = Depends(get_db)):
+def get_products(
+    db: Session = Depends(get_db),
+    current_user=Depends(OAuth.get_current_user),
+):
     """Get all products from the database.
 
     Args:

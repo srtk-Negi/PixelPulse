@@ -6,25 +6,30 @@ import LoadingSpinner from "../components/LoadingSpinner";
 const HomePage = () => {
     const [products, setProducts] = useState();
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState();
 
     useEffect(() => {
-        const fetchProducts = async () => {
-            const { data } = await axios.get("/api/product/products");
-            setProducts(data);
+        try {
+            const fetchProducts = async () => {
+                const { data } = await axios.get("/api/product/products", {
+                    timeout: 5000,
+                });
+                setProducts(data);
+                setLoading(false);
+            };
+            fetchProducts();
+        } catch (error) {
             setLoading(false);
-        };
-
-        fetchProducts();
+            setError(error);
+        }
     }, []);
 
     return (
         <div id="homePageContainer">
-            <h1>Home Page</h1>
-            {loading ? (
-                <LoadingSpinner />
-            ) : (
+            {loading && <LoadingSpinner />}
+            {error && <h2>{error.message}</h2>}
+            {!loading && (
                 <>
-                    <h2>Products</h2>
                     <ProductTable products={products} />
                 </>
             )}

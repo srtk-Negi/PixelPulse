@@ -84,6 +84,9 @@ const ProductTable = ({ products }) => {
                                     severity={getSeverity(product)}
                                 ></Tag>
                             </div>
+                            <div className="flex align-items-center gap-3">
+                                {product.description}
+                            </div>
                         </div>
                         <div className="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
                             <span className="text-2xl font-semibold">
@@ -121,6 +124,7 @@ const ProductTable = ({ products }) => {
                 header={header()}
                 sortField={sortField}
                 sortOrder={sortOrder}
+                style={{ width: "100%" }}
             />
         </div>
     );

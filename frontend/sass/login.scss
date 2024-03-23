@@ -1,62 +1,72 @@
 @import "variables";
 
-.loginContainer {
-    color: $main-text-color;
-    font-size: 1.5rem;
-    height: 50%;
-    width: 50%;
+#loginPage {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    color: $main-text-color;
+    height: 100%;
 
-    .success {
-        color: green;
-        font-size: 1rem;
-        margin: 5px;
-    }
-
-    .error {
-        color: red;
-        font-size: 1rem;
-        margin: 5px;
-    }
-
-    Form {
+    .loginContainer {
+        font-size: 1.5rem;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        background-color: $login-register-card-color;
+        border-radius: 100px;
+        margin: 20px;
+        padding: 20px;
 
-        .formField {
-            margin: 20px;
-            border: none;
-            border-radius: 5px;
-            background-color: $background-color;
-            color: $main-text-color;
-            font-family: $font_fam;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
+        .success {
+            color: green;
+            font-size: 1rem;
+            margin: 5px;
         }
 
-        .buttons {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-evenly;
+        .error {
+            color: red;
+            font-size: 1rem;
+            margin: 5px;
+        }
 
-            Button {
+        Form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 20px;
+
+            .formField {
+                margin: 20px;
                 border: none;
                 border-radius: 5px;
                 color: $main-text-color;
-                font-size: 1rem;
-                cursor: pointer;
-                transition: 0.3s;
+                font-family: $font_fam;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+            }
 
-                &:hover {
-                    background-color: $hover-color;
+            .buttons {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+
+                Button {
+                    border: none;
+                    border-radius: 5px;
+                    color: $main-text-color;
+                    font-size: 1rem;
+                    cursor: pointer;
+                    transition: 0.3s;
+
+                    &:hover {
+                        background-color: $hover-color;
+                    }
                 }
             }
         }
