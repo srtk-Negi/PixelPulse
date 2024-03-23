@@ -1,61 +1,74 @@
 @import "variables";
 
-.registrationContainer {
+#signUpPage {
     color: $main-text-color;
-    width: 50%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 1.5rem;
+    width: 50%;
 
-    Form {
+    .registrationContainer {
+        background-color: $login-register-card-color;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        margin-top: 50px;
-        margin-bottom: 50px;
-        width: 100%;
+        border-radius: 100px;
+        margin: 20px;
+        padding: 20px;
+        width: 80%;
 
-        .formField {
-            margin: 20px;
-            border: none;
+        Form {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            flex-direction: column;
-        }
-        .buttons {
+            margin-top: 50px;
+            margin-bottom: 50px;
             width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-evenly;
-            margin-top: 20px;
 
-            Button {
+            .formField {
+                margin: 20px;
                 border: none;
-                border-radius: 5px;
-                font-size: 1rem;
-                cursor: pointer;
-                transition: 0.3s;
-                width: 200px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+            }
+            .buttons {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+                margin-top: 20px;
 
-                &:hover {
-                    background-color: $hover-color;
+                Button {
+                    border: none;
+                    border-radius: 5px;
+                    font-size: 1rem;
+                    cursor: pointer;
+                    transition: 0.3s;
+                    width: 200px;
+
+                    &:hover {
+                        background-color: $hover-color;
+                    }
                 }
             }
         }
-    }
 
-    .success {
-        color: green;
-        font-size: 1.5rem;
-        margin-top: 20px;
-    }
+        .success {
+            color: green;
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
 
-    .error {
-        color: red;
-        font-size: 1.5rem;
-        margin-top: 20px;
+        .error {
+            color: red;
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
     }
 }

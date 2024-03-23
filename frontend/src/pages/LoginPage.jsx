@@ -120,7 +120,7 @@ const LoginPage = () => {
             </div>
             <p>Don't have an account?</p>
             <Link to="/register">
-                <Button label="Register" />
+                <Button label="Sign Up!" />
             </Link>
         </div>
     );

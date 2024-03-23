@@ -71,4 +71,16 @@
             }
         }
     }
+    Button {
+        border: none;
+        border-radius: 5px;
+        color: $main-text-color;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: 0.3s;
+
+        &:hover {
+            background-color: $hover-color;
+        }
+    }
 }

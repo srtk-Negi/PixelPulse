@@ -60,5 +60,16 @@
   transition: 0.3s;
 }
 #loginPage .loginContainer Form .buttons Button:hover {
-  background-color: #4f4f4f;
+  background-color: #b585b6;
+}
+#loginPage Button {
+  border: none;
+  border-radius: 5px;
+  color: #f5f5f5;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+#loginPage Button:hover {
+  background-color: #b585b6;
 }/*# sourceMappingURL=login.css.map */
