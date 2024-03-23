@@ -6,3 +6,9 @@ $button-hover-color: #ff8c71;
 $button-text-color: #271c19;
 $login-register-card-color: #271c19;
 $navbar-color: #271c19;
+
+.prodCard {
+    background-color: $login-register-card-color;
+    color: $main-text-color;
+    width: 100%;
+}

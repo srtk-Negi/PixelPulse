@@ -1,3 +1,9 @@
+.prodCard {
+  background-color: #271c19;
+  color: #fffffe;
+  width: 100%;
+}
+
 #header {
   width: 100%;
   display: flex;
@@ -27,14 +33,14 @@
 #header .menu .nav-element.active {
   color: #ff8c71;
 }
-#header .avatar {
+#header .logo {
   margin-left: 3rem;
   font-size: 2rem;
   font-weight: 900;
   color: #fffffe;
   text-decoration: none;
 }
-#header .avatar:hover {
+#header .logo:hover {
   color: #ff8c71;
 }
 @media (max-width: 948px) {

@@ -1,3 +1,9 @@
+.prodCard {
+  background-color: #271c19;
+  color: #fffffe;
+  width: 100%;
+}
+
 #signUpPage {
   color: #fffffe;
   display: flex;

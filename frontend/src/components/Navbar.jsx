@@ -1,34 +1,24 @@
-import React, { useState } from "react";
-import { Avatar } from "primereact/avatar";
 import { NavLink } from "react-router-dom";
 import "../assets/css/navbar.css";
 
-function NavElements({ isMenuOpen }) {
+function NavElements() {
     const items = [
         {
             label: "Home",
             href: "/home",
         },
         {
-            label: "About",
-            href: "/aboutMe",
+            label: "LogOut",
+            href: "/login",
         },
         {
-            label: "Projects",
-            href: "/projects",
-        },
-        {
-            label: "Resume",
-            href: "/resume",
-        },
-        {
-            label: "Contact",
-            href: "/contact",
+            label: "Settings",
+            href: "/settings",
         },
     ];
 
     return (
-        <ul className={`menu ${isMenuOpen ? "open" : ""}`}>
+        <ul className="menu">
             {items.map((item, index) => {
                 return (
                     <li key={index} className="p-mr-1 text-with-line-hover">
@@ -43,24 +33,12 @@ function NavElements({ isMenuOpen }) {
 }
 
 export default function Navbar() {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-    function toggleMenu() {
-        setIsMenuOpen(!isMenuOpen);
-    }
-
-    const avatar = (
-        <div className="avatar">
-            <Avatar shape="circle" size="xlarge">
-                PixelPulse
-            </Avatar>
-        </div>
-    );
+    const logo = <div className="logo">PixelPulse</div>;
 
     return (
         <div id="header">
-            {avatar}
-            <NavElements isMenuOpen={isMenuOpen} />
+            {logo}
+            <NavElements />
         </div>
     );
 }

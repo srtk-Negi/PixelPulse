@@ -47,7 +47,7 @@ const ProductTable = ({ products }) => {
                 optionLabel="label"
                 placeholder="Sort By Price"
                 onChange={onSortChange}
-                className="w-full sm:w-14rem"
+                className="w-full sm:w-14rem xl:w-20rem"
             />
         );
     };
@@ -57,7 +57,7 @@ const ProductTable = ({ products }) => {
             <div className="col-12" key={product.id}>
                 <div
                     className={classNames(
-                        "flex flex-column xl:flex-row xl:align-items-start p-4 gap-4",
+                        "flex flex-column xl:flex-row xl:align-items-start pl-8 pr-8 pt-6 pb-6 gap-4 prodCard",
                         { "border-top-1 surface-border": index !== 0 }
                     )}
                 >
@@ -68,7 +68,7 @@ const ProductTable = ({ products }) => {
                     />
                     <div className="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
                         <div className="flex flex-column align-items-center sm:align-items-start gap-3">
-                            <div className="text-2xl font-bold text-900">
+                            <div className="text-2xl font-bold">
                                 {product.name}
                             </div>
 
@@ -124,7 +124,6 @@ const ProductTable = ({ products }) => {
                 header={header()}
                 sortField={sortField}
                 sortOrder={sortOrder}
-                style={{ width: "100%" }}
             />
         </div>
     );

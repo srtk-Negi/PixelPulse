@@ -16,6 +16,9 @@ import {
 // COMPONENTS IMPORTS
 import Navbar from "./components/Navbar";
 
+// LAYOUTS IMPORTS
+import Layout from "./layouts/RootLayout";
+
 // PAGES IMPORTS
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
@@ -38,13 +41,26 @@ function App() {
         <PrimeReactProvider>
             <div className="app">
                 <Router>
-                    <Navbar />
                     <Routes>
                         <Route path="/" element={<Navigate to="/login" />} />
                         <Route path="/register" element={<RegisterPage />} />
                         <Route path="/login" element={<LoginPage />} />
-                        <Route path="/home" element={<HomePage />} />
-                        <Route path="/admin" element={<AdminHomePage />} />
+                        <Route
+                            path="/home"
+                            element={
+                                <Layout>
+                                    <HomePage />
+                                </Layout>
+                            }
+                        />
+                        <Route
+                            path="/admin"
+                            element={
+                                <Layout>
+                                    <AdminHomePage />
+                                </Layout>
+                            }
+                        />
                         <Route
                             path="/unauthorized"
                             element={<Unauthorized />}
