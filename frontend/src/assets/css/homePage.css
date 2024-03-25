@@ -15,7 +15,6 @@
 .productTable .productCard {
   display: flex;
   justify-content: space-around;
-  align-items: center;
   width: 100%;
   height: auto;
   background-color: #271c19;
@@ -37,30 +36,39 @@
 .productTable .productCard .details {
   display: flex;
   flex-direction: column;
-  justify-content: start;
-  align-items: start;
+  align-items: flex-start;
   width: 50%;
+  margin: 2rem 0;
 }
-.productTable .productCard .details h2 {
-  font-size: 3rem;
-  margin: 1rem 0;
+.productTable .productCard .details .prodName {
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+.productTable .productCard .details .category {
+  font-size: 1.2rem;
   font-weight: 400;
+  margin-bottom: 2rem;
 }
-.productTable .productCard .details p {
-  font-size: 1.3rem;
-  margin: 1rem 0;
-  font-weight: 400;
+.productTable .productCard .details .priceStock {
+  margin: 1.5rem 0;
+  display: flex;
+  width: 40%;
+  justify-content: space-around;
 }
-.productTable .productCard .details .button Button {
-  color: #ffc0ad;
+.productTable .productCard .details .priceStock .price {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.productTable .productCard .details Button {
+  padding: 0.5rem 1rem;
+  background-color: #ffc0ad;
   font-size: 1.3rem;
   font-weight: 400;
   cursor: pointer;
   transition: background-color 0.5s ease;
 }
-.productTable .productCard .details .button Button:hover {
+.productTable .productCard .details Button:hover {
   background-color: #ff8c71;
-  color: #fffffe;
 }
 @media (max-width: 971px) {
   .productTable .productCard {

@@ -11,7 +11,6 @@
     .productCard {
         display: flex;
         justify-content: space-around;
-        align-items: center;
         width: 100%;
         height: auto;
         background-color: $login-register-card-color;
@@ -35,35 +34,43 @@
         .details {
             display: flex;
             flex-direction: column;
-            justify-content: start;
-            align-items: start;
+            align-items: flex-start;
             width: 50%;
+            margin: 2rem 0;
 
-            h2 {
-                font-size: 3rem;
-                margin: 1rem 0;
-                font-weight: 400;
+            .prodName {
+                font-size: 1.7rem;
+                font-weight: 700;
             }
 
-            p {
+            .category {
+                font-size: 1.2rem;
+                font-weight: 400;
+                margin-bottom: 2rem;
+            }
+
+            .priceStock {
+                margin: 1.5rem 0;
+                display: flex;
+                width: 40%;
+                justify-content: space-around;
+
+                .price {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                }
+            }
+
+            Button {
+                padding: 0.5rem 1rem;
+                background-color: $button-color;
                 font-size: 1.3rem;
-                margin: 1rem 0;
                 font-weight: 400;
-            }
+                cursor: pointer;
+                transition: background-color 0.5s ease;
 
-            .button {
-                Button {
-                    color: $button-color;
-
-                    font-size: 1.3rem;
-                    font-weight: 400;
-                    cursor: pointer;
-                    transition: background-color 0.5s ease;
-
-                    &:hover {
-                        background-color: $button-hover-color;
-                        color: $main-text-color;
-                    }
+                &:hover {
+                    background-color: $button-hover-color;
                 }
             }
         }
