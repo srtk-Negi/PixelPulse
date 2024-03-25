@@ -1,5 +1,5 @@
 import React from "react";
-import { DataView, DataViewLayoutOptions } from "primereact/dataview";
+import { DataView } from "primereact/dataview";
 import { classNames } from "primereact/utils";
 import { useState } from "react";
 import { Tag } from "primereact/tag";
@@ -98,6 +98,11 @@ const ProductTable = ({ products }) => {
                                 disabled={
                                     product.items_in_stock === 0 ? true : false
                                 }
+                                onClick={() => {
+                                    console.log(
+                                        product.name + " added to cart"
+                                    );
+                                }}
                             ></Button>
                         </div>
                     </div>

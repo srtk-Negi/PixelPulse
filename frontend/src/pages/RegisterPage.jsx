@@ -12,21 +12,23 @@ const RegisterPage = () => {
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
 
+    const initialValues = {
+        first_name: "",
+        last_name: "",
+        email: "",
+        password: "",
+        user_type: "user",
+        phone: "",
+        address: "",
+    };
+
     return (
         <div id="signUpPage">
             <div className="registrationContainer">
                 <h2>Sign Up!</h2>
                 <Formik
                     validationSchema={registrationSchema}
-                    initialValues={{
-                        first_name: "",
-                        last_name: "",
-                        email: "",
-                        password: "",
-                        user_type: "user",
-                        phone: "",
-                        address: "",
-                    }}
+                    initialValues={initialValues}
                     onSubmit={async (values) => {
                         try {
                             const response = await axios.post(
@@ -34,13 +36,16 @@ const RegisterPage = () => {
                                 values
                             );
                             setSuccess("Registration successful");
+                            setError(null);
+                            setValues(initialValues);
                         } catch (error) {
+                            setSuccess(null);
                             setError(error.response.data.detail);
                             console.log(error.response.data);
                         }
                     }}
                 >
-                    {({ values, handleSubmit, handleChange }) => (
+                    {({ values, handleSubmit, handleChange, setValues }) => (
                         <Form onSubmit={handleSubmit}>
                             <div className="formFieldGroup">
                                 {/* first_name*/}
