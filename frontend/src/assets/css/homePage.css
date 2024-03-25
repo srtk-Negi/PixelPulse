@@ -4,19 +4,74 @@
   width: 100%;
 }
 
-#homePageContainer {
+.productTable {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   color: #fffffe;
-  font-size: 1.5rem;
-  width: 90%;
-  height: 100%;
 }
-#homePageContainer .card {
+.productTable .productCard {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   width: 100%;
-  height: 60%;
+  height: auto;
   background-color: #271c19;
-  margin-top: 100px;
+  border-radius: 30px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  margin: 2rem 0;
+}
+.productTable .productCard .productImg {
+  width: 376px;
+  height: auto;
+  border-radius: 10px;
+  margin: 2rem 0;
+}
+.productTable .productCard .productImg img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+.productTable .productCard .details {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  width: 50%;
+}
+.productTable .productCard .details h2 {
+  font-size: 3rem;
+  margin: 1rem 0;
+  font-weight: 400;
+}
+.productTable .productCard .details p {
+  font-size: 1.3rem;
+  margin: 1rem 0;
+  font-weight: 400;
+}
+.productTable .productCard .details .button Button {
+  color: #ffc0ad;
+  font-size: 1.3rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+}
+.productTable .productCard .details .button Button:hover {
+  background-color: #ff8c71;
+  color: #fffffe;
+}
+@media (max-width: 971px) {
+  .productTable .productCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .productTable .productCard .details {
+    width: 100%;
+    text-align: center;
+    align-items: center;
+  }
 }/*# sourceMappingURL=homePage.css.map */

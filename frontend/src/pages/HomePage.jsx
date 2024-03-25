@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
 
 const HomePage = () => {
-    const [products, setProducts] = useState();
+    const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState();
 
