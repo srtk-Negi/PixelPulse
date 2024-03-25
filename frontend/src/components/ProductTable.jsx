@@ -14,14 +14,18 @@ const ProductTable = ({ products }) => {
         { label: "Price High to Low", value: "!price" },
         { label: "Price Low to High", value: "price" },
     ];
+    const [severityString, setSeverityString] = useState("");
 
     const getSeverity = (product) => {
         if (product.items_in_stock > 50) {
-            return "In Stock";
+            setSeverityString("IN STOCK");
+            return "success";
         } else if (product.items_in_stock > 20) {
-            return "Low Stock";
+            setSeverityString("LOW STOCK");
+            return "warning";
         } else {
-            return "Out of Stock";
+            setSeverityString("OUT OF STOCK");
+            return "danger";
         }
     };
 
@@ -80,7 +84,7 @@ const ProductTable = ({ products }) => {
                                     </span>
                                 </span>
                                 <Tag
-                                    value={getSeverity(product)}
+                                    value={severityString}
                                     severity={getSeverity(product)}
                                 ></Tag>
                             </div>
