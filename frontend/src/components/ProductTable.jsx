@@ -1,7 +1,6 @@
 import React from "react";
 import { Button } from "primereact/button";
 import { Tag } from "primereact/tag";
-import { useEffect } from "react";
 
 const ProductCard = ({ product }) => {
     let severity;

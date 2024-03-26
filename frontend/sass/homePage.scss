@@ -1,92 +1,106 @@
 @import "variables";
 
-.productTable {
-    margin-top: 3rem;
-    margin-bottom: 3rem;
+#homePageContainer {
+    margin: 5rem 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     color: $main-text-color;
 
-    .productCard {
+    .filters {
+        width: 100%;
         display: flex;
         justify-content: space-around;
-        width: 100%;
-        height: auto;
-        background-color: $login-register-card-color;
-        border-radius: 30px;
-        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-        margin: 2rem 0;
-
-        .productImg {
-            width: 376px;
-            height: auto;
-            border-radius: 10px;
-            margin: 2rem 0;
-
-            img {
-                width: 100%;
-                height: auto;
-                border-radius: 10px;
-            }
-        }
-
-        .details {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            width: 50%;
-            margin: 2rem 0;
-
-            .prodName {
-                font-size: 1.7rem;
-                font-weight: 700;
-            }
-
-            .category {
-                font-size: 1.2rem;
-                font-weight: 400;
-                margin-bottom: 2rem;
-            }
-
-            .priceStock {
-                margin: 1.5rem 0;
-                display: flex;
-                width: 40%;
-                justify-content: space-around;
-
-                .price {
-                    font-size: 1.5rem;
-                    font-weight: 700;
-                }
-            }
-
-            Button {
-                padding: 0.5rem 1rem;
-                background-color: $button-color;
-                font-size: 1.3rem;
-                font-weight: 400;
-                cursor: pointer;
-                transition: background-color 0.5s ease;
-
-                &:hover {
-                    background-color: $button-hover-color;
-                }
-            }
-        }
     }
 
-    @media (max-width: 971px) {
+    .productTable {
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: $main-text-color;
+
         .productCard {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            justify-content: space-around;
+            width: 100%;
+            height: auto;
+            background-color: $login-register-card-color;
+            border-radius: 30px;
+            box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+            margin: 2rem 0;
+
+            .productImg {
+                width: 376px;
+                height: auto;
+                border-radius: 10px;
+                margin: 2rem 0;
+
+                img {
+                    width: 100%;
+                    height: auto;
+                    border-radius: 10px;
+                }
+            }
 
             .details {
-                width: 100%;
-                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                width: 50%;
+                margin: 2rem 0;
+
+                .prodName {
+                    font-size: 1.7rem;
+                    font-weight: 700;
+                }
+
+                .category {
+                    font-size: 1.2rem;
+                    font-weight: 400;
+                    margin-bottom: 2rem;
+                }
+
+                .priceStock {
+                    margin: 1.5rem 0;
+                    display: flex;
+                    width: 40%;
+                    justify-content: space-around;
+
+                    .price {
+                        font-size: 1.5rem;
+                        font-weight: 700;
+                    }
+                }
+
+                Button {
+                    padding: 0.5rem 1rem;
+                    background-color: $button-color;
+                    font-size: 1.3rem;
+                    font-weight: 400;
+                    cursor: pointer;
+                    transition: background-color 0.5s ease;
+
+                    &:hover {
+                        background-color: $button-hover-color;
+                    }
+                }
+            }
+        }
+
+        @media (max-width: 971px) {
+            .productCard {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
                 align-items: center;
+
+                .details {
+                    width: 100%;
+                    text-align: center;
+                    align-items: center;
+                }
             }
         }
     }

@@ -4,7 +4,19 @@
   width: 100%;
 }
 
-.productTable {
+#homePageContainer {
+  margin: 5rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fffffe;
+}
+#homePageContainer .filters {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+#homePageContainer .productTable {
   margin-top: 3rem;
   margin-bottom: 3rem;
   display: flex;
@@ -12,7 +24,7 @@
   align-items: center;
   color: #fffffe;
 }
-.productTable .productCard {
+#homePageContainer .productTable .productCard {
   display: flex;
   justify-content: space-around;
   width: 100%;
@@ -22,44 +34,44 @@
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   margin: 2rem 0;
 }
-.productTable .productCard .productImg {
+#homePageContainer .productTable .productCard .productImg {
   width: 376px;
   height: auto;
   border-radius: 10px;
   margin: 2rem 0;
 }
-.productTable .productCard .productImg img {
+#homePageContainer .productTable .productCard .productImg img {
   width: 100%;
   height: auto;
   border-radius: 10px;
 }
-.productTable .productCard .details {
+#homePageContainer .productTable .productCard .details {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: 50%;
   margin: 2rem 0;
 }
-.productTable .productCard .details .prodName {
+#homePageContainer .productTable .productCard .details .prodName {
   font-size: 1.7rem;
   font-weight: 700;
 }
-.productTable .productCard .details .category {
+#homePageContainer .productTable .productCard .details .category {
   font-size: 1.2rem;
   font-weight: 400;
   margin-bottom: 2rem;
 }
-.productTable .productCard .details .priceStock {
+#homePageContainer .productTable .productCard .details .priceStock {
   margin: 1.5rem 0;
   display: flex;
   width: 40%;
   justify-content: space-around;
 }
-.productTable .productCard .details .priceStock .price {
+#homePageContainer .productTable .productCard .details .priceStock .price {
   font-size: 1.5rem;
   font-weight: 700;
 }
-.productTable .productCard .details Button {
+#homePageContainer .productTable .productCard .details Button {
   padding: 0.5rem 1rem;
   background-color: #ffc0ad;
   font-size: 1.3rem;
@@ -67,17 +79,17 @@
   cursor: pointer;
   transition: background-color 0.5s ease;
 }
-.productTable .productCard .details Button:hover {
+#homePageContainer .productTable .productCard .details Button:hover {
   background-color: #ff8c71;
 }
 @media (max-width: 971px) {
-  .productTable .productCard {
+  #homePageContainer .productTable .productCard {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
-  .productTable .productCard .details {
+  #homePageContainer .productTable .productCard .details {
     width: 100%;
     text-align: center;
     align-items: center;
