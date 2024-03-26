@@ -7,19 +7,7 @@ from sqlalchemy.sql.sqltypes import TIMESTAMP
 
 
 class User(Base):
-    """This class represents the Users table in the database.
-
-    Attributes:
-    user_id: The primary key of the table. It is an integer.
-    first_name: The first name of the user. It is a string.
-    last_name: The last name of the user. It is a string.
-    email: The email of the user. It is a string.
-    password: The password of the user. It is a string.
-    user_type: The type of the user. It is a string.
-    phone: The phone number of the user. It is a string.
-    address: The address of the user. It is a string.
-    created_at: The timestamp of when the user was created. It is a timestamp.
-    """
+    """This class represents the Users table in the database."""
 
     __tablename__ = "Users"
 
@@ -68,18 +56,18 @@ class Cart(Base):
     )
 
 
-# class CartItem(Base):
-#     __tablename__ = "CartItems"
+class CartItem(Base):
+    __tablename__ = "CartItems"
 
-#     cart_item_id = Column(Integer, primary_key=True, index=True, nullable=False)
-#     cart_id = Column(Integer, ForeignKey("Carts.cart_id"), nullable=False)
-#     prod_id = Column(Integer, ForeignKey("Products.prod_id"), nullable=False)
-#     prod_name = Column(String, ForeignKey("Products.name"), nullable=False)
-#     quantity = Column(Integer, nullable=False)
-#     total_price = Column(Float, nullable=False)
-#     created_at = Column(
-#         TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
-#     )
+    cart_item_id = Column(Integer, primary_key=True, index=True, nullable=False)
+    cart_id = Column(Integer, ForeignKey("Carts.cart_id"), nullable=False)
+    prod_id = Column(Integer, ForeignKey("Products.prod_id"), nullable=False)
+    prod_name = Column(String, ForeignKey("Products.name"), nullable=False)
+    quantity = Column(Integer, nullable=False)
+    total_price = Column(Float, nullable=False)
+    created_at = Column(
+        TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
+    )
 
 
 class Order(Base):
@@ -130,16 +118,16 @@ class DiscountCode(Base):
     )
 
 
-# class DiscountedProduct(Base):
-#     __tablename__ = "DiscountedProducts"
+class DiscountedProduct(Base):
+    __tablename__ = "DiscountedProducts"
 
-#     discounted_product_id = Column(
-#         Integer, primary_key=True, index=True, nullable=False
-#     )
-#     prod_id = Column(Integer, ForeignKey("Products.prod_id"), nullable=False)
-#     discount_code_id = Column(
-#         Integer, ForeignKey("DiscountCodes.discount_code_id"), nullable=False
-#     )
-#     created_at = Column(
-#         TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
-#     )
+    discounted_product_id = Column(
+        Integer, primary_key=True, index=True, nullable=False
+    )
+    prod_id = Column(Integer, ForeignKey("Products.prod_id"), nullable=False)
+    discount_code_id = Column(
+        Integer, ForeignKey("DiscountCodes.discount_code_id"), nullable=False
+    )
+    created_at = Column(
+        TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
+    )
