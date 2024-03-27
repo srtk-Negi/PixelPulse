@@ -26,7 +26,7 @@ const deleteUserButton = (rowData, setSelectedUser, setShowDeleteDialog) => {
     );
 };
 
-const AdminDashboard = ({
+const UsersDashboard = ({
     users,
     setSelectedUser,
     setShowUpdateForm,
@@ -75,4 +75,4 @@ const AdminDashboard = ({
     );
 };
 
-export default AdminDashboard;
+export default UsersDashboard;
