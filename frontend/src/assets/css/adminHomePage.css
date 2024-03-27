@@ -41,10 +41,10 @@
 .updateForm .inputsContainer .formGroup {
   display: flex;
   align-items: center;
-  justify-content: start;
   width: 100%;
   margin: 10px 0;
 }
 .updateForm .inputsContainer .formGroup label {
   margin-right: 20px;
+  width: 30%;
 }/*# sourceMappingURL=adminHomePage.css.map */

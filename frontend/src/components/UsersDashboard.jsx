@@ -2,25 +2,29 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 
-const updateButton = (rowData, setSelectedUser, setShowUpdateForm) => {
+const updateButton = (rowData, setSelectedUser, setShowUserUpdateForm) => {
     return (
         <Button
             label="Update"
             onClick={() => {
                 setSelectedUser(rowData);
-                setShowUpdateForm(true);
+                setShowUserUpdateForm(true);
             }}
         />
     );
 };
 
-const deleteUserButton = (rowData, setSelectedUser, setShowDeleteDialog) => {
+const deleteUserButton = (
+    rowData,
+    setSelectedUser,
+    setShowUserDeleteDialog
+) => {
     return (
         <Button
             label="Delete"
             onClick={() => {
                 setSelectedUser(rowData);
-                setShowDeleteDialog(true);
+                setShowUserDeleteDialog(true);
             }}
         />
     );
@@ -29,8 +33,8 @@ const deleteUserButton = (rowData, setSelectedUser, setShowDeleteDialog) => {
 const UsersDashboard = ({
     users,
     setSelectedUser,
-    setShowUpdateForm,
-    setShowDeleteDialog,
+    setShowUserUpdateForm,
+    setShowUserDeleteDialog,
 }) => {
     return (
         <div className="card">
@@ -56,7 +60,7 @@ const UsersDashboard = ({
                         return updateButton(
                             rowData,
                             setSelectedUser,
-                            setShowUpdateForm
+                            setShowUserUpdateForm
                         );
                     }}
                 />
@@ -66,7 +70,7 @@ const UsersDashboard = ({
                         return deleteUserButton(
                             rowData,
                             setSelectedUser,
-                            setShowDeleteDialog
+                            setShowUserDeleteDialog
                         );
                     }}
                 />
