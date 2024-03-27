@@ -305,7 +305,7 @@ def delete_product(
         raise HTTPException(status_code=404, detail="Product not found")
 
 
-@router.put(
+@router.patch(
     "/products/update/{prod_id}",
     status_code=status.HTTP_202_ACCEPTED,
     response_model=schemas.ProductResponse,

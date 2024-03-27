@@ -17,7 +17,6 @@ const AddProductForm = ({ setShowAddProductForm, getAllProducts }) => {
                 items_in_stock: "",
             }}
             onSubmit={async (values) => {
-                console.log(values);
                 try {
                     const response = await axios.post(
                         "/api/admin/products/add",

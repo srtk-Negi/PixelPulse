@@ -17,9 +17,11 @@ const ProductUpdateForm = ({
                 description: product.description,
                 price: product.price,
                 category: product.category,
-                itemsInStock: product.items_in_stock,
+                image_url: product.image_url,
+                items_in_stock: product.items_in_stock,
             }}
             onSubmit={async (values) => {
+                console.log(values);
                 try {
                     const response = await axios.patch(
                         `/api/admin/products/update/${product.prod_id}`,
@@ -92,13 +94,24 @@ const ProductUpdateForm = ({
                                 <ErrorMessage name="category" />
                             </div>
                             <div className="formGroup">
-                                <label htmlFor="itemsInStock">
+                                <label htmlFor="image_url">Image URL</label>
+                                <InputText
+                                    id="image_url"
+                                    name="image_url"
+                                    value={values.image_url}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                                <ErrorMessage name="image_url" />
+                            </div>
+                            <div className="formGroup">
+                                <label htmlFor="items_in_stock">
                                     Items In Stock
                                 </label>
                                 <InputText
-                                    id="itemsInStock"
-                                    name="itemsInStock"
-                                    value={values.itemsInStock}
+                                    id="items_in_stock"
+                                    name="items_in_stock"
+                                    value={values.items_in_stock}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                 />
