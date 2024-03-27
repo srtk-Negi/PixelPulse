@@ -226,7 +226,6 @@ def get_products(
 @router.post(
     "/products/add",
     status_code=status.HTTP_201_CREATED,
-    response_model=schemas.ProductResponse,
 )
 def add_product(
     product: schemas.Product,
@@ -268,7 +267,7 @@ def add_product(
     db.commit()
     db.refresh(new_product)
 
-    return new_product
+    return "Product added successfully"
 
 
 @router.delete(

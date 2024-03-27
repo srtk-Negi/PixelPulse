@@ -8,8 +8,9 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import UsersDashboard from "../components/UsersDashboard";
 import OrdersDashboard from "../components/OrdersDashboard";
 import ProductsDashboard from "../components/ProductsDashboard";
-import UserUpdateForm from "../components/UpdateForms/UserUpdateForm";
-import ProductUpdateForm from "../components/UpdateForms/ProductUpdateForm";
+import UserUpdateForm from "../components/AdminForms/UserUpdateForm";
+import ProductUpdateForm from "../components/AdminForms/ProductUpdateForm";
+import AddProductForm from "../components/AdminForms/AddProductForm";
 
 // PrimeReact imports
 import { Button } from "primereact/button";
@@ -31,6 +32,7 @@ const AdminHomePage = () => {
         React.useState(false);
     const [showProductDeleteDialog, setShowProductDeleteDialog] =
         React.useState(false);
+    const [showAddProductForm, setShowAddProductForm] = React.useState(false);
 
     const getAllUsers = async () => {
         try {
@@ -133,9 +135,28 @@ const AdminHomePage = () => {
                         setShowProductUpdateForm={setShowProductUpdateForm}
                         setShowProductDeleteDialog={setShowProductDeleteDialog}
                     />
-                    <Button label="Add Product" />
+                    <Button
+                        label="Add Product"
+                        onClick={() => setShowAddProductForm(true)}
+                    />
                 </>
             )}
+
+            {/* RENDER THE ADD PRODUCT FORM */}
+            <Dialog
+                header="Add Product"
+                visible={showAddProductForm}
+                style={{ width: "50vw" }}
+                onHide={() => {
+                    setShowAddProductForm(false);
+                    getAllProducts();
+                }}
+            >
+                <AddProductForm
+                    setShowAddProductForm={setShowAddProductForm}
+                    getAllProducts={getAllProducts}
+                />
+            </Dialog>
 
             {/* RENDER THE USER UPDATE FORM */}
             <Dialog
