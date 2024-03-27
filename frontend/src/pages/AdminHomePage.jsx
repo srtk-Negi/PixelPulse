@@ -26,6 +26,15 @@ const AdminHomePage = () => {
         }
     };
 
+    const deleteUser = async (userId) => {
+        try {
+            await axios.delete(`/api/admin/users/delete/${userId}`);
+            getAllUsers();
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     useEffect(() => {
         const checkUser = async () => {
             try {
@@ -72,8 +81,8 @@ const AdminHomePage = () => {
                 onHide={() => setShowDeleteDialog(false)}
                 message="Are you sure you want to delete this user?"
                 accept={() => {
-                    console.log("User deleted");
                     setShowDeleteDialog(false);
+                    deleteUser(selectedUser.user_id);
                 }}
             />
         </div>
