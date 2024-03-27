@@ -30,11 +30,11 @@ def get_users(
 @router.patch(
     "/users/update/{user_id}",
     status_code=status.HTTP_202_ACCEPTED,
-    response_model=schemas.User,
+    response_model=schemas.UserPatchRequest,
 )
 def update_user(
     user_id: int,
-    user: schemas.User,
+    user: schemas.UserPatchRequest,
     db: Session = Depends(get_db),
     current_user=Depends(OAuth.get_current_user),
 ):
@@ -56,12 +56,21 @@ def update_user(
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized user"
         )
+
+    updated_data_dict = {
+        "first_name": user.firstName,
+        "last_name": user.lastName,
+        "phone": user.phone,
+        "address": user.address,
+        "user_type": user.userType,
+    }
+
     db_user_query = db.query(models.User).filter(models.User.user_id == user_id)
     db_user = db_user_query.first()
 
     if not db_user:
         raise HTTPException(status_code=404, detail="User not found")
-    db_user_query.update(user.model_dump(), synchronize_session=False)
+    db_user_query.update(updated_data_dict, synchronize_session=False)
     db.commit()
 
     return db_user_query.first()

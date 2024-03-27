@@ -1,84 +1,104 @@
 import React from "react";
 import axios from "axios";
+import { Formik, Form, ErrorMessage } from "formik";
+import { InputText } from "primereact/inputtext";
+import { Dropdown } from "primereact/dropdown";
+import { Button } from "primereact/button";
 
-const UserUpdateForm = ({ user }) => {
-    const [newUser, setNewUser] = React.useState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-        userType: "",
-    });
-
-    const handleChange = (e) => {
-        setNewUser({ ...newUser, [e.target.name]: e.target.value });
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.put(
-                `/api/admin/users/update/${user.user_id}`,
-                newUser
-            );
-            setUsers((users) =>
-                users.map((u) =>
-                    u.user_id === user.user_id ? response.data : u
-                )
-            );
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
+const UserUpdateForm = ({ user, setShowUpdateForm, getAllUsers }) => {
     return (
-        <form onSubmit={handleSubmit}>
-            <h2>Update User</h2>
-            <label htmlFor="firstName">First Name</label>
-            <input
-                type="text"
-                name="firstName"
-                id="firstName"
-                value={newUser.firstName}
-                onChange={handleChange}
-            />
-            <label htmlFor="lastName">Last Name</label>
-            <input
-                type="text"
-                name="lastName"
-                id="lastName"
-                value={newUser.lastName}
-                onChange={handleChange}
-            />
-            <label htmlFor="email">Email</label>
-            <input
-                type="email"
-                name="email"
-                id="email"
-                value={newUser.email}
-                onChange={handleChange}
-            />
-            <label htmlFor="password">Password</label>
-            <input
-                type="password"
-                name="password"
-                id="password"
-                value={newUser.password}
-                onChange={handleChange}
-            />
-            <label htmlFor="userType">User Type</label>
-            <select
-                name="userType"
-                id="userType"
-                value={newUser.userType}
-                onChange={handleChange}
-            >
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
-                <option value="employee">Employee</option>
-            </select>
-            <button type="submit">Update User</button>
-        </form>
+        <Formik
+            initialValues={{
+                firstName: user.first_name,
+                lastName: user.last_name,
+                email: null,
+                phone: user.phone,
+                address: user.address,
+                password: null,
+                userType: user.user_type,
+            }}
+            onSubmit={async (values) => {
+                try {
+                    const response = await axios.patch(
+                        `/api/admin/users/update/${user.user_id}`,
+                        values
+                    );
+                    setShowUpdateForm(false);
+                    getAllUsers();
+                } catch (error) {
+                    console.error(error);
+                }
+            }}
+        >
+            {({ handleChange, handleBlur, values }) => {
+                return (
+                    <Form className="updateForm">
+                        <div className="inputsContainer">
+                            <div className="formGroup">
+                                <label htmlFor="firstName">First Name</label>
+                                <InputText
+                                    id="firstName"
+                                    name="firstName"
+                                    value={values.firstName}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                                <ErrorMessage name="firstName" />
+                            </div>
+                            <div className="formGroup">
+                                <label htmlFor="lastName">Last Name</label>
+                                <InputText
+                                    id="lastName"
+                                    name="lastName"
+                                    value={values.lastName}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                                <ErrorMessage name="lastName" />
+                            </div>
+                            <div className="formGroup">
+                                <label htmlFor="email">Phone Number</label>
+                                <InputText
+                                    id="phone"
+                                    name="phone"
+                                    value={values.phone}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                                <ErrorMessage name="phone" />
+                            </div>
+                            <div className="formGroup">
+                                <label htmlFor="address">Address</label>
+                                <InputText
+                                    id="address"
+                                    name="address"
+                                    value={values.address}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                                <ErrorMessage name="address" />
+                            </div>
+                            <div className="formGroup">
+                                <label htmlFor="userType">User Type</label>
+                                <Dropdown
+                                    id="userType"
+                                    name="userType"
+                                    value={values.userType}
+                                    options={[
+                                        { label: "Admin", value: "admin" },
+                                        { label: "User", value: "user" },
+                                    ]}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                                <ErrorMessage name="userType" />
+                            </div>
+                        </div>
+                        <Button type="submit">Update User</Button>
+                    </Form>
+                );
+            }}
+        </Formik>
     );
 };
 

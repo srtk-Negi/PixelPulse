@@ -7,8 +7,45 @@
     justify-content: center;
     color: $main-text-color;
     font-size: 1.5rem;
+    width: 100%;
 
     Button {
         margin: 20px;
+    }
+
+    .card {
+        border-radius: 5px;
+        width: 90%;
+        margin: 20px 0;
+    }
+}
+
+.updateForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 20px 0;
+
+    .inputsContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        width: 50%;
+        margin: 20px 0;
+
+        .formGroup {
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            width: 100%;
+            margin: 10px 0;
+
+            label {
+                margin-right: 20px;
+            }
+        }
     }
 }

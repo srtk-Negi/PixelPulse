@@ -48,10 +48,11 @@ class UserLogin(BaseModel):
 
 
 class UserPatchRequest(BaseModel):
-    first_name: Optional[str] = None
-    last_name: Optional[str] = None
+    firstName: Optional[str] = None
+    lastName: Optional[str] = None
     phone: Optional[str] = None
     address: Optional[str] = None
+    userType: Optional[str] = None
 
     class Config:
         from_attributes = True

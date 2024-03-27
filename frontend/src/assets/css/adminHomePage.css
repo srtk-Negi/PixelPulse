@@ -11,7 +11,40 @@
   justify-content: center;
   color: #fffffe;
   font-size: 1.5rem;
+  width: 100%;
 }
 #adminPageContainer Button {
   margin: 20px;
+}
+#adminPageContainer .card {
+  border-radius: 5px;
+  width: 90%;
+  margin: 20px 0;
+}
+
+.updateForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 20px 0;
+}
+.updateForm .inputsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 50%;
+  margin: 20px 0;
+}
+.updateForm .inputsContainer .formGroup {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  margin: 10px 0;
+}
+.updateForm .inputsContainer .formGroup label {
+  margin-right: 20px;
 }/*# sourceMappingURL=adminHomePage.css.map */

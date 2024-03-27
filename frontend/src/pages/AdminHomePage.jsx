@@ -5,12 +5,26 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import { Button } from "primereact/button";
 import AdminDashboard from "../components/AdminDashboard";
 import UserUpdateForm from "../components/UserUpdateForm";
+import { Dialog } from "primereact/dialog";
+import { ConfirmDialog } from "primereact/confirmdialog";
 
 const AdminHomePage = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = React.useState(true);
     const [users, setUsers] = React.useState(null);
     const [selectedUser, setSelectedUser] = React.useState(null);
+    const [showUpdateForm, setShowUpdateForm] = React.useState(false);
+    const [showDeleteDialog, setShowDeleteDialog] = React.useState(false);
+
+    const getAllUsers = async () => {
+        try {
+            const response = await axios.get("/api/admin/users");
+            setUsers(response.data);
+            setLoading(false);
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     useEffect(() => {
         const checkUser = async () => {
@@ -28,27 +42,40 @@ const AdminHomePage = () => {
     return (
         <div id="adminPageContainer">
             <h1>Admin Home Page</h1>
-            <Button
-                onClick={async () => {
-                    try {
-                        const response = await axios.get("/api/admin/users");
-                        setUsers(response.data);
-                        setLoading(false);
-                    } catch (error) {
-                        console.error(error);
-                    }
-                }}
-            >
-                Get All Users
-            </Button>
-            {loading ? (
-                <LoadingSpinner />
-            ) : (
+            <Button onClick={() => getAllUsers()}>Get All Users</Button>
+            {loading && <LoadingSpinner />}
+            {users && (
                 <AdminDashboard
                     users={users}
                     setSelectedUser={setSelectedUser}
+                    setShowUpdateForm={setShowUpdateForm}
+                    setShowDeleteDialog={setShowDeleteDialog}
                 />
             )}
+            <Dialog
+                header="Update User"
+                visible={showUpdateForm}
+                style={{ width: "50vw" }}
+                onHide={() => setShowUpdateForm(false)}
+            >
+                {selectedUser && (
+                    <UserUpdateForm
+                        user={selectedUser}
+                        setShowUpdateForm={setShowUpdateForm}
+                        getAllUsers={getAllUsers}
+                    />
+                )}
+            </Dialog>
+            <ConfirmDialog
+                header="Delete User"
+                visible={showDeleteDialog}
+                onHide={() => setShowDeleteDialog(false)}
+                message="Are you sure you want to delete this user?"
+                accept={() => {
+                    console.log("User deleted");
+                    setShowDeleteDialog(false);
+                }}
+            />
         </div>
     );
 };
