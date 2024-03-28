@@ -86,6 +86,8 @@ class Category(BaseModel):
 
 
 class CategoryResponse(Category):
+    category_id: int
+    
     class Config:
         from_attributes = True
 

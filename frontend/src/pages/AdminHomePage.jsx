@@ -11,6 +11,7 @@ import ProductsDashboard from "../components/ProductsDashboard";
 import UserUpdateForm from "../components/AdminForms/UserUpdateForm";
 import ProductUpdateForm from "../components/AdminForms/ProductUpdateForm";
 import AddProductForm from "../components/AdminForms/AddProductForm";
+import CategoriesDashboard from "../components/CategoriesDashboard";
 
 // PrimeReact imports
 import { Button } from "primereact/button";
@@ -20,11 +21,18 @@ import { ConfirmDialog } from "primereact/confirmdialog";
 const AdminHomePage = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = React.useState(true);
+
+    // State variables for data
     const [users, setUsers] = React.useState(null);
     const [orders, setOrders] = React.useState(null);
     const [products, setProducts] = React.useState(null);
+    const [categories, setCategories] = React.useState(null);
+
+    // State variables for selected items
     const [selectedUser, setSelectedUser] = React.useState(null);
     const [selectedProduct, setSelectedProduct] = React.useState(null);
+
+    // State variables for showing forms and dialogs
     const [showUserUpdateForm, setShowUserUpdateForm] = React.useState(false);
     const [showUserDeleteDialog, setShowUserDeleteDialog] =
         React.useState(false);
@@ -67,6 +75,17 @@ const AdminHomePage = () => {
         }
     };
 
+    const getAllCategories = async () => {
+        try {
+            const response = await axios.get("/api/admin/categories");
+            closeAllTables("categories");
+            setCategories(response.data);
+            setLoading(false);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     const deleteUser = async (userId) => {
         try {
             await axios.delete(`/api/admin/users/delete/${userId}`);
@@ -76,25 +95,32 @@ const AdminHomePage = () => {
         }
     };
 
-    const closeAllTables = (currentTable) => {
-        if (currentTable === "users") {
-            setOrders(null);
-            setProducts(null);
-        } else if (currentTable === "orders") {
-            setUsers(null);
-            setProducts(null);
-        } else if (currentTable === "products") {
-            setUsers(null);
-            setOrders(null);
-        }
-    };
-
     const deleteProduct = async (productId) => {
         try {
             await axios.delete(`/api/admin/products/delete/${productId}`);
             getAllProducts();
         } catch (error) {
             console.error(error);
+        }
+    };
+
+    const closeAllTables = (currentTable) => {
+        if (currentTable === "users") {
+            setOrders(null);
+            setProducts(null);
+            setCategories(null);
+        } else if (currentTable === "orders") {
+            setUsers(null);
+            setProducts(null);
+            setCategories(null);
+        } else if (currentTable === "products") {
+            setUsers(null);
+            setOrders(null);
+            setCategories(null);
+        } else if (currentTable === "categories") {
+            setUsers(null);
+            setOrders(null);
+            setProducts(null);
         }
     };
 
@@ -119,6 +145,10 @@ const AdminHomePage = () => {
                 <Button
                     label="Get All Products"
                     onClick={() => getAllProducts()}
+                />
+                <Button
+                    label="Get All Categories"
+                    onClick={() => getAllCategories()}
                 />
             </div>
             <h1>Admin Home Page</h1>
@@ -150,6 +180,9 @@ const AdminHomePage = () => {
                     />
                 </>
             )}
+
+            {/* RENDER THE CATEGORIES TABLE */}
+            {categories && <CategoriesDashboard categories={categories} />}
 
             {/* RENDER THE ADD PRODUCT FORM */}
             <Dialog
