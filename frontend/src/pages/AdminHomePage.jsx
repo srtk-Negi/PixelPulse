@@ -13,6 +13,7 @@ import ProductUpdateForm from "../components/AdminForms/ProductUpdateForm";
 import AddProductForm from "../components/AdminForms/AddProductForm";
 import CategoriesDashboard from "../components/CategoriesDashboard";
 import OrderItemsDashboard from "../components/OrderItemsDashboard";
+import CartsDashboard from "../components/CartsDashboard";
 
 // PrimeReact imports
 import { Button } from "primereact/button";
@@ -29,6 +30,7 @@ const AdminHomePage = () => {
     const [products, setProducts] = React.useState(null);
     const [categories, setCategories] = React.useState(null);
     const [orderItems, setOrderItems] = React.useState(null);
+    const [carts, setCarts] = React.useState(null);
 
     // State variables for selected items
     const [selectedUser, setSelectedUser] = React.useState(null);
@@ -99,6 +101,17 @@ const AdminHomePage = () => {
         }
     };
 
+    const getAllCarts = async () => {
+        try {
+            const response = await axios.get("/api/admin/carts");
+            closeAllTables("carts");
+            setCarts(response.data);
+            setLoading(false);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     const deleteUser = async (userId) => {
         try {
             await axios.delete(`/api/admin/users/delete/${userId}`);
@@ -122,23 +135,38 @@ const AdminHomePage = () => {
             setOrders(null);
             setProducts(null);
             setCategories(null);
+            setOrderItems(null);
+            setCarts(null);
         } else if (currentTable === "orders") {
             setUsers(null);
             setProducts(null);
             setCategories(null);
+            setOrderItems(null);
+            setCarts(null);
         } else if (currentTable === "products") {
             setUsers(null);
             setOrders(null);
             setCategories(null);
+            setOrderItems(null);
+            setCarts(null);
         } else if (currentTable === "categories") {
             setUsers(null);
             setOrders(null);
             setProducts(null);
+            setOrderItems(null);
+            setCarts(null);
         } else if (currentTable === "order_items") {
             setUsers(null);
             setOrders(null);
             setProducts(null);
             setCategories(null);
+            setCarts(null);
+        } else if (currentTable === "carts") {
+            setUsers(null);
+            setOrders(null);
+            setProducts(null);
+            setCategories(null);
+            setOrderItems(null);
         }
     };
 
@@ -172,6 +200,7 @@ const AdminHomePage = () => {
                     label="Get All Order Items"
                     onClick={() => getAllOrderItems()}
                 />
+                <Button label="Get All Carts" onClick={() => getAllCarts()} />
             </div>
             <h1>Admin Home Page</h1>
             {loading && <LoadingSpinner />}
@@ -208,6 +237,9 @@ const AdminHomePage = () => {
 
             {/* RENDER THE ORDER ITEMS TABLE */}
             {orderItems && <OrderItemsDashboard orderItems={orderItems} />}
+
+            {/* RENDER THE CARTS TABLE */}
+            {carts && <CartsDashboard carts={carts} />}
 
             {/* RENDER THE ADD PRODUCT FORM */}
             <Dialog
