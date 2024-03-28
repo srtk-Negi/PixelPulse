@@ -89,6 +89,15 @@ const AdminHomePage = () => {
         }
     };
 
+    const deleteProduct = async (productId) => {
+        try {
+            await axios.delete(`/api/admin/products/delete/${productId}`);
+            getAllProducts();
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     useEffect(() => {
         const checkUser = async () => {
             try {
@@ -209,8 +218,8 @@ const AdminHomePage = () => {
                 onHide={() => setShowProductDeleteDialog(false)}
                 message="Are you sure you want to delete this product?"
                 accept={() => {
-                    setShowProductDeleteDialog(false);
                     deleteProduct(selectedProduct.prod_id);
+                    setShowProductDeleteDialog(false);
                 }}
             ></ConfirmDialog>
         </div>

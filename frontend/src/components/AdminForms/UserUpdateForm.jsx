@@ -5,7 +5,7 @@ import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
 import { Button } from "primereact/button";
 
-const UserUpdateForm = ({ user, setShowUpdateForm, getAllUsers }) => {
+const UserUpdateForm = ({ user, setShowUserUpdateForm, getAllUsers }) => {
     return (
         <Formik
             initialValues={{
@@ -23,7 +23,7 @@ const UserUpdateForm = ({ user, setShowUpdateForm, getAllUsers }) => {
                         `/api/admin/users/update/${user.user_id}`,
                         values
                     );
-                    setShowUpdateForm(false);
+                    setShowUserUpdateForm(false);
                     getAllUsers();
                 } catch (error) {
                     console.error(error);

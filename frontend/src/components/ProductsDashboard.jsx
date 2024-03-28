@@ -56,11 +56,7 @@ const ProductsDashboard = ({
                 <Column field="description" header="Description" />
                 <Column field="price" header="Price" />
                 <Column field="category" header="Category" />
-                <Column
-                    field="image_url"
-                    header="Image URL"
-                    style={{ maxWidth: "100px" }}
-                />
+                <Column field="image_url" header="Image URL" />
                 <Column field="items_in_stock" header="Items In Stock" />
                 <Column
                     header="Update Product"

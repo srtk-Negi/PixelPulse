@@ -21,7 +21,6 @@ const ProductUpdateForm = ({
                 items_in_stock: product.items_in_stock,
             }}
             onSubmit={async (values) => {
-                console.log(values);
                 try {
                     const response = await axios.patch(
                         `/api/admin/products/update/${product.prod_id}`,
