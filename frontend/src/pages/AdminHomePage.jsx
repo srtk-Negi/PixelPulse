@@ -12,6 +12,7 @@ import UserUpdateForm from "../components/AdminForms/UserUpdateForm";
 import ProductUpdateForm from "../components/AdminForms/ProductUpdateForm";
 import AddProductForm from "../components/AdminForms/AddProductForm";
 import CategoriesDashboard from "../components/CategoriesDashboard";
+import OrderItemsDashboard from "../components/OrderItemsDashboard";
 
 // PrimeReact imports
 import { Button } from "primereact/button";
@@ -27,6 +28,7 @@ const AdminHomePage = () => {
     const [orders, setOrders] = React.useState(null);
     const [products, setProducts] = React.useState(null);
     const [categories, setCategories] = React.useState(null);
+    const [orderItems, setOrderItems] = React.useState(null);
 
     // State variables for selected items
     const [selectedUser, setSelectedUser] = React.useState(null);
@@ -86,6 +88,17 @@ const AdminHomePage = () => {
         }
     };
 
+    const getAllOrderItems = async () => {
+        try {
+            const response = await axios.get("/api/admin/order_items");
+            closeAllTables("order_items");
+            setOrderItems(response.data);
+            setLoading(false);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     const deleteUser = async (userId) => {
         try {
             await axios.delete(`/api/admin/users/delete/${userId}`);
@@ -121,6 +134,11 @@ const AdminHomePage = () => {
             setUsers(null);
             setOrders(null);
             setProducts(null);
+        } else if (currentTable === "order_items") {
+            setUsers(null);
+            setOrders(null);
+            setProducts(null);
+            setCategories(null);
         }
     };
 
@@ -149,6 +167,10 @@ const AdminHomePage = () => {
                 <Button
                     label="Get All Categories"
                     onClick={() => getAllCategories()}
+                />
+                <Button
+                    label="Get All Order Items"
+                    onClick={() => getAllOrderItems()}
                 />
             </div>
             <h1>Admin Home Page</h1>
@@ -183,6 +205,9 @@ const AdminHomePage = () => {
 
             {/* RENDER THE CATEGORIES TABLE */}
             {categories && <CategoriesDashboard categories={categories} />}
+
+            {/* RENDER THE ORDER ITEMS TABLE */}
+            {orderItems && <OrderItemsDashboard orderItems={orderItems} />}
 
             {/* RENDER THE ADD PRODUCT FORM */}
             <Dialog

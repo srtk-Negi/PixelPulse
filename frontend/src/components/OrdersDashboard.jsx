@@ -1,6 +1,5 @@
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { ColorPicker } from "primereact/colorpicker";
 
 const OrdersDashboard = ({ orders }) => {
     return (
