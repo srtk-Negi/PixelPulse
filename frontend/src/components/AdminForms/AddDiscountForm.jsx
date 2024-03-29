@@ -3,18 +3,25 @@ import axios from "axios";
 import React from "react";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
+import { Calendar } from "primereact/calendar";
 
-const AddDiscountForm = (setShowAddDiscountForm, getAllDiscounts) => {
+const AddDiscountForm = ({ setShowAddDiscountForm, getAllDiscounts }) => {
     return (
         <Formik
             initialValues={{
                 code: "",
                 discount: "",
-                is_active: "",
+                is_active: true,
                 expiration_date: "",
             }}
             onSubmit={async (values) => {
                 try {
+                    let expiration_date = new Date(values.expiration_date);
+                    let timezoneOffset =
+                        expiration_date.getTimezoneOffset() * 60000;
+                    values.expiration_date = new Date(
+                        expiration_date.getTime() - timezoneOffset
+                    ).toISOString();
                     const response = await axios.post(
                         "/api/admin/discounts/add",
                         values
@@ -26,7 +33,15 @@ const AddDiscountForm = (setShowAddDiscountForm, getAllDiscounts) => {
                 }
             }}
         >
-            {({ handleChange, handleBlur, values }) => {
+            {({
+                handleChange,
+                handleBlur,
+                values,
+                touched,
+                setFieldTouched,
+                setFieldValue,
+                errors,
+            }) => {
                 return (
                     <Form className="updateForm">
                         <div className="inputsContainer">
@@ -53,26 +68,37 @@ const AddDiscountForm = (setShowAddDiscountForm, getAllDiscounts) => {
                                 <ErrorMessage name="discount" />
                             </div>
                             <div className="formGroup">
-                                <label htmlFor="is_active">Is Active</label>
-                                <InputText
-                                    id="is_active"
-                                    name="is_active"
-                                    value={values.is_active}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                />
-                                <ErrorMessage name="is_active" />
-                            </div>
-                            <div className="formGroup">
                                 <label htmlFor="expiration_date">
                                     Expiration Date
                                 </label>
-                                <InputText
-                                    id="expiration_date"
-                                    name="expiration_date"
-                                    value={values.expiration_date}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
+                                <Calendar
+                                    id="deadline"
+                                    name="deadline"
+                                    value={values.deadline}
+                                    minDate={new Date()}
+                                    onChange={(e) => {
+                                        const selectedDate = e.value
+                                            ? new Date(e.value)
+                                            : null;
+                                        const newDate = new Date();
+                                        newDate.setDate(newDate.getDate() + 1);
+                                        setFieldValue(
+                                            "expiration_date",
+                                            selectedDate < newDate
+                                                ? newDate
+                                                : selectedDate
+                                        );
+                                    }}
+                                    onBlur={() =>
+                                        setFieldTouched("expiration_date", true)
+                                    }
+                                    dateFormat="mm/dd/yy"
+                                    className={` flex  ${
+                                        touched.expiration_date &&
+                                        errors.expiration_date
+                                            ? "p-invalid"
+                                            : ""
+                                    }`}
                                 />
                                 <ErrorMessage name="expiration_date" />
                             </div>

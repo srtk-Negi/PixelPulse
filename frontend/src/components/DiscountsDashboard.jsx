@@ -1,5 +1,6 @@
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import { formatLocalISODate } from "../adminHelperFunctions";
 
 const DiscountsDashboard = ({ discounts }) => {
     return (
@@ -16,8 +17,18 @@ const DiscountsDashboard = ({ discounts }) => {
                 <Column field="code" header="Name" />
                 <Column field="discount" header="Discount" />
                 <Column field="is_active" header="Active" />
-                <Column field="expiration_date" header="Expiration Date" />
-                <Column field="created_at" header="Created At" />
+                <Column
+                    field="created_at"
+                    header="Created At"
+                    body={(rowData) => formatLocalISODate(rowData.created_at)}
+                />
+                <Column
+                    field="expiration_date"
+                    header="Expiration Date"
+                    body={(rowData) =>
+                        formatLocalISODate(rowData.expiration_date)
+                    }
+                />
             </DataTable>
         </div>
     );

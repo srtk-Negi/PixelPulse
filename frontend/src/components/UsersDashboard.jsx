@@ -1,6 +1,7 @@
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
+import { formatLocalISODate } from "../adminHelperFunctions";
 
 const updateButton = (rowData, setSelectedUser, setShowUserUpdateForm) => {
     return (
@@ -53,7 +54,13 @@ const UsersDashboard = ({
                 <Column field="phone" header="Phone Number" />
                 <Column field="user_type" header="User Type" />
                 <Column field="address" header="Address" />
-                <Column field="created_at" header="Created At" />
+                <Column
+                    field="created_at"
+                    header="Created At"
+                    body={(rowData) => {
+                        return formatLocalISODate(rowData.created_at);
+                    }}
+                />
                 <Column
                     header="Update User"
                     body={(rowData) => {

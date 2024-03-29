@@ -127,6 +127,7 @@ class DiscountCode(BaseModel):
 
 class DiscountCodeResponse(DiscountCode):
     discount_code_id: int
+    created_at: datetime
 
     class Config:
         from_attributes = True
