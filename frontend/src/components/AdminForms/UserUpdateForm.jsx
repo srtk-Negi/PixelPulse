@@ -94,7 +94,11 @@ const UserUpdateForm = ({ user, setShowUserUpdateForm, getAllUsers }) => {
                                 <ErrorMessage name="userType" />
                             </div>
                         </div>
-                        <Button type="submit">Update User</Button>
+                        <Button
+                            type="submit"
+                            label="Update User"
+                            className="p-button-raised p-button-rounded p-button-success"
+                        />
                     </Form>
                 );
             }}

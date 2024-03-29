@@ -117,7 +117,7 @@ const AddProductForm = ({ setShowAddProductForm, getAllProducts }) => {
                             <Button
                                 label="Add Product"
                                 type="submit"
-                                className="p-button-success"
+                                className="p-button-raised p-button-rounded p-button-success"
                             />
                         </div>
                     </Form>

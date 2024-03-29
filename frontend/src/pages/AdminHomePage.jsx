@@ -15,6 +15,7 @@ import CategoriesDashboard from "../components/CategoriesDashboard";
 import OrderItemsDashboard from "../components/OrderItemsDashboard";
 import CartsDashboard from "../components/CartsDashboard";
 import DiscountsDashboard from "../components/DiscountsDashboard";
+import AddDiscountForm from "../components/AdminForms/AddDiscountForm";
 
 // PrimeReact imports
 import { Button } from "primereact/button";
@@ -273,7 +274,15 @@ const AdminHomePage = () => {
             {carts && <CartsDashboard carts={carts} />}
 
             {/* RENDER THE DISCOUNTS TABLE */}
-            {discounts && <DiscountsDashboard discounts={discounts} />}
+            {discounts && (
+                <>
+                    <DiscountsDashboard discounts={discounts} />
+                    <Button
+                        label="Add Discount Code"
+                        onClick={() => setShowAddDiscountForm(true)}
+                    />
+                </>
+            )}
 
             {/* RENDER THE ADD PRODUCT FORM */}
             <Dialog
@@ -288,6 +297,22 @@ const AdminHomePage = () => {
                 <AddProductForm
                     setShowAddProductForm={setShowAddProductForm}
                     getAllProducts={getAllProducts}
+                />
+            </Dialog>
+
+            {/* RENDER THE ADD DISCOUNT CODE FORM */}
+            <Dialog
+                header="Add Discount Code"
+                visible={showAddDiscountForm}
+                style={{ width: "50vw" }}
+                onHide={() => {
+                    setShowAddDiscountForm(false);
+                    getAllDiscounts();
+                }}
+            >
+                <AddDiscountForm
+                    setShowAddDiscountForm={setShowAddDiscountForm}
+                    getAllDiscounts={getAllDiscounts}
                 />
             </Dialog>
 
@@ -346,19 +371,6 @@ const AdminHomePage = () => {
                     setShowProductDeleteDialog(false);
                 }}
             ></ConfirmDialog>
-
-            {/* RENDER THE ADD DISCOUNT CODE FORM */}
-            <Dialog
-                header="Add Discount Code"
-                visible={showAddDiscountForm}
-                style={{ width: "50vw" }}
-                onHide={() => setShowAddDiscountForm(false)}
-            >
-                <AddDiscountForm
-                    setShowAddDiscountForm={setShowAddDiscountForm}
-                    getAllDiscounts={getAllDiscounts}
-                />
-            </Dialog>
         </div>
     );
 };

@@ -117,7 +117,11 @@ const ProductUpdateForm = ({
                                 <ErrorMessage name="itemsInStock" />
                             </div>
                         </div>
-                        <Button label="Submit" type="submit" />
+                        <Button
+                            label="Submit"
+                            type="submit"
+                            className="p-button-raised p-button-rounded p-button-success"
+                        />
                     </Form>
                 );
             }}
