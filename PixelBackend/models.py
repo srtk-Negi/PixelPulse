@@ -1,7 +1,7 @@
 """ This file contains the models for the database. Each class represents a table in the database. """
 
 from .database import Base
-from sqlalchemy import Column, String, Integer, ForeignKey, Float, DateTime
+from sqlalchemy import Column, String, Integer, ForeignKey, Float, DateTime, Boolean
 from sqlalchemy.sql.expression import text
 from sqlalchemy.sql.sqltypes import TIMESTAMP
 
@@ -111,7 +111,7 @@ class DiscountCode(Base):
     discount_code_id = Column(Integer, primary_key=True, index=True, nullable=False)
     code = Column(String, nullable=False)
     discount = Column(Float, nullable=False)
-    active = Column(String, nullable=False)
+    is_active = Column(Boolean, nullable=False)
     expiration_date = Column(DateTime, nullable=False)
     created_at = Column(
         TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")

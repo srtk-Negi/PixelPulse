@@ -14,6 +14,7 @@ import AddProductForm from "../components/AdminForms/AddProductForm";
 import CategoriesDashboard from "../components/CategoriesDashboard";
 import OrderItemsDashboard from "../components/OrderItemsDashboard";
 import CartsDashboard from "../components/CartsDashboard";
+import DiscountsDashboard from "../components/DiscountsDashboard";
 
 // PrimeReact imports
 import { Button } from "primereact/button";
@@ -31,6 +32,7 @@ const AdminHomePage = () => {
     const [categories, setCategories] = React.useState(null);
     const [orderItems, setOrderItems] = React.useState(null);
     const [carts, setCarts] = React.useState(null);
+    const [discounts, setDiscounts] = React.useState(null);
 
     // State variables for selected items
     const [selectedUser, setSelectedUser] = React.useState(null);
@@ -45,6 +47,7 @@ const AdminHomePage = () => {
     const [showProductDeleteDialog, setShowProductDeleteDialog] =
         React.useState(false);
     const [showAddProductForm, setShowAddProductForm] = React.useState(false);
+    const [showAddDiscountForm, setShowAddDiscountForm] = React.useState(false);
 
     const getAllUsers = async () => {
         try {
@@ -112,6 +115,17 @@ const AdminHomePage = () => {
         }
     };
 
+    const getAllDiscounts = async () => {
+        try {
+            const response = await axios.get("/api/admin/discounts");
+            closeAllTables("discounts");
+            setDiscounts(response.data);
+            setLoading(false);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     const deleteUser = async (userId) => {
         try {
             await axios.delete(`/api/admin/users/delete/${userId}`);
@@ -137,36 +151,49 @@ const AdminHomePage = () => {
             setCategories(null);
             setOrderItems(null);
             setCarts(null);
+            setDiscounts(null);
         } else if (currentTable === "orders") {
             setUsers(null);
             setProducts(null);
             setCategories(null);
             setOrderItems(null);
             setCarts(null);
+            setDiscounts(null);
         } else if (currentTable === "products") {
             setUsers(null);
             setOrders(null);
             setCategories(null);
             setOrderItems(null);
             setCarts(null);
+            setDiscounts(null);
         } else if (currentTable === "categories") {
             setUsers(null);
             setOrders(null);
             setProducts(null);
             setOrderItems(null);
             setCarts(null);
+            setDiscounts(null);
         } else if (currentTable === "order_items") {
             setUsers(null);
             setOrders(null);
             setProducts(null);
             setCategories(null);
             setCarts(null);
+            setDiscounts(null);
         } else if (currentTable === "carts") {
             setUsers(null);
             setOrders(null);
             setProducts(null);
             setCategories(null);
             setOrderItems(null);
+            setDiscounts(null);
+        } else if (currentTable === "discounts") {
+            setUsers(null);
+            setOrders(null);
+            setProducts(null);
+            setCategories(null);
+            setOrderItems(null);
+            setCarts(null);
         }
     };
 
@@ -201,6 +228,10 @@ const AdminHomePage = () => {
                     onClick={() => getAllOrderItems()}
                 />
                 <Button label="Get All Carts" onClick={() => getAllCarts()} />
+                <Button
+                    label="Get All Discounts"
+                    onClick={() => getAllDiscounts()}
+                />
             </div>
             <h1>Admin Home Page</h1>
             {loading && <LoadingSpinner />}
@@ -240,6 +271,9 @@ const AdminHomePage = () => {
 
             {/* RENDER THE CARTS TABLE */}
             {carts && <CartsDashboard carts={carts} />}
+
+            {/* RENDER THE DISCOUNTS TABLE */}
+            {discounts && <DiscountsDashboard discounts={discounts} />}
 
             {/* RENDER THE ADD PRODUCT FORM */}
             <Dialog
@@ -312,6 +346,19 @@ const AdminHomePage = () => {
                     setShowProductDeleteDialog(false);
                 }}
             ></ConfirmDialog>
+
+            {/* RENDER THE ADD DISCOUNT CODE FORM */}
+            <Dialog
+                header="Add Discount Code"
+                visible={showAddDiscountForm}
+                style={{ width: "50vw" }}
+                onHide={() => setShowAddDiscountForm(false)}
+            >
+                <AddDiscountForm
+                    setShowAddDiscountForm={setShowAddDiscountForm}
+                    getAllDiscounts={getAllDiscounts}
+                />
+            </Dialog>
         </div>
     );
 };
