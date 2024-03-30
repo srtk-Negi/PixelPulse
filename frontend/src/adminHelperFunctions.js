@@ -81,6 +81,15 @@ export const deleteProduct = async (productId, setProducts) => {
     }
 };
 
+export const deleteDiscount = async (discountId, setDiscounts) => {
+    try {
+        await axios.delete(`/api/admin/discounts/delete/${discountId}`);
+        getAllDiscounts(setDiscounts);
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 export const formatLocalISODate = (dateInput) => {
     const date = new Date(dateInput);
     const timezoneOffset = date.getTimezoneOffset() * 60000;

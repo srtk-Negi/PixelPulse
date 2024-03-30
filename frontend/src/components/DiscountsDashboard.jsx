@@ -1,8 +1,29 @@
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import { Button } from "primereact/button";
 import { formatLocalISODate } from "../adminHelperFunctions";
 
-const DiscountsDashboard = ({ discounts }) => {
+const deleteButton = (
+    rowData,
+    setSelectedDiscount,
+    setShowDiscountDeleteDialog
+) => {
+    return (
+        <Button
+            label="Delete"
+            onClick={() => {
+                setSelectedDiscount(rowData);
+                setShowDiscountDeleteDialog(true);
+            }}
+        />
+    );
+};
+
+const DiscountsDashboard = ({
+    discounts,
+    setSelectedDiscount,
+    setShowDiscountDeleteDialog,
+}) => {
     return (
         <div className="card">
             <DataTable
@@ -34,6 +55,16 @@ const DiscountsDashboard = ({ discounts }) => {
                     body={(rowData) =>
                         formatLocalISODate(rowData.expiration_date)
                     }
+                />
+                <Column
+                    header="Delete Discount"
+                    body={(rowData) => {
+                        return deleteButton(
+                            rowData,
+                            setSelectedDiscount,
+                            setShowDiscountDeleteDialog
+                        );
+                    }}
                 />
             </DataTable>
         </div>

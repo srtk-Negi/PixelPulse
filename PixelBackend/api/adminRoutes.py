@@ -473,3 +473,46 @@ def add_discount(
     db.refresh(new_discount)
 
     return new_discount
+
+
+@router.delete(
+    "/discounts/delete/{discount_id}",
+    status_code=status.HTTP_204_NO_CONTENT,
+)
+def delete_discount(
+    discount_id: int,
+    db: Session = Depends(get_db),
+    current_user=Depends(OAuth.get_current_user),
+):
+    """Delete a discount code from the database.
+
+    Args:
+        discount_id (int): The id of the discount code to delete.
+        db (Session): The database session.
+        current_user: The current user.
+
+    Returns:
+        schemas.DiscountCode: The discount code that was deleted.
+    """
+    if current_user.user_type != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized user"
+        )
+    try:
+        db_discount = (
+            db.query(models.DiscountCode)
+            .filter(models.DiscountCode.discount_code_id == discount_id)
+            .first()
+        )
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Internal server error",
+        )
+
+    if db_discount:
+        db.delete(db_discount)
+        db.commit()
+        return Response(status_code=status.HTTP_204_NO_CONTENT)
+    else:
+        raise HTTPException(status_code=404, detail="Discount code not found")

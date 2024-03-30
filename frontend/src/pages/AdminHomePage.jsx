@@ -40,6 +40,7 @@ const AdminHomePage = () => {
     // State variables for selected items
     const [selectedUser, setSelectedUser] = React.useState(null);
     const [selectedProduct, setSelectedProduct] = React.useState(null);
+    const [selectedDiscount, setSelectedDiscount] = React.useState(null);
 
     // State variables for showing forms and dialogs
     const [showUserUpdateForm, setShowUserUpdateForm] = React.useState(false);
@@ -51,6 +52,8 @@ const AdminHomePage = () => {
         React.useState(false);
     const [showAddProductForm, setShowAddProductForm] = React.useState(false);
     const [showAddDiscountForm, setShowAddDiscountForm] = React.useState(false);
+    const [showDiscountDeleteDialog, setShowDiscountDeleteDialog] =
+        React.useState(false);
 
     const closeAllTables = (currentTable) => {
         const allTables = {
@@ -182,7 +185,13 @@ const AdminHomePage = () => {
             {/* RENDER THE DISCOUNTS TABLE */}
             {discounts && (
                 <>
-                    <DiscountsDashboard discounts={discounts} />
+                    <DiscountsDashboard
+                        discounts={discounts}
+                        setSelectedDiscount={setSelectedDiscount}
+                        setShowDiscountDeleteDialog={
+                            setShowDiscountDeleteDialog
+                        }
+                    />
                     <Button
                         label="Add Discount Code"
                         onClick={() => setShowAddDiscountForm(true)}
@@ -247,6 +256,21 @@ const AdminHomePage = () => {
                 accept={() => {
                     setShowUserDeleteDialog(false);
                     hf.deleteUser(selectedUser.user_id, setUsers);
+                }}
+            ></ConfirmDialog>
+
+            {/* RENDER THE DELETE DISCOUNT DIALOG */}
+            <ConfirmDialog
+                header="Delete Discount Code"
+                visible={showDiscountDeleteDialog}
+                onHide={() => setShowDiscountDeleteDialog(false)}
+                message="Are you sure you want to delete this discount code?"
+                accept={() => {
+                    hf.deleteDiscount(
+                        selectedDiscount.discount_code_id,
+                        setDiscounts
+                    );
+                    setShowDiscountDeleteDialog(false);
                 }}
             ></ConfirmDialog>
 
