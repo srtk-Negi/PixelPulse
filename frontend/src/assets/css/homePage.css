@@ -10,6 +10,7 @@
   flex-direction: column;
   align-items: center;
   color: #fffffe;
+  width: 70%;
 }
 #homePageContainer .filters {
   width: 100%;
@@ -23,6 +24,7 @@
   flex-direction: column;
   align-items: center;
   color: #fffffe;
+  width: 100%;
 }
 #homePageContainer .productTable .productCard {
   display: flex;

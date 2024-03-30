@@ -35,9 +35,8 @@ const RegisterPage = () => {
                                 "/api/user/register",
                                 values
                             );
-                            setSuccess("Registration successful");
                             setError(null);
-                            setValues(initialValues);
+                            setSuccess("Registration successful");
                         } catch (error) {
                             setSuccess(null);
                             setError(error.response.data.detail);

@@ -4,13 +4,14 @@ import { useState, useEffect } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
+import { Button } from "primereact/button";
 
 const HomePage = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState();
+    const [errorMessage, setErrorMessage] = useState();
     const [category, setCategory] = useState(null);
-    const [search, setSearch] = useState("");
+    const [search, setSearch] = useState(null);
 
     const categories = [
         { label: "All", value: null },
@@ -25,42 +26,73 @@ const HomePage = () => {
         { label: "Gaming Controller", value: "Gaming Controller" },
     ];
 
-    useEffect(() => {
+    const getAllProducts = async (category = null, search = null) => {
         try {
-            const fetchProducts = async () => {
-                const { data } = await axios.get("/api/product/products", {
-                    timeout: 5000,
-                    params: { category, search },
-                });
-                setProducts(data);
-                setLoading(false);
-            };
-            fetchProducts();
-        } catch (error) {
+            setLoading(true);
+            const { data } = await axios.get("/api/product/products", {
+                params: { category, search },
+            });
+            setProducts(data);
             setLoading(false);
-            setError(error);
+        } catch (error) {
+            setErrorMessage(error.response.data.detail);
+            setLoading(false);
         }
+    };
+
+    useEffect(() => {
+        getAllProducts(category, search);
     }, [category, search]);
 
     return (
         <div id="homePageContainer">
             {loading && <LoadingSpinner />}
-            {error && <h2>{error.message}</h2>}
-            {!loading && (
+            {errorMessage && (
+                <>
+                    <h2>{errorMessage}</h2>
+                    <Button
+                        label="Retry"
+                        icon="pi pi-refresh"
+                        className="p-button-raised p-button-rounded"
+                        onClick={() => {
+                            setErrorMessage(null);
+                            getAllProducts();
+                        }}
+                    />
+                </>
+            )}
+            {!loading && !errorMessage && (
                 <>
                     <div className="filters">
                         <Dropdown
                             value={category}
                             options={categories}
-                            onChange={(e) => setCategory(e.value)}
+                            onChange={(e) => {
+                                setSearch(null);
+                                setCategory(e.value);
+                            }}
                             optionLabel="label"
                             placeholder="Select a Category"
                         />
-                        <InputText
-                            placeholder="Search..."
-                            className="p-mr-2"
-                            onChange={(e) => setSearch(e.target.value)}
-                        />
+                        <div>
+                            <InputText
+                                className="p-mr-2"
+                                placeholder="Search"
+                                id="searchBar"
+                            />
+                            <Button
+                                label="Search"
+                                icon="pi pi-search"
+                                className="p-button-raised p-button-rounded"
+                                onClick={() => {
+                                    setCategory(null);
+                                    setSearch(
+                                        document.getElementById("searchBar")
+                                            .value
+                                    );
+                                }}
+                            />
+                        </div>
                     </div>
                     <ProductTable products={products} />
                 </>
