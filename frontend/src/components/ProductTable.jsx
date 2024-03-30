@@ -5,15 +5,15 @@ import { Tag } from "primereact/tag";
 const ProductCard = ({ product }) => {
     let severity;
     let severityString;
+    let stock = product.items_in_stock;
 
     const setSeverityData = () => {
-        let stock = product.items_in_stock;
         if (stock > 50) {
             severity = "success";
             severityString = "In Stock";
-        } else if (stock > 10) {
+        } else if (stock > 0) {
             severity = "warning";
-            severityString = "Low Stock";
+            severityString = `Only ${stock} left in Stock`;
         } else {
             severity = "danger";
             severityString = "Out of Stock";
@@ -35,19 +35,33 @@ const ProductCard = ({ product }) => {
                     <div className="price">${product.price}</div>
                     <Tag value={severityString} severity={severity} />
                 </div>
-                <Button label="Add to Cart" icon="pi pi-shopping-cart" />
+                <Button
+                    label="Add to Cart"
+                    icon="pi pi-shopping-cart"
+                    disabled={stock === 0}
+                />
             </div>
         </div>
     );
 };
 
-const ProductTable = ({ products, sortConstraint }) => {
+const ProductTable = ({ products, sortConstraint, availability }) => {
     if (sortConstraint) {
         products.sort((a, b) => {
             if (sortConstraint === "Price: Low to High") {
                 return a.price - b.price;
             } else if (sortConstraint === "Price: High to Low") {
                 return b.price - a.price;
+            }
+        });
+    }
+
+    if (availability) {
+        products = products.filter((product) => {
+            if (availability === "In Stock") {
+                return product.items_in_stock > 0;
+            } else if (availability === "Out of Stock") {
+                return product.items_in_stock === 0;
             }
         });
     }

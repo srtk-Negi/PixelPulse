@@ -15,7 +15,14 @@
 #homePageContainer .filters {
   width: 100%;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#homePageContainer .filters .dropdowns {
+  width: 100%;
+  display: flex;
   justify-content: space-around;
+  margin-bottom: 2rem;
 }
 #homePageContainer .productTable {
   margin-top: 3rem;

@@ -13,6 +13,7 @@ const HomePage = () => {
     const [category, setCategory] = useState(null);
     const [search, setSearch] = useState(null);
     const [sortConstraint, setSortConstraint] = useState(null);
+    const [availability, setAvailability] = useState(null);
 
     const categories = [
         { label: "All", value: null },
@@ -30,6 +31,11 @@ const HomePage = () => {
     const sortOptions = [
         { label: "Price: Low to High", value: "Price: Low to High" },
         { label: "Price: High to Low", value: "Price: High to Low" },
+    ];
+
+    const availabilityOptions = [
+        { label: "In Stock", value: "In Stock" },
+        { label: "Out of Stock", value: "Out of Stock" },
     ];
 
     const getAllProducts = async (category = null, search = null) => {
@@ -70,17 +76,37 @@ const HomePage = () => {
             {!loading && !errorMessage && (
                 <>
                     <div className="filters">
-                        <Dropdown
-                            value={category}
-                            options={categories}
-                            onChange={(e) => {
-                                setSearch(null);
-                                setCategory(e.value);
-                            }}
-                            optionLabel="label"
-                            placeholder="Select a Category"
-                        />
-                        <div>
+                        <div className="dropdowns">
+                            <Dropdown
+                                value={category}
+                                options={categories}
+                                onChange={(e) => {
+                                    setSearch(null);
+                                    setCategory(e.value);
+                                }}
+                                optionLabel="label"
+                                placeholder="Select a Category"
+                            />
+                            <Dropdown
+                                value={sortConstraint}
+                                options={sortOptions}
+                                onChange={(e) => setSortConstraint(e.value)}
+                                optionLabel="label"
+                                placeholder="Sort by"
+                            />
+
+                            <Dropdown
+                                value={availability}
+                                options={availabilityOptions}
+                                onChange={(e) => {
+                                    setAvailability(e.value);
+                                }}
+                                optionLabel="label"
+                                placeholder="Filter by Availablity"
+                            />
+                        </div>
+
+                        <div className="textSearch">
                             <InputText
                                 className="p-mr-2"
                                 placeholder="Search"
@@ -99,17 +125,11 @@ const HomePage = () => {
                                 }}
                             />
                         </div>
-                        <Dropdown
-                            value={sortConstraint}
-                            options={sortOptions}
-                            onChange={(e) => setSortConstraint(e.value)}
-                            optionLabel="label"
-                            placeholder="Sort by"
-                        />
                     </div>
                     <ProductTable
                         products={products}
                         sortConstraint={sortConstraint}
+                        availability={availability}
                     />
                 </>
             )}
