@@ -28,7 +28,10 @@ def get_products(
         if search_string:
             products = (
                 db.query(models.Product)
-                .filter(models.Product.name.ilike(f"%{search_string}%"))
+                .filter(
+                    (models.Product.name.ilike(f"%{search_string}%"))
+                    | (models.Product.description.ilike(f"%{search_string}%"))
+                )
                 .all()
             )
         elif category:

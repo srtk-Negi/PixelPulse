@@ -41,7 +41,17 @@ const ProductCard = ({ product }) => {
     );
 };
 
-const ProductTable = ({ products }) => {
+const ProductTable = ({ products, sortConstraint }) => {
+    if (sortConstraint) {
+        products.sort((a, b) => {
+            if (sortConstraint === "Price: Low to High") {
+                return a.price - b.price;
+            } else if (sortConstraint === "Price: High to Low") {
+                return b.price - a.price;
+            }
+        });
+    }
+
     return (
         <div className="productTable">
             {products.map((product, index) => (

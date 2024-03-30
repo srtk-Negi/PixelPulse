@@ -12,6 +12,7 @@ const HomePage = () => {
     const [errorMessage, setErrorMessage] = useState();
     const [category, setCategory] = useState(null);
     const [search, setSearch] = useState(null);
+    const [sortConstraint, setSortConstraint] = useState(null);
 
     const categories = [
         { label: "All", value: null },
@@ -24,6 +25,11 @@ const HomePage = () => {
         { label: "Motherboard", value: "Motherboard" },
         { label: "Memory RAM", value: "Memory RAM" },
         { label: "Gaming Controller", value: "Gaming Controller" },
+    ];
+
+    const sortOptions = [
+        { label: "Price: Low to High", value: "Price: Low to High" },
+        { label: "Price: High to Low", value: "Price: High to Low" },
     ];
 
     const getAllProducts = async (category = null, search = null) => {
@@ -93,8 +99,18 @@ const HomePage = () => {
                                 }}
                             />
                         </div>
+                        <Dropdown
+                            value={sortConstraint}
+                            options={sortOptions}
+                            onChange={(e) => setSortConstraint(e.value)}
+                            optionLabel="label"
+                            placeholder="Sort by"
+                        />
                     </div>
-                    <ProductTable products={products} />
+                    <ProductTable
+                        products={products}
+                        sortConstraint={sortConstraint}
+                    />
                 </>
             )}
         </div>
