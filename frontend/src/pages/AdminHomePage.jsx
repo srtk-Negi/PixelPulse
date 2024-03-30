@@ -26,6 +26,7 @@ import * as hf from "../adminHelperFunctions";
 
 const AdminHomePage = () => {
     const navigate = useNavigate();
+    const [pageHeader, setPageHeader] = React.useState("Admin Home Page");
 
     // State variables for data
     const [users, setUsers] = React.useState(null);
@@ -82,11 +83,13 @@ const AdminHomePage = () => {
 
     return (
         <div id="adminPageContainer">
+            <h1>{pageHeader}</h1>
             <div className="controlButtons">
                 <Button
                     label="Get All Users"
                     onClick={() => {
                         closeAllTables("users");
+                        setPageHeader("All Users");
                         hf.getAllUsers(setUsers);
                     }}
                 />
@@ -94,6 +97,7 @@ const AdminHomePage = () => {
                     label="Get All Orders"
                     onClick={() => {
                         closeAllTables("orders");
+                        setPageHeader("All Orders");
                         hf.getAllOrders(setOrders);
                     }}
                 />
@@ -101,6 +105,7 @@ const AdminHomePage = () => {
                     label="Get All Products"
                     onClick={() => {
                         closeAllTables("products");
+                        setPageHeader("All Products");
                         hf.getAllProducts(setProducts);
                     }}
                 />
@@ -108,6 +113,7 @@ const AdminHomePage = () => {
                     label="Get All Categories"
                     onClick={() => {
                         closeAllTables("categories");
+                        setPageHeader("All Categories");
                         hf.getAllCategories(setCategories);
                     }}
                 />
@@ -115,6 +121,7 @@ const AdminHomePage = () => {
                     label="Get All Order Items"
                     onClick={() => {
                         closeAllTables("orderItems");
+                        setPageHeader("All Order Items");
                         hf.getAllOrderItems(setOrderItems);
                     }}
                 />
@@ -122,6 +129,7 @@ const AdminHomePage = () => {
                     label="Get All Carts"
                     onClick={() => {
                         closeAllTables("carts");
+                        setPageHeader("All Carts");
                         hf.getAllCarts(setCarts);
                     }}
                 />
@@ -129,11 +137,11 @@ const AdminHomePage = () => {
                     label="Get All Discounts"
                     onClick={() => {
                         closeAllTables("discounts");
+                        setPageHeader("All Discounts");
                         hf.getAllDiscounts(setDiscounts);
                     }}
                 />
             </div>
-            <h1>Admin Home Page</h1>
             {/* RENDER THE USERS TABLE */}
             {users && (
                 <UsersDashboard
@@ -189,7 +197,6 @@ const AdminHomePage = () => {
                 style={{ width: "50vw" }}
                 onHide={() => {
                     setShowAddProductForm(false);
-                    hf.getAllProducts(setProducts);
                 }}
             >
                 <AddProductForm
@@ -205,12 +212,11 @@ const AdminHomePage = () => {
                 style={{ width: "50vw" }}
                 onHide={() => {
                     setShowAddDiscountForm(false);
-                    getAllDiscounts(setDiscounts);
                 }}
             >
                 <AddDiscountForm
                     setShowAddDiscountForm={setShowAddDiscountForm}
-                    getAllDiscounts={hf.getAllDiscounts}
+                    getAllDiscounts={() => hf.getAllDiscounts(setDiscounts)}
                 />
             </Dialog>
 
@@ -225,7 +231,9 @@ const AdminHomePage = () => {
                     <UserUpdateForm
                         user={selectedUser}
                         setShowUserUpdateForm={setShowUserUpdateForm}
-                        getAllUsers={hf.getAllUsers}
+                        getAllUsers={() => {
+                            hf.getAllUsers(setUsers);
+                        }}
                     />
                 )}
             </Dialog>
