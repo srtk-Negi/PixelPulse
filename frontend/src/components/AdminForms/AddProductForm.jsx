@@ -17,10 +17,15 @@ const AddProductForm = ({ setShowAddProductForm, getAllProducts }) => {
                 items_in_stock: "",
             }}
             onSubmit={async (values) => {
+                const headers = {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    "Content-Type": "application/json",
+                };
                 try {
                     const response = await axios.post(
                         "/api/admin/products/add",
-                        values
+                        values,
+                        { headers: headers }
                     );
                     setShowAddProductForm(false);
                     getAllProducts();

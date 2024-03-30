@@ -78,7 +78,7 @@ const AdminHomePage = () => {
         if (!token) {
             navigate("/login");
         }
-    }, [navigate]);
+    }, []);
 
     return (
         <div id="adminPageContainer">

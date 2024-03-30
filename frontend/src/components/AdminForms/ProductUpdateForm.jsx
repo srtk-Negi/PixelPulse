@@ -21,10 +21,15 @@ const ProductUpdateForm = ({
                 items_in_stock: product.items_in_stock,
             }}
             onSubmit={async (values) => {
+                const headers = {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    "Content-Type": "application/json",
+                };
                 try {
                     const response = await axios.patch(
                         `/api/admin/products/update/${product.prod_id}`,
-                        values
+                        values,
+                        { headers: headers }
                     );
                     setShowProductUpdateForm(false);
                     getAllProducts();

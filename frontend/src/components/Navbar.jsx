@@ -1,30 +1,47 @@
 import { NavLink } from "react-router-dom";
 import "../assets/css/navbar.css";
 
-function NavElements() {
-    const items = [
-        {
-            label: "Home",
-            href: "/home",
-        },
-        {
-            label: "LogOut",
-            href: "/login",
-            onclick: () => {
-                localStorage.removeItem("token");
+function NavElements({ navType }) {
+    let items = [];
+    if (navType === "admin") {
+        items = [
+            {
+                label: "LogOut",
+                href: "/login",
+                onclick: () => {
+                    localStorage.removeItem("token");
+                },
             },
-        },
-        {
-            label: "Settings",
-            href: "/settings",
-        },
-    ];
+        ];
+    } else {
+        items = [
+            {
+                label: "Home",
+                href: "/home",
+            },
+            {
+                label: "LogOut",
+                href: "/login",
+                onclick: () => {
+                    localStorage.removeItem("token");
+                },
+            },
+            {
+                label: "Settings",
+                href: "/settings",
+            },
+        ];
+    }
 
     return (
         <ul className="menu">
             {items.map((item, index) => (
                 <li key={index}>
-                    <NavLink to={item.href} onClick={item.onclick}>
+                    <NavLink
+                        to={item.href}
+                        onClick={item.onclick}
+                        className="nav-element"
+                    >
                         {item.label}
                     </NavLink>
                 </li>
@@ -33,13 +50,13 @@ function NavElements() {
     );
 }
 
-export default function Navbar() {
+export default function Navbar({ navType }) {
     const logo = <div className="logo">PixelPulse</div>;
 
     return (
         <div id="header">
             {logo}
-            <NavElements />
+            <NavElements navType={navType} />
         </div>
     );
 }

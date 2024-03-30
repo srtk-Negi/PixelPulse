@@ -15,6 +15,10 @@ const AddDiscountForm = ({ setShowAddDiscountForm, getAllDiscounts }) => {
                 expiration_date: "",
             }}
             onSubmit={async (values) => {
+                const headers = {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    "Content-Type": "application/json",
+                };
                 try {
                     let expiration_date = new Date(values.expiration_date);
                     let timezoneOffset =
@@ -24,7 +28,8 @@ const AddDiscountForm = ({ setShowAddDiscountForm, getAllDiscounts }) => {
                     ).toISOString();
                     const response = await axios.post(
                         "/api/admin/discounts/add",
-                        values
+                        values,
+                        { headers: headers }
                     );
                     setShowAddDiscountForm(false);
                     getAllDiscounts();

@@ -49,7 +49,7 @@ function App() {
                         <Route
                             path="/home"
                             element={
-                                <Layout>
+                                <Layout navType="user">
                                     <HomePage />
                                 </Layout>
                             }
@@ -57,7 +57,7 @@ function App() {
                         <Route
                             path="/admin"
                             element={
-                                <Layout>
+                                <Layout navType="admin">
                                     <AdminHomePage />
                                 </Layout>
                             }

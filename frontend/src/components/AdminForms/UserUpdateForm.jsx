@@ -18,10 +18,15 @@ const UserUpdateForm = ({ user, setShowUserUpdateForm, getAllUsers }) => {
                 userType: user.user_type,
             }}
             onSubmit={async (values) => {
+                const headers = {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    "Content-Type": "application/json",
+                };
                 try {
                     const response = await axios.patch(
                         `/api/admin/users/update/${user.user_id}`,
-                        values
+                        values,
+                        { headers: headers }
                     );
                     setShowUserUpdateForm(false);
                     getAllUsers();
