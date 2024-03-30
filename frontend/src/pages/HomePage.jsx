@@ -39,16 +39,20 @@ const HomePage = () => {
     ];
 
     const getAllProducts = async (category = null, search = null) => {
+        const headers = {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+        };
         try {
             setLoading(true);
             const { data } = await axios.get("/api/product/products", {
                 params: { category, search },
+                headers: headers,
             });
             setProducts(data);
             setLoading(false);
         } catch (error) {
             setErrorMessage(error.response.data.detail);
-            setLoading(false);
         }
     };
 

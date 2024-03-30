@@ -27,6 +27,18 @@ const LoginPage = () => {
         return JSON.parse(jsonPayload);
     };
 
+    const handleLogin = async (data) => {
+        try {
+            const response = await axios.post("/api/auth/login", data);
+            setSuccess("Login successful");
+            setError(null);
+            localStorage.setItem("token", response.data.access_token);
+        } catch (error) {
+            setError(error.response.data.detail);
+            setSuccess(null);
+        }
+    };
+
     return (
         <div id="loginPage">
             <div className="loginContainer">
@@ -39,18 +51,9 @@ const LoginPage = () => {
                     }}
                     onSubmit={async (values, { resetForm }) => {
                         try {
-                            const response = await axios.post(
-                                "/api/auth/login",
-                                values
-                            );
-                            setSuccess("Login successful");
-                            setError(null);
-                            axios.defaults.headers.common[
-                                "Authorization"
-                            ] = `Bearer ${response.data.access_token}`;
-
+                            await handleLogin(values);
                             const decodedToken = parseJwt(
-                                response.data.access_token
+                                localStorage.getItem("token")
                             );
 
                             if (decodedToken.user_type === "admin") {
@@ -59,6 +62,7 @@ const LoginPage = () => {
                                 navigate("/home");
                             }
                         } catch (error) {
+                            console.error(error);
                             setError(error.response.data.detail);
                             setSuccess(null);
                         }

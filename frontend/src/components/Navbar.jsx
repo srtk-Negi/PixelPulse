@@ -10,6 +10,9 @@ function NavElements() {
         {
             label: "LogOut",
             href: "/login",
+            onclick: () => {
+                localStorage.removeItem("token");
+            },
         },
         {
             label: "Settings",
@@ -19,15 +22,13 @@ function NavElements() {
 
     return (
         <ul className="menu">
-            {items.map((item, index) => {
-                return (
-                    <li key={index} className="p-mr-1 text-with-line-hover">
-                        <NavLink className="nav-element" to={item.href}>
-                            {item.label}
-                        </NavLink>
-                    </li>
-                );
-            })}
+            {items.map((item, index) => (
+                <li key={index}>
+                    <NavLink to={item.href} onClick={item.onclick}>
+                        {item.label}
+                    </NavLink>
+                </li>
+            ))}
         </ul>
     );
 }

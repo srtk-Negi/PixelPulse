@@ -74,15 +74,11 @@ const AdminHomePage = () => {
     };
 
     useEffect(() => {
-        const checkUser = async () => {
-            try {
-                await axios.get("/api/auth/userType");
-            } catch (error) {
-                navigate("/unauthorized");
-            }
-        };
-        checkUser();
-    }, []);
+        const token = localStorage.getItem("token");
+        if (!token) {
+            navigate("/login");
+        }
+    }, [navigate]);
 
     return (
         <div id="adminPageContainer">

@@ -5,16 +5,17 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import "primeflex/primeflex.css";
 
-//REACT-ROUTER IMPORTS
+//REACT IMPORTS
 import {
     BrowserRouter as Router,
     Route,
     Routes,
     Navigate,
 } from "react-router-dom";
+import { useState, useEffect } from "react";
 
-// COMPONENTS IMPORTS
-import Navbar from "./components/Navbar";
+// HELPER FUNCTIONS IMPORTS
+// import { verifyToken } from "./adminHelperFunctions";
 
 // LAYOUTS IMPORTS
 import Layout from "./layouts/RootLayout";
