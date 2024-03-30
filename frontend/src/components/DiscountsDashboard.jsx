@@ -13,9 +13,15 @@ const DiscountsDashboard = ({ discounts }) => {
                 tableStyle={{ minWidth: "30rem" }}
                 scrollHeight="60vh"
             >
-                <Column field="discount_code_id" header="ID" />
-                <Column field="code" header="Name" />
-                <Column field="discount" header="Discount" />
+                <Column field="discount_code_id" header="Discount Code ID" />
+                <Column field="code" header="Code" />
+                <Column
+                    field="discount"
+                    header="Discount"
+                    body={(rowData) => {
+                        return rowData.discount + "%";
+                    }}
+                />
                 <Column field="is_active" header="Active" />
                 <Column
                     field="created_at"

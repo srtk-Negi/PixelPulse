@@ -1,62 +1,81 @@
-const getAllUsers = async (setUsers, setLoading) => {
+import axios from "axios";
+
+export const getAllUsers = async (setUsers) => {
     try {
         const response = await axios.get("/api/admin/users");
-        closeAllTables("users");
         setUsers(response.data);
-        setLoading(false);
     } catch (error) {
         console.error(error);
     }
 };
 
-const getAllOrders = async (setOrders, setLoading) => {
+export const getAllOrders = async (setOrders) => {
     try {
         const response = await axios.get("/api/admin/orders");
-        closeAllTables("orders");
         setOrders(response.data);
-        setLoading(false);
     } catch (error) {
         console.error(error);
     }
 };
 
-const getAllProducts = async (setProducts, setLoading) => {
+export const getAllProducts = async (setProducts) => {
     try {
         const response = await axios.get("/api/admin/products");
-        closeAllTables("products");
         setProducts(response.data);
-        setLoading(false);
     } catch (error) {
         console.error(error);
     }
 };
 
-const deleteUser = async (userId) => {
+export const getAllCategories = async (setCategories) => {
+    try {
+        const response = await axios.get("/api/admin/categories");
+        setCategories(response.data);
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+export const getAllOrderItems = async (setOrderItems) => {
+    try {
+        const response = await axios.get("/api/admin/order_items");
+        setOrderItems(response.data);
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+export const getAllCarts = async (setCarts) => {
+    try {
+        const response = await axios.get("/api/admin/carts");
+        setCarts(response.data);
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+export const getAllDiscounts = async (setDiscounts) => {
+    try {
+        const response = await axios.get("/api/admin/discounts");
+        setDiscounts(response.data);
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+export const deleteUser = async (userId, setUsers) => {
     try {
         await axios.delete(`/api/admin/users/delete/${userId}`);
-        getAllUsers();
+        getAllUsers(setUsers);
     } catch (error) {
         console.error(error);
     }
 };
 
-const closeAllTables = (currentTable) => {
-    if (currentTable === "users") {
-        setOrders(null);
-        setProducts(null);
-    } else if (currentTable === "orders") {
-        setUsers(null);
-        setProducts(null);
-    } else if (currentTable === "products") {
-        setUsers(null);
-        setOrders(null);
-    }
-};
-
-const deleteProduct = async (productId) => {
+export const deleteProduct = async (productId, setProducts) => {
     try {
         await axios.delete(`/api/admin/products/delete/${productId}`);
-        getAllProducts();
+        getAllProducts(setProducts);
     } catch (error) {
         console.error(error);
     }

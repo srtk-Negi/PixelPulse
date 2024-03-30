@@ -4,7 +4,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 // Component imports
-import LoadingSpinner from "../components/LoadingSpinner";
 import UsersDashboard from "../components/UsersDashboard";
 import OrdersDashboard from "../components/OrdersDashboard";
 import ProductsDashboard from "../components/ProductsDashboard";
@@ -22,9 +21,11 @@ import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { ConfirmDialog } from "primereact/confirmdialog";
 
+// Helper function imports
+import * as hf from "../adminHelperFunctions";
+
 const AdminHomePage = () => {
     const navigate = useNavigate();
-    const [loading, setLoading] = React.useState(true);
 
     // State variables for data
     const [users, setUsers] = React.useState(null);
@@ -50,151 +51,21 @@ const AdminHomePage = () => {
     const [showAddProductForm, setShowAddProductForm] = React.useState(false);
     const [showAddDiscountForm, setShowAddDiscountForm] = React.useState(false);
 
-    const getAllUsers = async () => {
-        try {
-            const response = await axios.get("/api/admin/users");
-            closeAllTables("users");
-            setUsers(response.data);
-            setLoading(false);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    const getAllOrders = async () => {
-        try {
-            const response = await axios.get("/api/admin/orders");
-            closeAllTables("orders");
-            setOrders(response.data);
-            setLoading(false);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    const getAllProducts = async () => {
-        try {
-            const response = await axios.get("/api/admin/products");
-            closeAllTables("products");
-            setProducts(response.data);
-            setLoading(false);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    const getAllCategories = async () => {
-        try {
-            const response = await axios.get("/api/admin/categories");
-            closeAllTables("categories");
-            setCategories(response.data);
-            setLoading(false);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    const getAllOrderItems = async () => {
-        try {
-            const response = await axios.get("/api/admin/order_items");
-            closeAllTables("order_items");
-            setOrderItems(response.data);
-            setLoading(false);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    const getAllCarts = async () => {
-        try {
-            const response = await axios.get("/api/admin/carts");
-            closeAllTables("carts");
-            setCarts(response.data);
-            setLoading(false);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    const getAllDiscounts = async () => {
-        try {
-            const response = await axios.get("/api/admin/discounts");
-            closeAllTables("discounts");
-            setDiscounts(response.data);
-            setLoading(false);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    const deleteUser = async (userId) => {
-        try {
-            await axios.delete(`/api/admin/users/delete/${userId}`);
-            getAllUsers();
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    const deleteProduct = async (productId) => {
-        try {
-            await axios.delete(`/api/admin/products/delete/${productId}`);
-            getAllProducts();
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
     const closeAllTables = (currentTable) => {
-        if (currentTable === "users") {
-            setOrders(null);
-            setProducts(null);
-            setCategories(null);
-            setOrderItems(null);
-            setCarts(null);
-            setDiscounts(null);
-        } else if (currentTable === "orders") {
-            setUsers(null);
-            setProducts(null);
-            setCategories(null);
-            setOrderItems(null);
-            setCarts(null);
-            setDiscounts(null);
-        } else if (currentTable === "products") {
-            setUsers(null);
-            setOrders(null);
-            setCategories(null);
-            setOrderItems(null);
-            setCarts(null);
-            setDiscounts(null);
-        } else if (currentTable === "categories") {
-            setUsers(null);
-            setOrders(null);
-            setProducts(null);
-            setOrderItems(null);
-            setCarts(null);
-            setDiscounts(null);
-        } else if (currentTable === "order_items") {
-            setUsers(null);
-            setOrders(null);
-            setProducts(null);
-            setCategories(null);
-            setCarts(null);
-            setDiscounts(null);
-        } else if (currentTable === "carts") {
-            setUsers(null);
-            setOrders(null);
-            setProducts(null);
-            setCategories(null);
-            setOrderItems(null);
-            setDiscounts(null);
-        } else if (currentTable === "discounts") {
-            setUsers(null);
-            setOrders(null);
-            setProducts(null);
-            setCategories(null);
-            setOrderItems(null);
-            setCarts(null);
+        const allTables = {
+            users: setUsers,
+            orders: setOrders,
+            products: setProducts,
+            categories: setCategories,
+            orderItems: setOrderItems,
+            carts: setCarts,
+            discounts: setDiscounts,
+        };
+
+        for (const table in allTables) {
+            if (table !== currentTable) {
+                allTables[table](null);
+            }
         }
     };
 
@@ -204,8 +75,6 @@ const AdminHomePage = () => {
                 await axios.get("/api/auth/userType");
             } catch (error) {
                 navigate("/unauthorized");
-            } finally {
-                setLoading(false);
             }
         };
         checkUser();
@@ -214,28 +83,57 @@ const AdminHomePage = () => {
     return (
         <div id="adminPageContainer">
             <div className="controlButtons">
-                <Button label="Get All Users" onClick={() => getAllUsers()} />
-                <Button label="Get All Orders" onClick={() => getAllOrders()} />
+                <Button
+                    label="Get All Users"
+                    onClick={() => {
+                        closeAllTables("users");
+                        hf.getAllUsers(setUsers);
+                    }}
+                />
+                <Button
+                    label="Get All Orders"
+                    onClick={() => {
+                        closeAllTables("orders");
+                        hf.getAllOrders(setOrders);
+                    }}
+                />
                 <Button
                     label="Get All Products"
-                    onClick={() => getAllProducts()}
+                    onClick={() => {
+                        closeAllTables("products");
+                        hf.getAllProducts(setProducts);
+                    }}
                 />
                 <Button
                     label="Get All Categories"
-                    onClick={() => getAllCategories()}
+                    onClick={() => {
+                        closeAllTables("categories");
+                        hf.getAllCategories(setCategories);
+                    }}
                 />
                 <Button
                     label="Get All Order Items"
-                    onClick={() => getAllOrderItems()}
+                    onClick={() => {
+                        closeAllTables("orderItems");
+                        hf.getAllOrderItems(setOrderItems);
+                    }}
                 />
-                <Button label="Get All Carts" onClick={() => getAllCarts()} />
+                <Button
+                    label="Get All Carts"
+                    onClick={() => {
+                        closeAllTables("carts");
+                        hf.getAllCarts(setCarts);
+                    }}
+                />
                 <Button
                     label="Get All Discounts"
-                    onClick={() => getAllDiscounts()}
+                    onClick={() => {
+                        closeAllTables("discounts");
+                        hf.getAllDiscounts(setDiscounts);
+                    }}
                 />
             </div>
             <h1>Admin Home Page</h1>
-            {loading && <LoadingSpinner />}
             {/* RENDER THE USERS TABLE */}
             {users && (
                 <UsersDashboard
@@ -291,12 +189,12 @@ const AdminHomePage = () => {
                 style={{ width: "50vw" }}
                 onHide={() => {
                     setShowAddProductForm(false);
-                    getAllProducts();
+                    hf.getAllProducts(setProducts);
                 }}
             >
                 <AddProductForm
                     setShowAddProductForm={setShowAddProductForm}
-                    getAllProducts={getAllProducts}
+                    getAllProducts={() => hf.getAllProducts(setProducts)}
                 />
             </Dialog>
 
@@ -307,12 +205,12 @@ const AdminHomePage = () => {
                 style={{ width: "50vw" }}
                 onHide={() => {
                     setShowAddDiscountForm(false);
-                    getAllDiscounts();
+                    getAllDiscounts(setDiscounts);
                 }}
             >
                 <AddDiscountForm
                     setShowAddDiscountForm={setShowAddDiscountForm}
-                    getAllDiscounts={getAllDiscounts}
+                    getAllDiscounts={hf.getAllDiscounts}
                 />
             </Dialog>
 
@@ -327,7 +225,7 @@ const AdminHomePage = () => {
                     <UserUpdateForm
                         user={selectedUser}
                         setShowUserUpdateForm={setShowUserUpdateForm}
-                        getAllUsers={getAllUsers}
+                        getAllUsers={hf.getAllUsers}
                     />
                 )}
             </Dialog>
@@ -340,7 +238,7 @@ const AdminHomePage = () => {
                 message="Are you sure you want to delete this user?"
                 accept={() => {
                     setShowUserDeleteDialog(false);
-                    deleteUser(selectedUser.user_id);
+                    hf.deleteUser(selectedUser.user_id, setUsers);
                 }}
             ></ConfirmDialog>
 
@@ -355,7 +253,9 @@ const AdminHomePage = () => {
                     <ProductUpdateForm
                         product={selectedProduct}
                         setShowProductUpdateForm={setShowProductUpdateForm}
-                        getAllProducts={getAllProducts}
+                        getAllProducts={() => {
+                            hf.getAllProducts(setProducts);
+                        }}
                     />
                 )}
             </Dialog>
@@ -367,7 +267,7 @@ const AdminHomePage = () => {
                 onHide={() => setShowProductDeleteDialog(false)}
                 message="Are you sure you want to delete this product?"
                 accept={() => {
-                    deleteProduct(selectedProduct.prod_id);
+                    hf.deleteProduct(selectedProduct.prod_id, setProducts);
                     setShowProductDeleteDialog(false);
                 }}
             ></ConfirmDialog>
