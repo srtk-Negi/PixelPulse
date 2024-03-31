@@ -49,7 +49,10 @@ class Cart(Base):
 
     cart_id = Column(Integer, primary_key=True, index=True, nullable=False)
     user_id = Column(
-        Integer, ForeignKey("Users.user_id", ondelete="CASCADE"), nullable=False
+        Integer,
+        ForeignKey("Users.user_id", ondelete="CASCADE"),
+        nullable=False,
+        unique=True,
     )
     created_at = Column(
         TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")

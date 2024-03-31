@@ -516,3 +516,28 @@ def delete_discount(
         return Response(status_code=status.HTTP_204_NO_CONTENT)
     else:
         raise HTTPException(status_code=404, detail="Discount code not found")
+
+
+@router.get("/cart_items", response_model=list[schemas.CartItemResponse])
+def get_cart_items(
+    db: Session = Depends(get_db), current_user=Depends(OAuth.get_current_user)
+):
+    """Get all cart items from the database.
+
+    Args:
+        db (Session): The database session.
+        current_user: The current user.
+
+    Returns:
+        list[schemas.CartItem]: A list of all cart items in the database.
+    """
+    if current_user.user_type != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized user"
+        )
+    cart_items = (
+        db.query(models.CartItem)
+        .group_by(models.CartItem.cart_item_id, models.CartItem.cart_id)
+        .all()
+    )
+    return cart_items

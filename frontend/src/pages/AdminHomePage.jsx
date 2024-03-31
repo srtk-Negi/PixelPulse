@@ -15,6 +15,7 @@ import OrderItemsDashboard from "../components/OrderItemsDashboard";
 import CartsDashboard from "../components/CartsDashboard";
 import DiscountsDashboard from "../components/DiscountsDashboard";
 import AddDiscountForm from "../components/AdminForms/AddDiscountForm";
+import CartItemsDashboard from "../components/CartItemsDashboard";
 
 // PrimeReact imports
 import { Button } from "primereact/button";
@@ -36,6 +37,7 @@ const AdminHomePage = () => {
     const [orderItems, setOrderItems] = React.useState(null);
     const [carts, setCarts] = React.useState(null);
     const [discounts, setDiscounts] = React.useState(null);
+    const [cartItems, setCartItems] = React.useState(null); 
 
     // State variables for selected items
     const [selectedUser, setSelectedUser] = React.useState(null);
@@ -140,6 +142,14 @@ const AdminHomePage = () => {
                         hf.getAllDiscounts(setDiscounts);
                     }}
                 />
+                <Button
+                    label="Get All Cart Items"
+                    onClick={() => {
+                        closeAllTables("cartItems");
+                        setPageHeader("All Cart Items");
+                        hf.getAllCartItems(setCartItems);
+                    }}
+                />
             </div>
             {/* RENDER THE USERS TABLE */}
             {users && (
@@ -177,7 +187,9 @@ const AdminHomePage = () => {
 
             {/* RENDER THE CARTS TABLE */}
             {carts && <CartsDashboard carts={carts} />}
-
+            
+            {/* RENDER THE CART ITEMS TABLE */}
+            {cartItems && <CartItemsDashboard cartItems={cartItems} />}
             {/* RENDER THE DISCOUNTS TABLE */}
             {discounts && (
                 <>

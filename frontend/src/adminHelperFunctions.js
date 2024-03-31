@@ -71,6 +71,17 @@ export const getAllCarts = async (setCarts) => {
     }
 };
 
+export const getAllCartItems = async (setCartItems) => {
+    try {
+        const response = await axios.get("/api/admin/cart_items", {
+            headers: headers,
+        });
+        setCartItems(response.data);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 export const getAllDiscounts = async (setDiscounts) => {
     try {
         const response = await axios.get("/api/admin/discounts", {
