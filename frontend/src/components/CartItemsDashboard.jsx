@@ -17,6 +17,7 @@ const CartItemsDashboard = ({ cartItems }) => {
                 <Column field="cart_item_id" header="Cart Item ID" />
                 <Column field="cart_id" header="Cart ID" />
                 <Column field="prod_id" header="Product ID" />
+                <Column field="prod_name" header="Product Name" />
                 <Column field="quantity" header="Quantity" />
                 <Column field="total_price" header="Total Price" />
                 <Column

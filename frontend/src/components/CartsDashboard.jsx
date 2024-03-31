@@ -15,6 +15,7 @@ const CartsDashboard = ({ carts }) => {
             >
                 <Column field="cart_id" header="Cart ID" />
                 <Column field="user_id" header="User ID" />
+                <Column field="cart_total" header="Cart Total" />
                 <Column
                     field="created_at"
                     header="Created At"

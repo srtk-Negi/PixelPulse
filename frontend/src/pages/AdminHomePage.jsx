@@ -1,6 +1,5 @@
 // react imports
 import React, { useEffect } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 // Component imports
@@ -66,6 +65,7 @@ const AdminHomePage = () => {
             orderItems: setOrderItems,
             carts: setCarts,
             discounts: setDiscounts,
+            cartItems: setCartItems,
         };
 
         for (const table in allTables) {
