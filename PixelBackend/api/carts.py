@@ -2,21 +2,25 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from PixelBackend import schemas, models
 from PixelBackend.database import get_db
+from ..OAuth import get_current_user
 
 router = APIRouter()
 
 
-@router.get("/carts/{user_id}", response_model=list[schemas.CartResponse])
-def get_cart_items(user_id: int, db: Session = Depends(get_db)):
+@router.get("/cartsItems", response_model=list[schemas.CartItemResponse])
+def get_cart_items(
+    db: Session = Depends(get_db), current_user=Depends(get_current_user)
+):
     """Get all cart items from the database for a specific user.
 
     Args:
-        user_id (int): The id of the user to get cart items for.
         db (Session): The database session.
+        current_user (dict): The current user.
 
     Returns:
         list[schemas.CartResponse]: A list of all cart items for the user.
     """
+    user_id = current_user.user_id
     cart = db.query(models.Cart).filter_by(user_id=user_id).first()
 
     if not cart:
@@ -36,11 +40,11 @@ def get_cart_items(user_id: int, db: Session = Depends(get_db)):
     return cart_items
 
 
-@router.post("/carts/{user_id}/{prod_id}")
+@router.post("/{prod_id}")
 def add_to_cart(
-    user_id: int,
     prod_id: int,
     db: Session = Depends(get_db),
+    current_user=Depends(get_current_user),
 ):
     """Add a product to the cart for a specific user.
 
@@ -53,10 +57,15 @@ def add_to_cart(
     Returns:
         dict: A message indicating success or failure.
     """
+    user_id = current_user.user_id
     cart = db.query(models.Cart).filter_by(user_id=user_id).first()
 
     if not cart:
-        db.add(models.Cart(user_id=user_id))
+        cart = models.Cart(user_id=user_id)
+        db.add(cart)
+        db.commit()
+
+    cart = db.query(models.Cart).filter_by(user_id=user_id).first()
 
     product = db.query(models.Product).filter_by(prod_id=prod_id).first()
 

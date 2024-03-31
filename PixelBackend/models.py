@@ -54,6 +54,7 @@ class Cart(Base):
         nullable=False,
         unique=True,
     )
+    cart_total = Column(Float, nullable=False, server_default=text("0"))
     created_at = Column(
         TIMESTAMP(timezone=True), nullable=False, server_default=text("now()")
     )

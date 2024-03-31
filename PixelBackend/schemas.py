@@ -112,6 +112,7 @@ class Cart(BaseModel):
 
 class CartResponse(Cart):
     cart_id: int
+    cart_total: float
     created_at: datetime
 
     class Config:
@@ -184,8 +185,9 @@ class CartItem(BaseModel):
         from_attributes = True
 
 
-class CartItemResponse(BaseModel):
-    prod_name: str
+class CartItemResponse(CartItem):
+    cart_item_id: int
+    created_at: datetime
 
     class Config:
         from_attributes = True
