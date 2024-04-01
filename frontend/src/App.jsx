@@ -12,10 +12,7 @@ import {
     Routes,
     Navigate,
 } from "react-router-dom";
-import { useState, createContext } from "react";
-
-// HELPER FUNCTIONS IMPORTS
-// import { verifyToken } from "./adminHelperFunctions";
+import { createContext } from "react";
 
 // LAYOUTS IMPORTS
 import Layout from "./layouts/RootLayout";
@@ -40,49 +37,39 @@ import "./assets/css/navbar.css";
 export const UserContext = createContext();
 
 const App = () => {
-    const [token, setToken] = useState(localStorage.getItem("token"));
-
     return (
-        <UserContext.Provider value={{ token, setToken }}>
-            <PrimeReactProvider>
-                <div className="app">
-                    <Router>
-                        <Routes>
-                            <Route
-                                path="/"
-                                element={<Navigate to="/login" />}
-                            />
-                            <Route
-                                path="/register"
-                                element={<RegisterPage />}
-                            />
-                            <Route path="/login" element={<LoginPage />} />
-                            <Route
-                                path="/home"
-                                element={
-                                    <Layout navType="user">
-                                        <HomePage />
-                                    </Layout>
-                                }
-                            />
-                            <Route
-                                path="/admin"
-                                element={
-                                    <Layout navType="admin">
-                                        <AdminHomePage />
-                                    </Layout>
-                                }
-                            />
-                            <Route
-                                path="/unauthorized"
-                                element={<Unauthorized />}
-                            />
-                            <Route path="*" element={<ErrorPage />} />
-                        </Routes>
-                    </Router>
-                </div>
-            </PrimeReactProvider>
-        </UserContext.Provider>
+        <PrimeReactProvider>
+            <div className="app">
+                <Router>
+                    <Routes>
+                        <Route path="/" element={<Navigate to="/login" />} />
+                        <Route path="/register" element={<RegisterPage />} />
+                        <Route path="/login" element={<LoginPage />} />
+                        <Route
+                            path="/home"
+                            element={
+                                <Layout navType="user">
+                                    <HomePage />
+                                </Layout>
+                            }
+                        />
+                        <Route
+                            path="/admin"
+                            element={
+                                <Layout navType="admin">
+                                    <AdminHomePage />
+                                </Layout>
+                            }
+                        />
+                        <Route
+                            path="/unauthorized"
+                            element={<Unauthorized />}
+                        />
+                        <Route path="*" element={<ErrorPage />} />
+                    </Routes>
+                </Router>
+            </div>
+        </PrimeReactProvider>
     );
 };
 

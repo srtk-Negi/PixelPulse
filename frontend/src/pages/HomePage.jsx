@@ -5,6 +5,7 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
+import { useEffect } from "react";
 
 const HomePage = () => {
     const [products, setProducts] = useState([]);
