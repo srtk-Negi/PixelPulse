@@ -52,6 +52,7 @@ def verify_access_token(token: str, credentials_exception):
         token_data = schemas.TokenData(user_id=user_id, user_type=user_type)
     except JWTError:
         raise credentials_exception
+    print(token_data)
     return token_data
 
 
@@ -66,6 +67,7 @@ def get_current_user(
     Returns:
         dict: The current user.
     """
+    print("1here")
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",

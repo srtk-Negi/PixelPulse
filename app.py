@@ -2,14 +2,13 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from PixelBackend import models
 from PixelBackend.database import engine
-from PixelBackend.api import adminRoutes, carts, categories, orders, products, users
+from PixelBackend.api import adminRoutes, carts, orders, products, users
 from PixelBackend import auth
 
 app = FastAPI()
 
 app.include_router(adminRoutes.router, prefix="/api/admin")
 app.include_router(carts.router, prefix="/api/cart")
-app.include_router(categories.router, prefix="/api/category")
 app.include_router(orders.router, prefix="/api/order")
 app.include_router(products.router, prefix="/api/product")
 app.include_router(users.router, prefix="/api/user")

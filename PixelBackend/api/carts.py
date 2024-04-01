@@ -49,15 +49,15 @@ def add_to_cart(
     """Add a product to the cart for a specific user.
 
     Args:
-        user_id (int): The id of the user to add the product to the cart for.
         prod_id (int): The id of the product to add to the cart.
-        quantity (int): The quantity of the product to add to the cart.
         db (Session): The database session.
+        current_user (dict): The current user.
 
     Returns:
         dict: A message indicating success or failure.
     """
     user_id = current_user.user_id
+    print(user_id)
     cart = db.query(models.Cart).filter_by(user_id=user_id).first()
 
     if not cart:

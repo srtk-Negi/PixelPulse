@@ -1,11 +1,10 @@
 import axios from "axios";
 
-const headers = {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
-};
-
-export const getAllUsers = async (setUsers) => {
+export const getAllUsers = async (setUsers, token) => {
+    const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+    };
     try {
         const response = await axios.get("/api/admin/users", {
             headers: headers,
@@ -16,7 +15,11 @@ export const getAllUsers = async (setUsers) => {
     }
 };
 
-export const getAllOrders = async (setOrders) => {
+export const getAllOrders = async (setOrders, token) => {
+    const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+    };
     try {
         const response = await axios.get("/api/admin/orders", {
             headers: headers,
@@ -27,7 +30,11 @@ export const getAllOrders = async (setOrders) => {
     }
 };
 
-export const getAllProducts = async (setProducts) => {
+export const getAllProducts = async (setProducts, token) => {
+    const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+    };
     try {
         const response = await axios.get("/api/admin/products", {
             headers: headers,
@@ -38,7 +45,11 @@ export const getAllProducts = async (setProducts) => {
     }
 };
 
-export const getAllCategories = async (setCategories) => {
+export const getAllCategories = async (setCategories, token) => {
+    const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+    };
     try {
         const response = await axios.get("/api/admin/categories", {
             headers: headers,
@@ -49,7 +60,11 @@ export const getAllCategories = async (setCategories) => {
     }
 };
 
-export const getAllOrderItems = async (setOrderItems) => {
+export const getAllOrderItems = async (setOrderItems, token) => {
+    const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+    };
     try {
         const response = await axios.get("/api/admin/order_items", {
             headers: headers,
@@ -60,7 +75,11 @@ export const getAllOrderItems = async (setOrderItems) => {
     }
 };
 
-export const getAllCarts = async (setCarts) => {
+export const getAllCarts = async (setCarts, token) => {
+    const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+    };
     try {
         const response = await axios.get("/api/admin/carts", {
             headers: headers,
@@ -71,7 +90,11 @@ export const getAllCarts = async (setCarts) => {
     }
 };
 
-export const getAllCartItems = async (setCartItems) => {
+export const getAllCartItems = async (setCartItems, token) => {
+    const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+    };
     try {
         const response = await axios.get("/api/admin/cart_items", {
             headers: headers,
@@ -80,9 +103,13 @@ export const getAllCartItems = async (setCartItems) => {
     } catch (error) {
         console.error(error);
     }
-}
+};
 
-export const getAllDiscounts = async (setDiscounts) => {
+export const getAllDiscounts = async (setDiscounts, token) => {
+    const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+    };
     try {
         const response = await axios.get("/api/admin/discounts", {
             headers: headers,
@@ -93,7 +120,11 @@ export const getAllDiscounts = async (setDiscounts) => {
     }
 };
 
-export const deleteUser = async (userId, setUsers) => {
+export const deleteUser = async (userId, setUsers, token) => {
+    const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+    };
     try {
         await axios.delete(`/api/admin/users/delete/${userId}`, {
             headers: headers,
@@ -104,7 +135,11 @@ export const deleteUser = async (userId, setUsers) => {
     }
 };
 
-export const deleteProduct = async (productId, setProducts) => {
+export const deleteProduct = async (productId, setProducts, token) => {
+    const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+    };
     try {
         await axios.delete(`/api/admin/products/delete/${productId}`, {
             headers: headers,
@@ -115,7 +150,11 @@ export const deleteProduct = async (productId, setProducts) => {
     }
 };
 
-export const deleteDiscount = async (discountId, setDiscounts) => {
+export const deleteDiscount = async (discountId, setDiscounts, token) => {
+    const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+    };
     try {
         await axios.delete(`/api/admin/discounts/delete/${discountId}`, {
             headers: headers,

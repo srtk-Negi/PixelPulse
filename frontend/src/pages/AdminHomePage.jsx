@@ -1,6 +1,8 @@
 // react imports
 import React, { useEffect } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../App";
 
 // Component imports
 import UsersDashboard from "../components/UsersDashboard";
@@ -25,6 +27,8 @@ import { ConfirmDialog } from "primereact/confirmdialog";
 import * as hf from "../adminHelperFunctions";
 
 const AdminHomePage = () => {
+    const { token, setToken } = useContext(UserContext);
+
     const navigate = useNavigate();
     const [pageHeader, setPageHeader] = React.useState("Admin Home Page");
 
@@ -36,7 +40,7 @@ const AdminHomePage = () => {
     const [orderItems, setOrderItems] = React.useState(null);
     const [carts, setCarts] = React.useState(null);
     const [discounts, setDiscounts] = React.useState(null);
-    const [cartItems, setCartItems] = React.useState(null); 
+    const [cartItems, setCartItems] = React.useState(null);
 
     // State variables for selected items
     const [selectedUser, setSelectedUser] = React.useState(null);
@@ -91,7 +95,7 @@ const AdminHomePage = () => {
                     onClick={() => {
                         closeAllTables("users");
                         setPageHeader("All Users");
-                        hf.getAllUsers(setUsers);
+                        hf.getAllUsers(setUsers, token);
                     }}
                 />
                 <Button
@@ -99,7 +103,7 @@ const AdminHomePage = () => {
                     onClick={() => {
                         closeAllTables("orders");
                         setPageHeader("All Orders");
-                        hf.getAllOrders(setOrders);
+                        hf.getAllOrders(setOrders, token);
                     }}
                 />
                 <Button
@@ -107,7 +111,7 @@ const AdminHomePage = () => {
                     onClick={() => {
                         closeAllTables("products");
                         setPageHeader("All Products");
-                        hf.getAllProducts(setProducts);
+                        hf.getAllProducts(setProducts, token);
                     }}
                 />
                 <Button
@@ -115,7 +119,7 @@ const AdminHomePage = () => {
                     onClick={() => {
                         closeAllTables("categories");
                         setPageHeader("All Categories");
-                        hf.getAllCategories(setCategories);
+                        hf.getAllCategories(setCategories, token);
                     }}
                 />
                 <Button
@@ -123,7 +127,7 @@ const AdminHomePage = () => {
                     onClick={() => {
                         closeAllTables("orderItems");
                         setPageHeader("All Order Items");
-                        hf.getAllOrderItems(setOrderItems);
+                        hf.getAllOrderItems(setOrderItems, token);
                     }}
                 />
                 <Button
@@ -131,7 +135,7 @@ const AdminHomePage = () => {
                     onClick={() => {
                         closeAllTables("carts");
                         setPageHeader("All Carts");
-                        hf.getAllCarts(setCarts);
+                        hf.getAllCarts(setCarts, token);
                     }}
                 />
                 <Button
@@ -139,7 +143,7 @@ const AdminHomePage = () => {
                     onClick={() => {
                         closeAllTables("discounts");
                         setPageHeader("All Discounts");
-                        hf.getAllDiscounts(setDiscounts);
+                        hf.getAllDiscounts(setDiscounts, token);
                     }}
                 />
                 <Button
@@ -147,7 +151,7 @@ const AdminHomePage = () => {
                     onClick={() => {
                         closeAllTables("cartItems");
                         setPageHeader("All Cart Items");
-                        hf.getAllCartItems(setCartItems);
+                        hf.getAllCartItems(setCartItems, token);
                     }}
                 />
             </div>
@@ -187,7 +191,7 @@ const AdminHomePage = () => {
 
             {/* RENDER THE CARTS TABLE */}
             {carts && <CartsDashboard carts={carts} />}
-            
+
             {/* RENDER THE CART ITEMS TABLE */}
             {cartItems && <CartItemsDashboard cartItems={cartItems} />}
             {/* RENDER THE DISCOUNTS TABLE */}
@@ -218,7 +222,7 @@ const AdminHomePage = () => {
             >
                 <AddProductForm
                     setShowAddProductForm={setShowAddProductForm}
-                    getAllProducts={() => hf.getAllProducts(setProducts)}
+                    getAllProducts={() => hf.getAllProducts(setProducts, token)}
                 />
             </Dialog>
 
@@ -233,7 +237,9 @@ const AdminHomePage = () => {
             >
                 <AddDiscountForm
                     setShowAddDiscountForm={setShowAddDiscountForm}
-                    getAllDiscounts={() => hf.getAllDiscounts(setDiscounts)}
+                    getAllDiscounts={() =>
+                        hf.getAllDiscounts(setDiscounts, token)
+                    }
                 />
             </Dialog>
 
@@ -249,7 +255,7 @@ const AdminHomePage = () => {
                         user={selectedUser}
                         setShowUserUpdateForm={setShowUserUpdateForm}
                         getAllUsers={() => {
-                            hf.getAllUsers(setUsers);
+                            hf.getAllUsers(setUsers, token);
                         }}
                     />
                 )}
@@ -263,7 +269,7 @@ const AdminHomePage = () => {
                 message="Are you sure you want to delete this user?"
                 accept={() => {
                     setShowUserDeleteDialog(false);
-                    hf.deleteUser(selectedUser.user_id, setUsers);
+                    hf.deleteUser(selectedUser.user_id, setUsers, token);
                 }}
             ></ConfirmDialog>
 
@@ -276,7 +282,8 @@ const AdminHomePage = () => {
                 accept={() => {
                     hf.deleteDiscount(
                         selectedDiscount.discount_code_id,
-                        setDiscounts
+                        setDiscounts,
+                        token
                     );
                     setShowDiscountDeleteDialog(false);
                 }}
@@ -294,7 +301,7 @@ const AdminHomePage = () => {
                         product={selectedProduct}
                         setShowProductUpdateForm={setShowProductUpdateForm}
                         getAllProducts={() => {
-                            hf.getAllProducts(setProducts);
+                            hf.getAllProducts(setProducts, token);
                         }}
                     />
                 )}
@@ -307,7 +314,11 @@ const AdminHomePage = () => {
                 onHide={() => setShowProductDeleteDialog(false)}
                 message="Are you sure you want to delete this product?"
                 accept={() => {
-                    hf.deleteProduct(selectedProduct.prod_id, setProducts);
+                    hf.deleteProduct(
+                        selectedProduct.prod_id,
+                        setProducts,
+                        token
+                    );
                     setShowProductDeleteDialog(false);
                 }}
             ></ConfirmDialog>

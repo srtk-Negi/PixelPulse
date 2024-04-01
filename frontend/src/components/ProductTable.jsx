@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button } from "primereact/button";
 import { Tag } from "primereact/tag";
+import axios from "axios";
+import { UserContext } from "../App";
 
 const ProductCard = ({ product }) => {
+    const { token, setToken } = useContext(UserContext);
+
     let severity;
     let severityString;
     let stock = product.items_in_stock;
@@ -39,6 +43,24 @@ const ProductCard = ({ product }) => {
                     label="Add to Cart"
                     icon="pi pi-shopping-cart"
                     disabled={stock === 0}
+                    className="p-button-raised p-button-rounded"
+                    onClick={async () => {
+                        const headers = {
+                            Authorization: `Bearer ${token}`,
+                            "Content-Type": "application/json",
+                        };
+                        console.log(headers);
+                        try {
+                            const response = await axios.post(
+                                `/api/cart/${product.prod_id}`,
+                                {
+                                    headers: headers,
+                                }
+                            );
+                        } catch (error) {
+                            console.error(error);
+                        }
+                    }}
                 />
             </div>
         </div>
