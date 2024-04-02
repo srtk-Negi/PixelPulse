@@ -46,7 +46,7 @@ const ProductCard = ({ product, token }) => {
                         const headers = {
                             Authorization: `Bearer ${token}`,
                         };
-                        // console.log(headers);
+                        console.log(headers);
                         try {
                             const response = await axios.get(
                                 "/api/admin/products",
