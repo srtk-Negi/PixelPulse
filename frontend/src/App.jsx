@@ -12,7 +12,6 @@ import {
     Routes,
     Navigate,
 } from "react-router-dom";
-import { createContext } from "react";
 
 // LAYOUTS IMPORTS
 import Layout from "./layouts/RootLayout";
@@ -33,8 +32,6 @@ import "./assets/css/login.css";
 import "./assets/css/register.css";
 import "./assets/css/unauthorized.css";
 import "./assets/css/navbar.css";
-
-export const UserContext = createContext();
 
 const App = () => {
     return (

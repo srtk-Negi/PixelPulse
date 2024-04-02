@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Button } from "primereact/button";
 import { Tag } from "primereact/tag";
 import axios from "axios";
-import { UserContext } from "../App";
+import { UserContext } from "../pages/HomePage";
 
 const ProductCard = ({ product }) => {
     const { token, setToken } = useContext(UserContext);

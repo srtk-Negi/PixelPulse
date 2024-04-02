@@ -1,8 +1,7 @@
 // react imports
-import React, { useEffect } from "react";
-import { useContext } from "react";
+import React, { useEffect, useState } from "react";
+import { createContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../App";
 
 // Component imports
 import UsersDashboard from "../components/UsersDashboard";
@@ -26,11 +25,12 @@ import { ConfirmDialog } from "primereact/confirmdialog";
 // Helper function imports
 import * as hf from "../adminHelperFunctions";
 
-const AdminHomePage = () => {
-    const { token, setToken } = useContext(UserContext);
+export const AdminContext = createContext();
 
+const AdminHomePage = () => {
     const navigate = useNavigate();
     const [pageHeader, setPageHeader] = React.useState("Admin Home Page");
+    const [token, setToken] = useState(localStorage.getItem("token"));
 
     // State variables for data
     const [users, setUsers] = React.useState(null);
@@ -79,250 +79,249 @@ const AdminHomePage = () => {
         }
     };
 
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            navigate("/login");
-        }
-    }, []);
-
     return (
-        <div id="adminPageContainer">
-            <h1>{pageHeader}</h1>
-            <div className="controlButtons">
-                <Button
-                    label="Get All Users"
-                    onClick={() => {
-                        closeAllTables("users");
-                        setPageHeader("All Users");
-                        hf.getAllUsers(setUsers, token);
-                    }}
-                />
-                <Button
-                    label="Get All Orders"
-                    onClick={() => {
-                        closeAllTables("orders");
-                        setPageHeader("All Orders");
-                        hf.getAllOrders(setOrders, token);
-                    }}
-                />
-                <Button
-                    label="Get All Products"
-                    onClick={() => {
-                        closeAllTables("products");
-                        setPageHeader("All Products");
-                        hf.getAllProducts(setProducts, token);
-                    }}
-                />
-                <Button
-                    label="Get All Categories"
-                    onClick={() => {
-                        closeAllTables("categories");
-                        setPageHeader("All Categories");
-                        hf.getAllCategories(setCategories, token);
-                    }}
-                />
-                <Button
-                    label="Get All Order Items"
-                    onClick={() => {
-                        closeAllTables("orderItems");
-                        setPageHeader("All Order Items");
-                        hf.getAllOrderItems(setOrderItems, token);
-                    }}
-                />
-                <Button
-                    label="Get All Carts"
-                    onClick={() => {
-                        closeAllTables("carts");
-                        setPageHeader("All Carts");
-                        hf.getAllCarts(setCarts, token);
-                    }}
-                />
-                <Button
-                    label="Get All Discounts"
-                    onClick={() => {
-                        closeAllTables("discounts");
-                        setPageHeader("All Discounts");
-                        hf.getAllDiscounts(setDiscounts, token);
-                    }}
-                />
-                <Button
-                    label="Get All Cart Items"
-                    onClick={() => {
-                        closeAllTables("cartItems");
-                        setPageHeader("All Cart Items");
-                        hf.getAllCartItems(setCartItems, token);
-                    }}
-                />
-            </div>
-            {/* RENDER THE USERS TABLE */}
-            {users && (
-                <UsersDashboard
-                    users={users}
-                    setSelectedUser={setSelectedUser}
-                    setShowUserUpdateForm={setShowUserUpdateForm}
-                    setShowUserDeleteDialog={setShowUserDeleteDialog}
-                />
-            )}
-            {/* RENDER THE ORDERS TABLE */}
-            {orders && <OrdersDashboard orders={orders} />}
-
-            {/* RENDER THE PRODUCTS TABLE */}
-            {products && (
-                <>
-                    <ProductsDashboard
-                        products={products}
-                        setSelectedProduct={setSelectedProduct}
-                        setShowProductUpdateForm={setShowProductUpdateForm}
-                        setShowProductDeleteDialog={setShowProductDeleteDialog}
-                    />
+        <AdminContext.Provider value={{ token, setToken }}>
+            <div id="adminPageContainer">
+                <h1>{pageHeader}</h1>
+                <div className="controlButtons">
                     <Button
-                        label="Add Product"
-                        onClick={() => setShowAddProductForm(true)}
-                    />
-                </>
-            )}
-
-            {/* RENDER THE CATEGORIES TABLE */}
-            {categories && <CategoriesDashboard categories={categories} />}
-
-            {/* RENDER THE ORDER ITEMS TABLE */}
-            {orderItems && <OrderItemsDashboard orderItems={orderItems} />}
-
-            {/* RENDER THE CARTS TABLE */}
-            {carts && <CartsDashboard carts={carts} />}
-
-            {/* RENDER THE CART ITEMS TABLE */}
-            {cartItems && <CartItemsDashboard cartItems={cartItems} />}
-            {/* RENDER THE DISCOUNTS TABLE */}
-            {discounts && (
-                <>
-                    <DiscountsDashboard
-                        discounts={discounts}
-                        setSelectedDiscount={setSelectedDiscount}
-                        setShowDiscountDeleteDialog={
-                            setShowDiscountDeleteDialog
-                        }
-                    />
-                    <Button
-                        label="Add Discount Code"
-                        onClick={() => setShowAddDiscountForm(true)}
-                    />
-                </>
-            )}
-
-            {/* RENDER THE ADD PRODUCT FORM */}
-            <Dialog
-                header="Add Product"
-                visible={showAddProductForm}
-                style={{ width: "50vw" }}
-                onHide={() => {
-                    setShowAddProductForm(false);
-                }}
-            >
-                <AddProductForm
-                    setShowAddProductForm={setShowAddProductForm}
-                    getAllProducts={() => hf.getAllProducts(setProducts, token)}
-                />
-            </Dialog>
-
-            {/* RENDER THE ADD DISCOUNT CODE FORM */}
-            <Dialog
-                header="Add Discount Code"
-                visible={showAddDiscountForm}
-                style={{ width: "50vw" }}
-                onHide={() => {
-                    setShowAddDiscountForm(false);
-                }}
-            >
-                <AddDiscountForm
-                    setShowAddDiscountForm={setShowAddDiscountForm}
-                    getAllDiscounts={() =>
-                        hf.getAllDiscounts(setDiscounts, token)
-                    }
-                />
-            </Dialog>
-
-            {/* RENDER THE USER UPDATE FORM */}
-            <Dialog
-                header="Update User"
-                visible={showUserUpdateForm}
-                style={{ width: "50vw" }}
-                onHide={() => setShowUserUpdateForm(false)}
-            >
-                {selectedUser && (
-                    <UserUpdateForm
-                        user={selectedUser}
-                        setShowUserUpdateForm={setShowUserUpdateForm}
-                        getAllUsers={() => {
+                        label="Get All Users"
+                        onClick={() => {
+                            closeAllTables("users");
+                            setPageHeader("All Users");
                             hf.getAllUsers(setUsers, token);
                         }}
                     />
-                )}
-            </Dialog>
-
-            {/* RENDER THE DELETE USER DIALOG */}
-            <ConfirmDialog
-                header="Delete User"
-                visible={showUserDeleteDialog}
-                onHide={() => setShowUserDeleteDialog(false)}
-                message="Are you sure you want to delete this user?"
-                accept={() => {
-                    setShowUserDeleteDialog(false);
-                    hf.deleteUser(selectedUser.user_id, setUsers, token);
-                }}
-            ></ConfirmDialog>
-
-            {/* RENDER THE DELETE DISCOUNT DIALOG */}
-            <ConfirmDialog
-                header="Delete Discount Code"
-                visible={showDiscountDeleteDialog}
-                onHide={() => setShowDiscountDeleteDialog(false)}
-                message="Are you sure you want to delete this discount code?"
-                accept={() => {
-                    hf.deleteDiscount(
-                        selectedDiscount.discount_code_id,
-                        setDiscounts,
-                        token
-                    );
-                    setShowDiscountDeleteDialog(false);
-                }}
-            ></ConfirmDialog>
-
-            {/* RENDER THE PRODUCT UPDATE FORM */}
-            <Dialog
-                header="Update Product"
-                visible={showProductUpdateForm}
-                style={{ width: "50vw" }}
-                onHide={() => setShowProductUpdateForm(false)}
-            >
-                {selectedProduct && (
-                    <ProductUpdateForm
-                        product={selectedProduct}
-                        setShowProductUpdateForm={setShowProductUpdateForm}
-                        getAllProducts={() => {
+                    <Button
+                        label="Get All Orders"
+                        onClick={() => {
+                            closeAllTables("orders");
+                            setPageHeader("All Orders");
+                            hf.getAllOrders(setOrders, token);
+                        }}
+                    />
+                    <Button
+                        label="Get All Products"
+                        onClick={() => {
+                            closeAllTables("products");
+                            setPageHeader("All Products");
                             hf.getAllProducts(setProducts, token);
                         }}
                     />
+                    <Button
+                        label="Get All Categories"
+                        onClick={() => {
+                            closeAllTables("categories");
+                            setPageHeader("All Categories");
+                            hf.getAllCategories(setCategories, token);
+                        }}
+                    />
+                    <Button
+                        label="Get All Order Items"
+                        onClick={() => {
+                            closeAllTables("orderItems");
+                            setPageHeader("All Order Items");
+                            hf.getAllOrderItems(setOrderItems, token);
+                        }}
+                    />
+                    <Button
+                        label="Get All Carts"
+                        onClick={() => {
+                            closeAllTables("carts");
+                            setPageHeader("All Carts");
+                            hf.getAllCarts(setCarts, token);
+                        }}
+                    />
+                    <Button
+                        label="Get All Discounts"
+                        onClick={() => {
+                            closeAllTables("discounts");
+                            setPageHeader("All Discounts");
+                            hf.getAllDiscounts(setDiscounts, token);
+                        }}
+                    />
+                    <Button
+                        label="Get All Cart Items"
+                        onClick={() => {
+                            closeAllTables("cartItems");
+                            setPageHeader("All Cart Items");
+                            hf.getAllCartItems(setCartItems, token);
+                        }}
+                    />
+                </div>
+                {/* RENDER THE USERS TABLE */}
+                {users && (
+                    <UsersDashboard
+                        users={users}
+                        setSelectedUser={setSelectedUser}
+                        setShowUserUpdateForm={setShowUserUpdateForm}
+                        setShowUserDeleteDialog={setShowUserDeleteDialog}
+                    />
                 )}
-            </Dialog>
+                {/* RENDER THE ORDERS TABLE */}
+                {orders && <OrdersDashboard orders={orders} />}
 
-            {/* RENDER THE DELETE PRODUCT DIALOG */}
-            <ConfirmDialog
-                header="Delete Product"
-                visible={showProductDeleteDialog}
-                onHide={() => setShowProductDeleteDialog(false)}
-                message="Are you sure you want to delete this product?"
-                accept={() => {
-                    hf.deleteProduct(
-                        selectedProduct.prod_id,
-                        setProducts,
-                        token
-                    );
-                    setShowProductDeleteDialog(false);
-                }}
-            ></ConfirmDialog>
-        </div>
+                {/* RENDER THE PRODUCTS TABLE */}
+                {products && (
+                    <>
+                        <ProductsDashboard
+                            products={products}
+                            setSelectedProduct={setSelectedProduct}
+                            setShowProductUpdateForm={setShowProductUpdateForm}
+                            setShowProductDeleteDialog={
+                                setShowProductDeleteDialog
+                            }
+                        />
+                        <Button
+                            label="Add Product"
+                            onClick={() => setShowAddProductForm(true)}
+                        />
+                    </>
+                )}
+
+                {/* RENDER THE CATEGORIES TABLE */}
+                {categories && <CategoriesDashboard categories={categories} />}
+
+                {/* RENDER THE ORDER ITEMS TABLE */}
+                {orderItems && <OrderItemsDashboard orderItems={orderItems} />}
+
+                {/* RENDER THE CARTS TABLE */}
+                {carts && <CartsDashboard carts={carts} />}
+
+                {/* RENDER THE CART ITEMS TABLE */}
+                {cartItems && <CartItemsDashboard cartItems={cartItems} />}
+                {/* RENDER THE DISCOUNTS TABLE */}
+                {discounts && (
+                    <>
+                        <DiscountsDashboard
+                            discounts={discounts}
+                            setSelectedDiscount={setSelectedDiscount}
+                            setShowDiscountDeleteDialog={
+                                setShowDiscountDeleteDialog
+                            }
+                        />
+                        <Button
+                            label="Add Discount Code"
+                            onClick={() => setShowAddDiscountForm(true)}
+                        />
+                    </>
+                )}
+
+                {/* RENDER THE ADD PRODUCT FORM */}
+                <Dialog
+                    header="Add Product"
+                    visible={showAddProductForm}
+                    style={{ width: "50vw" }}
+                    onHide={() => {
+                        setShowAddProductForm(false);
+                    }}
+                >
+                    <AddProductForm
+                        setShowAddProductForm={setShowAddProductForm}
+                        getAllProducts={() =>
+                            hf.getAllProducts(setProducts, token)
+                        }
+                    />
+                </Dialog>
+
+                {/* RENDER THE ADD DISCOUNT CODE FORM */}
+                <Dialog
+                    header="Add Discount Code"
+                    visible={showAddDiscountForm}
+                    style={{ width: "50vw" }}
+                    onHide={() => {
+                        setShowAddDiscountForm(false);
+                    }}
+                >
+                    <AddDiscountForm
+                        setShowAddDiscountForm={setShowAddDiscountForm}
+                        getAllDiscounts={() =>
+                            hf.getAllDiscounts(setDiscounts, token)
+                        }
+                    />
+                </Dialog>
+
+                {/* RENDER THE USER UPDATE FORM */}
+                <Dialog
+                    header="Update User"
+                    visible={showUserUpdateForm}
+                    style={{ width: "50vw" }}
+                    onHide={() => setShowUserUpdateForm(false)}
+                >
+                    {selectedUser && (
+                        <UserUpdateForm
+                            user={selectedUser}
+                            setShowUserUpdateForm={setShowUserUpdateForm}
+                            getAllUsers={() => {
+                                hf.getAllUsers(setUsers, token);
+                            }}
+                        />
+                    )}
+                </Dialog>
+
+                {/* RENDER THE DELETE USER DIALOG */}
+                <ConfirmDialog
+                    header="Delete User"
+                    visible={showUserDeleteDialog}
+                    onHide={() => setShowUserDeleteDialog(false)}
+                    message="Are you sure you want to delete this user?"
+                    accept={() => {
+                        setShowUserDeleteDialog(false);
+                        hf.deleteUser(selectedUser.user_id, setUsers, token);
+                    }}
+                ></ConfirmDialog>
+
+                {/* RENDER THE DELETE DISCOUNT DIALOG */}
+                <ConfirmDialog
+                    header="Delete Discount Code"
+                    visible={showDiscountDeleteDialog}
+                    onHide={() => setShowDiscountDeleteDialog(false)}
+                    message="Are you sure you want to delete this discount code?"
+                    accept={() => {
+                        hf.deleteDiscount(
+                            selectedDiscount.discount_code_id,
+                            setDiscounts,
+                            token
+                        );
+                        setShowDiscountDeleteDialog(false);
+                    }}
+                ></ConfirmDialog>
+
+                {/* RENDER THE PRODUCT UPDATE FORM */}
+                <Dialog
+                    header="Update Product"
+                    visible={showProductUpdateForm}
+                    style={{ width: "50vw" }}
+                    onHide={() => setShowProductUpdateForm(false)}
+                >
+                    {selectedProduct && (
+                        <ProductUpdateForm
+                            product={selectedProduct}
+                            setShowProductUpdateForm={setShowProductUpdateForm}
+                            getAllProducts={() => {
+                                hf.getAllProducts(setProducts, token);
+                            }}
+                        />
+                    )}
+                </Dialog>
+
+                {/* RENDER THE DELETE PRODUCT DIALOG */}
+                <ConfirmDialog
+                    header="Delete Product"
+                    visible={showProductDeleteDialog}
+                    onHide={() => setShowProductDeleteDialog(false)}
+                    message="Are you sure you want to delete this product?"
+                    accept={() => {
+                        hf.deleteProduct(
+                            selectedProduct.prod_id,
+                            setProducts,
+                            token
+                        );
+                        setShowProductDeleteDialog(false);
+                    }}
+                ></ConfirmDialog>
+            </div>
+        </AdminContext.Provider>
     );
 };
 
