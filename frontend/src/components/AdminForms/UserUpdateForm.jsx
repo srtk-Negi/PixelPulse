@@ -4,8 +4,11 @@ import { Formik, Form, ErrorMessage } from "formik";
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
 import { Button } from "primereact/button";
+import { useContext } from "react";
+import { AdminContext } from "../../pages/AdminHomePage";
 
 const UserUpdateForm = ({ user, setShowUserUpdateForm, getAllUsers }) => {
+    const { token, setToken } = useContext(AdminContext);
     return (
         <Formik
             initialValues={{
@@ -19,7 +22,7 @@ const UserUpdateForm = ({ user, setShowUserUpdateForm, getAllUsers }) => {
             }}
             onSubmit={async (values) => {
                 const headers = {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json",
                 };
                 try {

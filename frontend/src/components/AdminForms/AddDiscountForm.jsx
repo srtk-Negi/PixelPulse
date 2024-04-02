@@ -4,8 +4,12 @@ import React from "react";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { Calendar } from "primereact/calendar";
+import { useContext } from "react";
+import { AdminContext } from "../../pages/AdminHomePage";
 
 const AddDiscountForm = ({ setShowAddDiscountForm, getAllDiscounts }) => {
+    const { token, setToken } = useContext(AdminContext);
+
     return (
         <Formik
             initialValues={{
@@ -16,7 +20,7 @@ const AddDiscountForm = ({ setShowAddDiscountForm, getAllDiscounts }) => {
             }}
             onSubmit={async (values) => {
                 const headers = {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json",
                 };
                 try {

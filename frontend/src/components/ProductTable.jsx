@@ -4,9 +4,7 @@ import { Tag } from "primereact/tag";
 import axios from "axios";
 import { UserContext } from "../pages/HomePage";
 
-const ProductCard = ({ product }) => {
-    const { token, setToken } = useContext(UserContext);
-
+const ProductCard = ({ product, token }) => {
     let severity;
     let severityString;
     let stock = product.items_in_stock;
@@ -47,17 +45,18 @@ const ProductCard = ({ product }) => {
                     onClick={async () => {
                         const headers = {
                             Authorization: `Bearer ${token}`,
-                            "Content-Type": "application/json",
                         };
-                        console.log(headers);
+                        // console.log(headers);
                         try {
-                            const response = await axios.post(
-                                `/api/cart/${product.prod_id}`,
+                            const response = await axios.get(
+                                "/api/admin/products",
                                 {
                                     headers: headers,
                                 }
                             );
+                            console.log(response.data);
                         } catch (error) {
+                            console.error("Error adding to cart");
                             console.error(error);
                         }
                     }}
@@ -68,6 +67,8 @@ const ProductCard = ({ product }) => {
 };
 
 const ProductTable = ({ products, sortConstraint, availability }) => {
+    const { token, setToken } = useContext(UserContext);
+
     if (sortConstraint) {
         products.sort((a, b) => {
             if (sortConstraint === "Price: Low to High") {
@@ -91,7 +92,11 @@ const ProductTable = ({ products, sortConstraint, availability }) => {
     return (
         <div className="productTable">
             {products.map((product, index) => (
-                <ProductCard key={product.prod_id} product={product} />
+                <ProductCard
+                    key={product.prod_id}
+                    product={product}
+                    token={token}
+                />
             ))}
         </div>
     );
