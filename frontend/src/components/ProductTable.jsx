@@ -3,6 +3,7 @@ import { Button } from "primereact/button";
 import { Tag } from "primereact/tag";
 import axios from "axios";
 import { UserContext } from "../pages/HomePage";
+import { addToCart } from "../userHelperFunctions";
 
 const ProductCard = ({ product, token }) => {
     let severity;
@@ -42,24 +43,7 @@ const ProductCard = ({ product, token }) => {
                     icon="pi pi-shopping-cart"
                     disabled={stock === 0}
                     className="p-button-raised p-button-rounded"
-                    onClick={async () => {
-                        const headers = {
-                            Authorization: `Bearer ${token}`,
-                        };
-                        console.log(headers);
-                        try {
-                            const response = await axios.get(
-                                "/api/admin/products",
-                                {
-                                    headers: headers,
-                                }
-                            );
-                            console.log(response.data);
-                        } catch (error) {
-                            console.error("Error adding to cart");
-                            console.error(error);
-                        }
-                    }}
+                    onClick={() => addToCart(product.prod_id, token)}
                 />
             </div>
         </div>
