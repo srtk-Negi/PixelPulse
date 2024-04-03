@@ -34,8 +34,7 @@ const LoginPage = () => {
             setError(null);
             localStorage.setItem("token", response.data.access_token);
         } catch (error) {
-            setError(error.response.data.detail);
-            setSuccess(null);
+            throw error;
         }
     };
 
@@ -49,7 +48,7 @@ const LoginPage = () => {
                         email: "",
                         password: "",
                     }}
-                    onSubmit={async (values, { resetForm }) => {
+                    onSubmit={async (values) => {
                         try {
                             await handleLogin(values);
                             const decodedToken = parseJwt(
@@ -58,15 +57,15 @@ const LoginPage = () => {
 
                             if (decodedToken.user_type === "admin") {
                                 navigate("/admin");
-                            } else {
+                            } else if (decodedToken.user_type === "user") {
                                 navigate("/home");
+                            } else {
+                                console.error("Invalid user type");
                             }
                         } catch (error) {
-                            console.error(error);
                             setError(error.response.data.detail);
                             setSuccess(null);
                         }
-                        resetForm();
                     }}
                 >
                     {({ values, handleSubmit, handleChange }) => (
