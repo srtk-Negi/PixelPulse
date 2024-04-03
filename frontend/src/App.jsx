@@ -33,6 +33,7 @@ import "./assets/css/login.css";
 import "./assets/css/register.css";
 import "./assets/css/unauthorized.css";
 import "./assets/css/navbar.css";
+import "./assets/css/cart.css";
 
 const App = () => {
     return (

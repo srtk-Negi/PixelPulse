@@ -1,0 +1,32 @@
+@import "variables";
+
+.cart {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .cartItems {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+
+        .cartItem {
+            width: auto;
+            height: fit-content;
+
+            .prodImg {
+                width: 20rem;
+                height: fit-content;
+
+                img {
+                    width: 100%;
+                    height: fit-content;
+                }
+            }
+        }
+    }
+}

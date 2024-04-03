@@ -193,6 +193,8 @@ class CartItemResponse(BaseModel):
     total_price: float
     price: float
     image_url: str
+    category: str
+    description: str
 
     class Config:
         from_attributes = True

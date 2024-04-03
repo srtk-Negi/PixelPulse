@@ -1,6 +1,51 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Button } from "primereact/button";
+import { Card } from "primereact/card";
+
+const removeFromCart = (prod_id) => {
+    console.log(prod_id);
+};
+
+const ItemCard = ({ item }) => {
+    const header = (
+        <div className="prodImg">
+            <img
+                alt="Card"
+                src={item.image_url}
+                onError={(e) =>
+                    (e.target.src =
+                        "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
+                }
+            />
+        </div>
+    );
+    const footer = (
+        <>
+            <Button label={item.price} />
+            <Button
+                label="Remove from Cart"
+                icon="pi pi-trash"
+                className="p-button-raised p-button-rounded p-button-danger"
+                onClick={() => removeFromCart(item.prod_id)}
+            />
+        </>
+    );
+
+    return (
+        <div className="cartItem">
+            <Card
+                title={item.prod_name}
+                subTitle={item.category}
+                style={{ width: "25rem" }}
+                footer={footer}
+                header={header}
+            >
+                {item.description}
+            </Card>
+        </div>
+    );
+};
 
 const Cart = () => {
     const [cart, setCart] = useState([]);
@@ -15,45 +60,16 @@ const Cart = () => {
                 },
             });
             setCart(response.data);
-            console.log(response.data);
         };
         fetchCart();
     }, []);
-
-    const removeFromCart = async (prod_id) => {
-        const response = await fetch(`/api/cart/${prod_id}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-        });
-
-        const data = await response.json();
-        setCart(data.cart);
-        setTotal(data.total);
-    };
 
     return (
         <div className="cart">
             <h1>Cart</h1>
             <div className="cartItems">
                 {cart.map((item) => (
-                    <div key={item.prod_id} className="cartItem">
-                        <div className="cartImg">
-                            <img src={item.image_url} alt={item.name} />
-                        </div>
-                        <div className="cartDetails">
-                            <div className="cartName">{item.name}</div>
-                            <div className="cartPrice">${item.price}</div>
-                            <Button
-                                label="Remove"
-                                icon="pi pi-trash"
-                                className="p-button-raised p-button-rounded"
-                                onClick={() => removeFromCart(item.prod_id)}
-                            />
-                        </div>
-                    </div>
+                    <ItemCard item={item} key={item.prod_id} />
                 ))}
             </div>
             <div className="total">

@@ -45,6 +45,8 @@ def get_cart_items(
             cart_item_id=cart_item.cart_item_id,
             prod_id=cart_item.prod_id,
             prod_name=cart_item.prod_name,
+            category=product.category,
+            description=product.description,
             quantity=cart_item.quantity,
             total_price=cart_item.total_price,
             price=product.price,
