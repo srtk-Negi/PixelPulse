@@ -7,7 +7,7 @@ from ..OAuth import get_current_user
 router = APIRouter()
 
 
-@router.get("/cartsItems", response_model=list[schemas.CartItemResponse])
+@router.get("/cartItems", response_model=list[schemas.CartItemResponse])
 def get_cart_items(
     db: Session = Depends(get_db), current_user=Depends(get_current_user)
 ):
@@ -31,13 +31,27 @@ def get_cart_items(
 
     cart_items = db.query(models.CartItem).filter_by(cart_id=cart.cart_id).all()
 
+
     if not cart_items:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="No items found in the cart.",
         )
-
-    return cart_items
+    
+    results = []
+    for cart_item in cart_items:
+        product = db.query(models.Product).filter_by(prod_id=cart_item.prod_id).first()
+        new_cart_item = schemas.CartItemResponse(
+            cart_item_id=cart_item.cart_item_id,
+            prod_id=cart_item.prod_id,
+            prod_name=cart_item.prod_name,
+            quantity=cart_item.quantity,
+            total_price=cart_item.total_price,
+            price=product.price,
+            image_url=product.image_url,
+        )
+        results.append(new_cart_item)
+    return results
 
 
 @router.post("/{prod_id}")

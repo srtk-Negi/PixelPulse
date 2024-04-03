@@ -129,14 +129,13 @@ export const deleteUser = async (userId, setUsers, token) => {
         await axios.delete(`/api/admin/users/delete/${userId}`, {
             headers: headers,
         });
-        getAllUsers(setUsers, token);
+        getAllUsers(setUsers);
     } catch (error) {
         console.error(error);
     }
 };
 
 export const deleteProduct = async (productId, setProducts, token) => {
-    console.log(token);
     const headers = {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -145,7 +144,7 @@ export const deleteProduct = async (productId, setProducts, token) => {
         await axios.delete(`/api/admin/products/delete/${productId}`, {
             headers: headers,
         });
-        getAllProducts(setProducts, token);
+        getAllProducts(setProducts);
     } catch (error) {
         console.error(error);
     }
@@ -160,7 +159,7 @@ export const deleteDiscount = async (discountId, setDiscounts, token) => {
         await axios.delete(`/api/admin/discounts/delete/${discountId}`, {
             headers: headers,
         });
-        getAllDiscounts(setDiscounts, token);
+        getAllDiscounts(setDiscounts);
     } catch (error) {
         console.error(error);
     }
