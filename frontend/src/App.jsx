@@ -23,6 +23,7 @@ import ErrorPage from "./pages/ErrorPage";
 import HomePage from "./pages/HomePage";
 import AdminHomePage from "./pages/AdminHomePage";
 import Unauthorized from "./pages/Unauthorized";
+import Cart from "./pages/Cart";
 
 //STYLES IMPORTS
 import "./assets/css/adminHomePage.css";
@@ -47,6 +48,14 @@ const App = () => {
                             element={
                                 <Layout navType="user">
                                     <HomePage />
+                                </Layout>
+                            }
+                        />
+                        <Route
+                            path="/cart"
+                            element={
+                                <Layout navType="user">
+                                    <Cart />
                                 </Layout>
                             }
                         />
