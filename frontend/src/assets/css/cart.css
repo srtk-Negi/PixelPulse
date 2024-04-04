@@ -6,30 +6,32 @@
 
 .cart {
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
+.cart h1 {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  color: #fffffe;
+}
 .cart .cartItems {
   width: 100%;
+  padding: 10px;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
 }
 .cart .cartItems .cartItem {
-  width: auto;
-  height: -moz-fit-content;
-  height: fit-content;
+  margin: 20px;
 }
-.cart .cartItems .cartItem .prodImg {
-  width: 20rem;
-  height: -moz-fit-content;
-  height: fit-content;
-}
-.cart .cartItems .cartItem .prodImg img {
-  width: 100%;
-  height: -moz-fit-content;
-  height: fit-content;
+.cart .cartItems .cartItem img {
+  width: 100px;
+  height: auto;
+  margin-top: 10px;
+  margin-left: 10px;
 }/*# sourceMappingURL=cart.css.map */
