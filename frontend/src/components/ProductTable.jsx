@@ -5,14 +5,13 @@ import axios from "axios";
 
 export const addToCart = async (prod_id) => {
     const headers = {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
     };
     try {
-        console.log(headers);
-        await axios.post(`/api/cart/carts/${prod_id}`, {
-            headers,
+        await axios.post(`/api/cart/carts/${prod_id}`, null, {
+            headers: headers,
         });
-        console.log(response.data);
     } catch (error) {
         console.error("Error adding to cart");
         console.error(error);

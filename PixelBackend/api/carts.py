@@ -109,7 +109,6 @@ def add_to_cart(
         dict: A message indicating success or failure.
     """
     user_id = current_user.user_id
-    print(user_id)
     cart = db.query(models.Cart).filter_by(user_id=user_id).first()
 
     if not cart:

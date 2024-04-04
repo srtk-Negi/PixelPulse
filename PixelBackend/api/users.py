@@ -81,7 +81,7 @@ def update_user(user_id: int, user: schemas.User, db: Session = Depends(get_db))
 
 @router.get("/me")
 def get_user(db: Session = Depends(get_db), current_user=Depends(get_current_user)):
-    """Get a user by id.
+    """Get the current user.
 
     Args:
         db (Session): The database session.
