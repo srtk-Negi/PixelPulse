@@ -8,14 +8,40 @@
     align-items: center;
     flex-direction: column;
 
+    .mainContent {
+        display: flex;
+        margin: 20px;
+
+        .cartSummary {
+            width: 30%;
+            padding: 10px;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: $main-text-color;
+            background-color: $login-register-card-color;
+            border-radius: 30px;
+            box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+            margin: 2rem 0;
+        }
+    }
+
     h1 {
         font-size: 4rem;
         margin-bottom: 20px;
         color: $main-text-color;
     }
 
+    .total {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        color: $main-text-color;
+    }
+
     .cartItems {
-        width: 100%;
+        width: 70%;
         padding: 10px;
         height: 100%;
         display: flex;
