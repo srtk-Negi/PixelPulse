@@ -14,32 +14,12 @@
 }
 .cart .mainContent {
   display: flex;
-}
-.cart .mainContent .cartSummary {
-  width: 30%;
-  padding: 10px;
+  width: 100%;
   height: 100%;
-  display: flex;
+  max-width: 120rem;
   justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  color: #fffffe;
-  background-color: #271c19;
-  border-radius: 30px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-  margin: 2rem 0;
 }
-.cart h1 {
-  font-size: 4rem;
-  margin-bottom: 20px;
-  color: #fffffe;
-}
-.cart .total {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: #fffffe;
-}
-.cart .cartItems {
+.cart .mainContent .cartItemsContainer {
   width: 70%;
   height: 100%;
   display: flex;
@@ -47,9 +27,9 @@
   align-items: center;
   flex-wrap: wrap;
 }
-.cart .cartItems .cartItem {
-  width: 30rem;
-  height: 15rem;
+.cart .mainContent .cartItemsContainer .cartItem {
+  width: 22rem;
+  height: 13rem;
   background-color: #fffffe;
   color: black;
   border-radius: 30px;
@@ -59,28 +39,56 @@
   align-items: center;
   justify-content: center;
 }
-.cart .cartItems .cartItem .imageContainer {
+.cart .mainContent .cartItemsContainer .cartItem .imageContainer {
   height: 100%;
   width: 30%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.cart .cartItems .cartItem .body {
+.cart .mainContent .cartItemsContainer .cartItem .body {
   height: 100%;
   width: 70%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   padding: 1rem;
 }
-.cart .cartItems .cartItem .footer {
+.cart .mainContent .cartItemsContainer .cartItem .body h2 {
+  margin: 0;
+}
+.cart .mainContent .cartItemsContainer .cartItem .footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-top: 0;
+  width: 50%;
+  justify-content: space-between;
 }
-.cart .cartItems .cartItem img {
+.cart .mainContent .cartItemsContainer .cartItem img {
   width: 100px;
   height: auto;
+}
+.cart .mainContent .cartSummaryContainer {
+  width: 30%;
+  padding: 2rem;
+}
+.cart .mainContent .cartSummaryContainer .cartSummary {
+  width: 100%;
+  background-color: #271c19;
+  color: #fffffe;
+  border-radius: 30px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.cart .mainContent .cartSummaryContainer .cartSummary h3 {
+  font-size: 2rem;
+}
+.cart h1 {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  color: #fffffe;
 }/*# sourceMappingURL=cart.css.map */
