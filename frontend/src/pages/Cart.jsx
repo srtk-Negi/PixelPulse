@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Button } from "primereact/button";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const removeFromCart = (prod_id) => {
     console.log(prod_id);
@@ -88,28 +89,35 @@ const Cart = () => {
 
     return (
         <div className="cart">
-            <h1>
-                <i
-                    className="pi pi-shopping-cart"
-                    style={{
-                        marginRight: "1rem",
-                        fontSize: "3rem",
-                    }}
-                />
-                Cart
-            </h1>
-            <div className="mainContent">
-                <div className="cartItemsContainer">
-                    {cart.map((item) => {
-                        prices.push(item.price);
-                        prodNames.push(item.prod_name);
-                        return <ItemCard item={item} key={item.prod_id} />;
-                    })}
-                </div>
-                <div className="cartSummaryContainer">
-                    <CartSummary total={total} prodNames={prodNames} />
-                </div>
-            </div>
+            {cart.length == 0 && <LoadingSpinner />}
+            {cart.length > 0 && (
+                <>
+                    <h1>
+                        <i
+                            className="pi pi-shopping-cart"
+                            style={{
+                                marginRight: "1rem",
+                                fontSize: "3rem",
+                            }}
+                        />
+                        Cart
+                    </h1>
+                    <div className="mainContent">
+                        <div className="cartItemsContainer">
+                            {cart.map((item) => {
+                                prices.push(item.price);
+                                prodNames.push(item.prod_name);
+                                return (
+                                    <ItemCard item={item} key={item.prod_id} />
+                                );
+                            })}
+                        </div>
+                        <div className="cartSummaryContainer">
+                            <CartSummary total={total} prodNames={prodNames} />
+                        </div>
+                    </div>
+                </>
+            )}
         </div>
     );
 };
