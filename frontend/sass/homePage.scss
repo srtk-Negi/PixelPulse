@@ -5,11 +5,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     color: $main-text-color;
-    width: 70%;
+    width: 80%;
+    max-width: 120rem;
 
     .filters {
         width: 100%;
+        max-width: 100rem;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -26,29 +29,34 @@
         margin-top: 3rem;
         margin-bottom: 3rem;
         display: flex;
-        flex-direction: column;
+        flex-wrap: wrap;
         align-items: center;
+        justify-content: center;
         color: $main-text-color;
         width: 100%;
+        max-width: 110rem;
 
         .productCard {
             display: flex;
             justify-content: space-around;
-            width: 100%;
-            height: auto;
+            width: 40%;
+            margin: 2rem;
+            height: 25rem;
             background-color: $login-register-card-color;
             border-radius: 30px;
             box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-            margin: 2rem 0;
 
             .productImg {
-                width: 376px;
+                width: 250px;
                 height: auto;
                 border-radius: 10px;
                 margin: 2rem 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
 
                 img {
-                    width: 100%;
+                    width: 180px;
                     height: auto;
                     border-radius: 10px;
                 }
@@ -58,6 +66,7 @@
                 display: flex;
                 flex-direction: column;
                 align-items: flex-start;
+                justify-content: center;
                 width: 50%;
                 margin: 2rem 0;
 
@@ -73,9 +82,9 @@
                 }
 
                 .priceStock {
-                    margin: 1.5rem 0;
+                    margin: 1rem 0;
                     display: flex;
-                    width: 40%;
+                    width: 100%;
                     justify-content: space-around;
 
                     .price {
