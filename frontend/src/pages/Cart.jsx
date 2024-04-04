@@ -99,7 +99,8 @@ const Cart = () => {
     return (
         <div className="cart">
             {!cart && <LoadingSpinner />}
-            {cart && (
+            {cart && cart.length === 0 && <h1>Your cart is empty</h1>}
+            {cart && cart.length > 0 && (
                 <>
                     <h1>
                         <i
