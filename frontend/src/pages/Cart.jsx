@@ -8,39 +8,29 @@ const removeFromCart = (prod_id) => {
 };
 
 const ItemCard = ({ item }) => {
-    const header = <img alt="Card" src={item.image_url} />;
+    const image = (
+        <div className="imageContainer">
+            <img alt="Card" src={item.image_url} />
+        </div>
+    );
     const footer = (
-        <>
+        <div className="footer">
             <h3>${item.price}</h3>
             <Button
-                label="Remove from Cart"
                 icon="pi pi-trash"
                 className="p-button-raised p-button-rounded p-button-danger"
                 onClick={() => removeFromCart(item.prod_id)}
             />
-        </>
+        </div>
     );
 
     return (
         <div className="cartItem">
-            <Card
-                title={item.prod_name}
-                subTitle={item.category}
-                style={{
-                    width: "25rem",
-                    height: "32rem",
-                    borderRadius: "2rem",
-                    margin: "1rem",
-                    padding: "1rem",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-evenly",
-                }}
-                header={header}
-                footer={footer}
-            >
+            {image}
+            <div className="body">
                 {item.description}
-            </Card>
+                {footer}
+            </div>
         </div>
     );
 };
