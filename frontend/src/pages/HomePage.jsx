@@ -17,6 +17,7 @@ const HomePage = () => {
     const [sortConstraint, setSortConstraint] = useState(null);
     const [availability, setAvailability] = useState(null);
     const [token, setToken] = useState(localStorage.getItem("token"));
+    const [user, setUser] = useState(null);
 
     const categories = [
         { label: "All", value: null },
@@ -59,8 +60,24 @@ const HomePage = () => {
         }
     };
 
+    const getUser = async () => {
+        const headers = {
+            Authorization: `Bearer ${token}`,
+        };
+        try {
+            const { data } = await axios.get("/api/user/me", {
+                headers: headers,
+            });
+            setUser(data);
+        } catch (error) {
+            console.error("Error getting user data");
+            console.error(error);
+        }
+    };
+
     useEffect(() => {
         getAllProducts(category, search);
+        getUser();
     }, [category, search]);
 
     return (
@@ -83,6 +100,7 @@ const HomePage = () => {
                 )}
                 {!loading && !errorMessage && (
                     <>
+                        <h1>Welcome {user}</h1>
                         <div className="filters">
                             <div className="dropdowns">
                                 <Dropdown

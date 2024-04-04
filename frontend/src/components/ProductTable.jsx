@@ -1,11 +1,25 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Button } from "primereact/button";
 import { Tag } from "primereact/tag";
 import axios from "axios";
-import { UserContext } from "../pages/HomePage";
-import { addToCart } from "../userHelperFunctions";
 
-const ProductCard = ({ product, token }) => {
+export const addToCart = async (prod_id) => {
+    const headers = {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
+    try {
+        console.log(headers);
+        await axios.post(`/api/cart/carts/${prod_id}`, {
+            headers,
+        });
+        console.log(response.data);
+    } catch (error) {
+        console.error("Error adding to cart");
+        console.error(error);
+    }
+};
+
+const ProductCard = ({ product }) => {
     let severity;
     let severityString;
     let stock = product.items_in_stock;
@@ -43,7 +57,7 @@ const ProductCard = ({ product, token }) => {
                     icon="pi pi-shopping-cart"
                     disabled={stock === 0}
                     className="p-button-raised p-button-rounded"
-                    onClick={() => addToCart(product.prod_id, token)}
+                    onClick={() => addToCart(product.prod_id)}
                 />
             </div>
         </div>
@@ -51,8 +65,6 @@ const ProductCard = ({ product, token }) => {
 };
 
 const ProductTable = ({ products, sortConstraint, availability }) => {
-    const { token, setToken } = useContext(UserContext);
-
     if (sortConstraint) {
         products.sort((a, b) => {
             if (sortConstraint === "Price: Low to High") {
@@ -76,11 +88,7 @@ const ProductTable = ({ products, sortConstraint, availability }) => {
     return (
         <div className="productTable">
             {products.map((product, index) => (
-                <ProductCard
-                    key={product.prod_id}
-                    product={product}
-                    token={token}
-                />
+                <ProductCard key={product.prod_id} product={product} />
             ))}
         </div>
     );

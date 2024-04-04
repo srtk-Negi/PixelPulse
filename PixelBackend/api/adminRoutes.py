@@ -540,4 +540,21 @@ def get_cart_items(
         .group_by(models.CartItem.cart_item_id, models.CartItem.cart_id)
         .all()
     )
-    return cart_items
+
+    results = []
+    for cart_item in cart_items:
+        product = db.query(models.Product).filter_by(prod_id=cart_item.prod_id).first()
+        new_cart_item = schemas.CartItemResponse(
+            cart_item_id=cart_item.cart_item_id,
+            cart_id=cart_item.cart_id,
+            prod_id=cart_item.prod_id,
+            prod_name=cart_item.prod_name,
+            category=product.category,
+            description=product.description,
+            quantity=cart_item.quantity,
+            total_price=cart_item.total_price,
+            price=product.price,
+            image_url=product.image_url,
+        )
+        results.append(new_cart_item)
+    return results

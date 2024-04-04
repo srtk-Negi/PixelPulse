@@ -3,11 +3,19 @@ import axios from "axios";
 import { Button } from "primereact/button";
 import LoadingSpinner from "../components/LoadingSpinner";
 
-const removeFromCart = (prod_id) => {
-    console.log(prod_id);
+const removeFromCart = async (cart_item_id, fetchCart) => {
+    const headers = {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
+    try {
+        await axios.delete(`/api/cart/carts/${cart_item_id}`, { headers });
+    } catch (error) {
+        console.error(error);
+    }
+    fetchCart();
 };
 
-const ItemCard = ({ item }) => {
+const ItemCard = ({ item, fetchCart }) => {
     const image = (
         <div className="imageContainer">
             <img alt="Card" src={item.image_url} />
@@ -19,7 +27,7 @@ const ItemCard = ({ item }) => {
             <Button
                 icon="pi pi-trash"
                 className="p-button-raised p-button-rounded p-button-danger"
-                onClick={() => removeFromCart(item.prod_id)}
+                onClick={() => removeFromCart(item.cart_item_id, fetchCart)}
             />
         </div>
     );
@@ -57,7 +65,7 @@ const CartSummary = ({ total, prodNames }) => {
 };
 
 const Cart = () => {
-    const [cart, setCart] = useState([]);
+    const [cart, setCart] = useState();
     const [total, setTotal] = useState(0);
     const token = localStorage.getItem("token");
     const prices = [];
@@ -71,15 +79,16 @@ const Cart = () => {
         setTotal(sum);
     };
 
+    const fetchCart = async () => {
+        const response = await axios.get("/api/cart/cartItems", {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        setCart(response.data);
+    };
+
     useEffect(() => {
-        const fetchCart = async () => {
-            const response = await axios.get("/api/cart/cartItems", {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            setCart(response.data);
-        };
         fetchCart();
     }, []);
 
@@ -89,8 +98,8 @@ const Cart = () => {
 
     return (
         <div className="cart">
-            {cart.length == 0 && <LoadingSpinner />}
-            {cart.length > 0 && (
+            {!cart && <LoadingSpinner />}
+            {cart && (
                 <>
                     <h1>
                         <i
@@ -108,7 +117,11 @@ const Cart = () => {
                                 prices.push(item.price);
                                 prodNames.push(item.prod_name);
                                 return (
-                                    <ItemCard item={item} key={item.prod_id} />
+                                    <ItemCard
+                                        item={item}
+                                        key={item.prod_id}
+                                        fetchCart={fetchCart}
+                                    />
                                 );
                             })}
                         </div>
