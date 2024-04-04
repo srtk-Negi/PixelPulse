@@ -1,7 +1,5 @@
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { formatLocalISODate } from "../adminHelperFunctions";
-
 
 const CartItemsDashboard = ({ cartItems }) => {
     return (
@@ -19,12 +17,8 @@ const CartItemsDashboard = ({ cartItems }) => {
                 <Column field="prod_id" header="Product ID" />
                 <Column field="prod_name" header="Product Name" />
                 <Column field="quantity" header="Quantity" />
+                <Column field="price" header="Price" />
                 <Column field="total_price" header="Total Price" />
-                <Column
-                    field="created_at"
-                    header="Created At"
-                    body={(rowData) => formatLocalISODate(rowData.created_at)}
-                />
             </DataTable>
         </div>
     );

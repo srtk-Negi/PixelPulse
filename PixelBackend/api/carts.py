@@ -31,18 +31,15 @@ def get_cart_items(
 
     cart_items = db.query(models.CartItem).filter_by(cart_id=cart.cart_id).all()
 
-
     if not cart_items:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="No items found in the cart.",
-        )
-    
+        return []
+
     results = []
     for cart_item in cart_items:
         product = db.query(models.Product).filter_by(prod_id=cart_item.prod_id).first()
         new_cart_item = schemas.CartItemResponse(
             cart_item_id=cart_item.cart_item_id,
+            cart_id=cart_item.cart_id,
             prod_id=cart_item.prod_id,
             prod_name=cart_item.prod_name,
             category=product.category,
@@ -56,7 +53,46 @@ def get_cart_items(
     return results
 
 
-@router.post("/{prod_id}")
+@router.delete("/carts/{cart_item_id}")
+def delete_cart_item(
+    cart_item_id: int,
+    db: Session = Depends(get_db),
+    current_user=Depends(get_current_user),
+):
+    """Delete a cart item from the database.
+
+    Args:
+        cart_item_id (int): The id of the cart item to delete.
+        db (Session): The database session.
+        current_user (dict): The current user.
+
+    Returns:
+        dict: A message indicating success or failure.
+    """
+    user_id = current_user.user_id
+    cart = db.query(models.Cart).filter_by(user_id=user_id).first()
+
+    if not cart:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Cart not found for the user.",
+        )
+
+    cart_item = db.query(models.CartItem).filter_by(cart_item_id=cart_item_id).first()
+
+    if not cart_item:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Cart item not found.",
+        )
+
+    db.delete(cart_item)
+    db.commit()
+
+    return {"message": "Cart item deleted successfully."}
+
+
+@router.post("/carts/{prod_id}")
 def add_to_cart(
     prod_id: int,
     db: Session = Depends(get_db),

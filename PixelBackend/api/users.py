@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from .. import schemas, models
 from ..database import get_db
 from ..utils import hash_password
+from ..OAuth import get_current_user
 
 router = APIRouter()
 
@@ -76,3 +77,25 @@ def update_user(user_id: int, user: schemas.User, db: Session = Depends(get_db))
     db.commit()
 
     return db_user_query.first()
+
+
+@router.get("/me")
+def get_user(db: Session = Depends(get_db), current_user=Depends(get_current_user)):
+    """Get a user by id.
+
+    Args:
+        db (Session): The database session.
+        current_user (dict): The current user.
+
+    Returns:
+        schemas.UserResponse: The user that was retrieved.
+    """
+    user_id = current_user.user_id
+    db_user = db.query(models.User).filter(models.User.user_id == user_id).first()
+
+    if not db_user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
+        )
+
+    return db_user.first_name

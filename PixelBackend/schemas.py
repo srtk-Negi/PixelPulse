@@ -187,6 +187,7 @@ class CartItem(BaseModel):
 
 class CartItemResponse(BaseModel):
     cart_item_id: int
+    cart_id: int
     prod_id: int
     prod_name: str
     quantity: int
