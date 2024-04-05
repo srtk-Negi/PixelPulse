@@ -165,7 +165,10 @@ const Cart = () => {
                             onHide={() => setShowCheckoutDialog(false)}
                             style={{ width: "50vw" }}
                         >
-                            <CheckoutDialog />
+                            <CheckoutDialog
+                                setShowCheckoutDialog={setShowCheckoutDialog}
+                                cartTotal={total}
+                            />
                         </Dialog>
                     }
                 </>
