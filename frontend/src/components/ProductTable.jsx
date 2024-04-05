@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Button } from "primereact/button";
 import { Tag } from "primereact/tag";
 import axios from "axios";
+import { Toast } from "primereact/toast";
 
 export const addToCart = async (prod_id) => {
     const headers = {
@@ -13,12 +14,11 @@ export const addToCart = async (prod_id) => {
             headers: headers,
         });
     } catch (error) {
-        console.error("Error adding to cart");
-        console.error(error);
+        throw error;
     }
 };
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, showProductAdded, prodAddWarning }) => {
     let severity;
     let severityString;
     let stock = product.items_in_stock;
@@ -56,7 +56,11 @@ const ProductCard = ({ product }) => {
                     icon="pi pi-shopping-cart"
                     disabled={stock === 0}
                     className="p-button-raised p-button-rounded"
-                    onClick={() => addToCart(product.prod_id)}
+                    onClick={() => {
+                        addToCart(product.prod_id)
+                            .then(() => showProductAdded(product.name))
+                            .catch(() => prodAddWarning(product.name));
+                    }}
                 />
             </div>
         </div>
@@ -64,6 +68,26 @@ const ProductCard = ({ product }) => {
 };
 
 const ProductTable = ({ products, sortConstraint, availability }) => {
+    const toast = useRef(null);
+
+    const showProductAdded = (prod_name) => {
+        toast.current.show({
+            severity: "success",
+            summary: "Success",
+            detail: `${prod_name} added to cart!`,
+            life: 3000,
+        });
+    };
+
+    const prodAddWarning = (prod_name) => {
+        toast.current.show({
+            severity: "error",
+            summary: "Error",
+            detail: `${prod_name} already exists in the cart!`,
+            life: 3000,
+        });
+    };
+
     if (sortConstraint) {
         products.sort((a, b) => {
             if (sortConstraint === "Price: Low to High") {
@@ -86,8 +110,14 @@ const ProductTable = ({ products, sortConstraint, availability }) => {
 
     return (
         <div className="productTable">
+            <Toast ref={toast} />
             {products.map((product, index) => (
-                <ProductCard key={product.prod_id} product={product} />
+                <ProductCard
+                    key={product.prod_id}
+                    product={product}
+                    showProductAdded={showProductAdded}
+                    prodAddWarning={prodAddWarning}
+                />
             ))}
         </div>
     );

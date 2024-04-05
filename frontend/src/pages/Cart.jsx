@@ -4,6 +4,7 @@ import { Button } from "primereact/button";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { Dialog } from "primereact/dialog";
 import { ConfirmDialog } from "primereact/confirmdialog";
+import CheckoutDialog from "../components/CheckoutDialog";
 
 const removeFromCart = async (cart_item_id, fetchCart) => {
     const headers = {
@@ -47,7 +48,7 @@ const ItemCard = ({ item, setShowRemoveProductDialog }) => {
     );
 };
 
-const CartSummary = ({ total, prodNames }) => {
+const CartSummary = ({ total, prodNames, setShowCheckoutDialog }) => {
     return (
         <div className="cartSummary">
             <h2>Summary</h2>
@@ -61,6 +62,7 @@ const CartSummary = ({ total, prodNames }) => {
                 label="Proceed to Checkout"
                 icon="pi pi-shopping-cart"
                 className="p-button-raised p-button-rounded p-button-success"
+                onClick={() => setShowCheckoutDialog(true)}
             />
         </div>
     );
@@ -69,7 +71,6 @@ const CartSummary = ({ total, prodNames }) => {
 const Cart = () => {
     const [cart, setCart] = useState();
     const [total, setTotal] = useState(0);
-    const [selectedProduct, setSelectedProduct] = useState({});
     const [showCheckoutDialog, setShowCheckoutDialog] = useState(false);
     const [showRemoveProductDialog, setShowRemoveProductDialog] =
         useState(false);
@@ -135,7 +136,11 @@ const Cart = () => {
                             })}
                         </div>
                         <div className="cartSummaryContainer">
-                            <CartSummary total={total} prodNames={prodNames} />
+                            <CartSummary
+                                total={total}
+                                prodNames={prodNames}
+                                setShowCheckoutDialog={setShowCheckoutDialog}
+                            />
                         </div>
                     </div>
                     {
@@ -152,6 +157,16 @@ const Cart = () => {
                             }}
                             reject={() => setShowRemoveProductDialog(false)}
                         />
+                    }
+                    {
+                        <Dialog
+                            header="Checkout"
+                            visible={showCheckoutDialog}
+                            onHide={() => setShowCheckoutDialog(false)}
+                            style={{ width: "50vw" }}
+                        >
+                            <CheckoutDialog />
+                        </Dialog>
                     }
                 </>
             )}
