@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Button } from "primereact/button";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { Dialog } from "primereact/dialog";
+import { ConfirmDialog } from "primereact/confirmdialog";
 
 const removeFromCart = async (cart_item_id, fetchCart) => {
     const headers = {
@@ -15,7 +17,7 @@ const removeFromCart = async (cart_item_id, fetchCart) => {
     fetchCart();
 };
 
-const ItemCard = ({ item, fetchCart }) => {
+const ItemCard = ({ item, setShowRemoveProductDialog }) => {
     const image = (
         <div className="imageContainer">
             <img alt="Card" src={item.image_url} />
@@ -27,7 +29,7 @@ const ItemCard = ({ item, fetchCart }) => {
             <Button
                 icon="pi pi-trash"
                 className="p-button-raised p-button-rounded p-button-danger"
-                onClick={() => removeFromCart(item.cart_item_id, fetchCart)}
+                onClick={() => setShowRemoveProductDialog(true)}
             />
         </div>
     );
@@ -67,6 +69,10 @@ const CartSummary = ({ total, prodNames }) => {
 const Cart = () => {
     const [cart, setCart] = useState();
     const [total, setTotal] = useState(0);
+    const [selectedProduct, setSelectedProduct] = useState({});
+    const [showCheckoutDialog, setShowCheckoutDialog] = useState(false);
+    const [showRemoveProductDialog, setShowRemoveProductDialog] =
+        useState(false);
     const token = localStorage.getItem("token");
     const prices = [];
     const prodNames = [];
@@ -121,7 +127,9 @@ const Cart = () => {
                                     <ItemCard
                                         item={item}
                                         key={item.prod_id}
-                                        fetchCart={fetchCart}
+                                        setShowRemoveProductDialog={
+                                            setShowRemoveProductDialog
+                                        }
                                     />
                                 );
                             })}
@@ -130,6 +138,21 @@ const Cart = () => {
                             <CartSummary total={total} prodNames={prodNames} />
                         </div>
                     </div>
+                    {
+                        <ConfirmDialog
+                            header="Remove Product"
+                            visible={showRemoveProductDialog}
+                            onHide={() => setShowRemoveProductDialog(false)}
+                            message="Are you sure you want to remove this product from your cart?"
+                            icon="pi pi-exclamation-triangle"
+                            acceptClassName="p-button-danger"
+                            accept={() => {
+                                removeFromCart(cart[0].cart_item_id, fetchCart);
+                                setShowRemoveProductDialog(false);
+                            }}
+                            reject={() => setShowRemoveProductDialog(false)}
+                        />
+                    }
                 </>
             )}
         </div>
