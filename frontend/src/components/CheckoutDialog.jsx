@@ -1,30 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { Formik, Form, ErrorMessage } from "formik";
 import { creditCardSchema } from "../schemas";
 
-const placeOrder = async (cart, token) => {
-    const headers = {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-    };
-    try {
-        const { data } = await axios.post(
-            "/api/order/placeorder",
-            { cart },
-            { headers: headers }
-        );
-        return data;
-    } catch (error) {
-        return error.response.data.detail;
-    }
-};
-
-const CheckoutDialog = ({ setShowCheckoutDialog, cartTotal }) => {
+const CheckoutDialog = ({
+    setShowCheckoutDialog,
+    cartTotal,
+    handlePlaceOrder,
+}) => {
     const tax = 8.25;
-    const taxAmount = parseFloat((cartTotal * (tax / 100)).toFixed(2));
-    const total = cartTotal + taxAmount;
+    const [taxAmount, setTaxAmount] = useState(0);
+    const [total, setTotal] = useState(0);
+    const [discount, setDiscount] = useState(0);
+
+    useEffect(() => {
+        setTaxAmount(parseFloat((cartTotal * (tax / 100)).toFixed(2)));
+        setTotal(cartTotal + taxAmount);
+    }, [taxAmount]);
 
     return (
         <div className="checkoutDialog">
@@ -37,15 +30,16 @@ const CheckoutDialog = ({ setShowCheckoutDialog, cartTotal }) => {
             </div>
             <div className="cardInfo">
                 <Formik
-                    validationSchema={creditCardSchema}
+                    // validationSchema={creditCardSchema}
                     initialValues={{
                         nameOnCard: "",
                         cardNumber: "",
                         expirationDate: "",
                         cvv: "",
                     }}
-                    onSubmit={(values) => {
-                        console.log(values);
+                    onSubmit={async (values) => {
+                        handlePlaceOrder(taxAmount, total);
+                        setShowCheckoutDialog(false);
                     }}
                 >
                     {({ handleChange, handleBlur, values }) => (

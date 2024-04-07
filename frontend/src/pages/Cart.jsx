@@ -6,6 +6,23 @@ import { Dialog } from "primereact/dialog";
 import { ConfirmDialog } from "primereact/confirmdialog";
 import CheckoutDialog from "../components/CheckoutDialog";
 
+const placeOrder = async (cart) => {
+    console.log(cart);
+    const headers = {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+    };
+    try {
+        const { data } = await axios.post(
+            "/api/order/add",
+            { cart },
+            { headers: headers }
+        );
+    } catch (error) {
+        return error.response.data.detail;
+    }
+};
+
 const removeFromCart = async (cart_item_id, fetchCart) => {
     const headers = {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -77,6 +94,13 @@ const Cart = () => {
     const token = localStorage.getItem("token");
     const prices = [];
     const prodNames = [];
+
+    const handlePlaceOrder = async () => {
+        const response = await placeOrder(cart);
+        if (response === "Order placed successfully") {
+            fetchCart();
+        }
+    };
 
     const getCartTotal = () => {
         let sum = 0;
@@ -173,6 +197,7 @@ const Cart = () => {
                             <CheckoutDialog
                                 setShowCheckoutDialog={setShowCheckoutDialog}
                                 cartTotal={total}
+                                handlePlaceOrder={handlePlaceOrder}
                             />
                         </Dialog>
                     }
