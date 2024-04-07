@@ -2,6 +2,24 @@ import React from "react";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { Formik, Form, ErrorMessage } from "formik";
+import { creditCardSchema } from "../schemas";
+
+const placeOrder = async (cart, token) => {
+    const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+    };
+    try {
+        const { data } = await axios.post(
+            "/api/order/placeorder",
+            { cart },
+            { headers: headers }
+        );
+        return data;
+    } catch (error) {
+        return error.response.data.detail;
+    }
+};
 
 const CheckoutDialog = ({ setShowCheckoutDialog, cartTotal }) => {
     const tax = 8.25;
@@ -18,9 +36,10 @@ const CheckoutDialog = ({ setShowCheckoutDialog, cartTotal }) => {
                 <Button label="Apply" className="p-button-secondary" />
             </div>
             <div className="cardInfo">
-                <h2>Card Information</h2>
                 <Formik
+                    validationSchema={creditCardSchema}
                     initialValues={{
+                        nameOnCard: "",
                         cardNumber: "",
                         expirationDate: "",
                         cvv: "",
@@ -29,27 +48,75 @@ const CheckoutDialog = ({ setShowCheckoutDialog, cartTotal }) => {
                         console.log(values);
                     }}
                 >
-                    <Form>
-                        <div className="p-inputgroup">
-                            <InputText
-                                placeholder="Card Number"
-                                name="cardNumber"
+                    {({ handleChange, handleBlur, values }) => (
+                        <Form className="form">
+                            <div className="nameOnCard">
+                                <InputText
+                                    id="nameOnCard"
+                                    name="nameOnCard"
+                                    placeholder="Name on card"
+                                    value={values.nameOnCard}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                                <ErrorMessage
+                                    name="nameOnCard"
+                                    component="div"
+                                    className="p-error"
+                                />
+                            </div>
+                            <div className="cardNumber">
+                                <InputText
+                                    id="cardNumber"
+                                    name="cardNumber"
+                                    placeholder="Card number"
+                                    value={values.cardNumber}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                                <ErrorMessage
+                                    name="cardNumber"
+                                    component="div"
+                                    className="p-error"
+                                />
+                            </div>
+                            <div className="expirationDate">
+                                <InputText
+                                    id="expirationDate"
+                                    name="expirationDate"
+                                    placeholder="Expiration Date (MM/YY)"
+                                    value={values.expirationDate}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                                <ErrorMessage
+                                    name="expirationDate"
+                                    component="div"
+                                    className="p-error"
+                                />
+                            </div>
+                            <div className="cvv">
+                                <InputText
+                                    id="cvv"
+                                    name="cvv"
+                                    placeholder="CVV"
+                                    value={values.cvv}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                                <ErrorMessage
+                                    name="cvv"
+                                    component="div"
+                                    className="p-error"
+                                />
+                            </div>
+                            <Button
+                                label="Submit"
+                                type="submit"
+                                className="p-button-raised p-button-rounded"
                             />
-                        </div>
-                        <ErrorMessage name="cardNumber" component="div" />
-                        <div className="p-inputgroup">
-                            <InputText
-                                placeholder="Expiration Date"
-                                name="expirationDate"
-                            />
-                        </div>
-                        <ErrorMessage name="expirationDate" component="div" />
-                        <div className="p-inputgroup">
-                            <InputText placeholder="CVV" name="cvv" />
-                        </div>
-                        <ErrorMessage name="cvv" component="div" />
-                        <Button label="Checkout" type="submit" />
-                    </Form>
+                        </Form>
+                    )}
                 </Formik>
             </div>
         </div>
