@@ -163,7 +163,12 @@ const Cart = () => {
                             header="Checkout"
                             visible={showCheckoutDialog}
                             onHide={() => setShowCheckoutDialog(false)}
-                            style={{ width: "50vw" }}
+                            style={{
+                                width: "50rem",
+                                height: "40rem",
+                                maxHeight: "40rem",
+                                maxWidth: "50rem",
+                            }}
                         >
                             <CheckoutDialog
                                 setShowCheckoutDialog={setShowCheckoutDialog}
