@@ -65,7 +65,7 @@ const ItemCard = ({ item, setShowRemoveProductDialog }) => {
     );
 };
 
-const CartSummary = ({ total, prodNames, setShowCheckoutDialog }) => {
+const CartSummary = ({ cartTotal, prodNames, setShowCheckoutDialog }) => {
     return (
         <div className="cartSummary">
             <h2>Summary</h2>
@@ -74,7 +74,7 @@ const CartSummary = ({ total, prodNames, setShowCheckoutDialog }) => {
                     <li key={name}>{name}</li>
                 ))}
             </ul>
-            <h3>Total: ${total}</h3>
+            <h3>Cart Total: ${cartTotal}</h3>
             <Button
                 label="Proceed to Checkout"
                 icon="pi pi-shopping-cart"
@@ -87,7 +87,7 @@ const CartSummary = ({ total, prodNames, setShowCheckoutDialog }) => {
 
 const Cart = () => {
     const [cart, setCart] = useState();
-    const [total, setTotal] = useState(0);
+    const [cartTotal, setCartTotal] = useState(0);
     const [showCheckoutDialog, setShowCheckoutDialog] = useState(false);
     const [showRemoveProductDialog, setShowRemoveProductDialog] =
         useState(false);
@@ -107,7 +107,7 @@ const Cart = () => {
         for (let i = 0; i < prices.length; i++) {
             sum += prices[i];
         }
-        setTotal(sum);
+        setCartTotal(sum);
     };
 
     const fetchCart = async () => {
@@ -161,7 +161,7 @@ const Cart = () => {
                         </div>
                         <div className="cartSummaryContainer">
                             <CartSummary
-                                total={total}
+                                cartTotal={cartTotal}
                                 prodNames={prodNames}
                                 setShowCheckoutDialog={setShowCheckoutDialog}
                             />
@@ -196,8 +196,8 @@ const Cart = () => {
                         >
                             <CheckoutDialog
                                 setShowCheckoutDialog={setShowCheckoutDialog}
-                                cartTotal={total}
-                                setTotal={setTotal}
+                                cartTotal={cartTotal}
+                                setCartTotal={setCartTotal}
                                 handlePlaceOrder={handlePlaceOrder}
                             />
                         </Dialog>

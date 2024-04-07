@@ -26,11 +26,12 @@ const checkDiscount = async (discount, setDiscount, setDiscountError) => {
 const CheckoutDialog = ({
     setShowCheckoutDialog,
     cartTotal,
+    setCartTotal,
     handlePlaceOrder,
 }) => {
     const tax = 8.25;
     const [taxAmount, setTaxAmount] = useState(0);
-    const [total, setTotal] = useState(0);
+    const [orderTotal, setOrderTotal] = useState(0);
     const [discount, setDiscount] = useState(0);
     const [discountError, setDiscountError] = useState("");
     const toast = useRef(null);
@@ -53,14 +54,19 @@ const CheckoutDialog = ({
         });
     };
 
-    const applyDiscount = async () => {
+    const getTaxes = () => {
+        setTaxAmount(parseFloat((cartTotal * (tax / 100)).toFixed(2)));
+        setOrderTotal(cartTotal + taxAmount);
+    };
+
+    const applyDiscount = async (setCartTotal) => {
+        setCartTotal((prev) => prev - (prev * discount) / 100);
         setDiscount(0);
     };
 
     useEffect(() => {
-        setTaxAmount(parseFloat((cartTotal * (tax / 100)).toFixed(2)));
-        setTotal(cartTotal + taxAmount);
-    }, [taxAmount]);
+        getTaxes();
+    }, [taxAmount, cartTotal]);
 
     useEffect(() => {
         if (discountError) showDiscountError();
@@ -69,7 +75,7 @@ const CheckoutDialog = ({
     useEffect(() => {
         if (discount) {
             showDiscountApplied();
-            applyDiscount();
+            applyDiscount(setCartTotal);
         }
     }, [discount]);
 
@@ -79,7 +85,7 @@ const CheckoutDialog = ({
             <div className="bill">
                 <h3>Subtotal: ${cartTotal}</h3>
                 <h3>Tax: ${taxAmount}</h3>
-                <h3>Total: ${total}</h3>
+                <h3>Total: ${orderTotal}</h3>
                 <Formik
                     validationSchema={discountCodeSchema}
                     initialValues={{
@@ -112,7 +118,7 @@ const CheckoutDialog = ({
                                 label="Submit"
                                 type="submit"
                                 className="p-button-raised p-button-rounded"
-                                disabled={!values.discountCode}
+                                disabled={!values.discountCode | (discount > 0)}
                             />
                         </Form>
                     )}
@@ -128,7 +134,7 @@ const CheckoutDialog = ({
                         cvv: "",
                     }}
                     onSubmit={async (values) => {
-                        handlePlaceOrder(taxAmount, total);
+                        handlePlaceOrder(taxAmount, orderTotal);
                         setShowCheckoutDialog(false);
                     }}
                 >
