@@ -197,6 +197,7 @@ const Cart = () => {
                             <CheckoutDialog
                                 setShowCheckoutDialog={setShowCheckoutDialog}
                                 cartTotal={total}
+                                setTotal={setTotal}
                                 handlePlaceOrder={handlePlaceOrder}
                             />
                         </Dialog>

@@ -6,7 +6,7 @@ import { creditCardSchema, discountCodeSchema } from "../schemas";
 import axios from "axios";
 import { Toast } from "primereact/toast";
 
-const applyDiscount = async (discount, setDiscount, setDiscountError) => {
+const checkDiscount = async (discount, setDiscount, setDiscountError) => {
     const headers = {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
@@ -53,10 +53,25 @@ const CheckoutDialog = ({
         });
     };
 
+    const applyDiscount = async () => {
+        setDiscount(0);
+    };
+
     useEffect(() => {
         setTaxAmount(parseFloat((cartTotal * (tax / 100)).toFixed(2)));
         setTotal(cartTotal + taxAmount);
     }, [taxAmount]);
+
+    useEffect(() => {
+        if (discountError) showDiscountError();
+    }, [discountError]);
+
+    useEffect(() => {
+        if (discount) {
+            showDiscountApplied();
+            applyDiscount();
+        }
+    }, [discount]);
 
     return (
         <div className="checkoutDialog">
@@ -71,27 +86,11 @@ const CheckoutDialog = ({
                         discountCode: "",
                     }}
                     onSubmit={async (values) => {
-                        applyDiscount(
+                        await checkDiscount(
                             values.discountCode,
                             setDiscount,
                             setDiscountError
-                        ).then(() => {
-                            console.log(discount);
-                            if (discount) {
-                                setTotal(
-                                    parseFloat(
-                                        (
-                                            total -
-                                            total * (discount / 100)
-                                        ).toFixed(2)
-                                    )
-                                );
-                                showDiscountApplied();
-                                setDiscount(0);
-                            } else {
-                                showDiscountError();
-                            }
-                        });
+                        );
                     }}
                 >
                     {({ handleChange, values }) => (
