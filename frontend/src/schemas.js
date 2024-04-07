@@ -33,3 +33,7 @@ export const creditCardSchema = Yup.object().shape({
         .required("CVV is required")
         .matches(/^[0-9]{3}$/, "CVV must be 3 digits"),
 });
+
+export const discountCodeSchema = Yup.object().shape({
+    discountCode: Yup.string(),
+});

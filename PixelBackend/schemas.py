@@ -132,6 +132,12 @@ class DiscountCodeResponse(DiscountCode):
 
     class Config:
         from_attributes = True
+    
+class DiscounCodeUserResponse(BaseModel):
+    discount: float
+
+    class Config:
+        from_attributes = True
 
 
 class Order(BaseModel):

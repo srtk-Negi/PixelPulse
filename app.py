@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from PixelBackend import models
 from PixelBackend.database import engine
-from PixelBackend.api import adminRoutes, carts, orders, products, users
+from PixelBackend.api import adminRoutes, carts, orders, products, users, discounts
 from PixelBackend import auth
 
 app = FastAPI()
@@ -13,6 +13,7 @@ app.include_router(orders.router, prefix="/api/order")
 app.include_router(products.router, prefix="/api/product")
 app.include_router(users.router, prefix="/api/user")
 app.include_router(auth.router, prefix="/api/auth")
+app.include_router(discounts.router, prefix="/api/discounts")
 
 models.Base.metadata.create_all(bind=engine)
 
