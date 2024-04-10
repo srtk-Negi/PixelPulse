@@ -165,20 +165,22 @@ class CartItemResponse(BaseModel):
         from_attributes = True
 
 class Order(BaseModel):
-    user_id: int
-    total_price: float
+    orderTotal: float
     address: str
     payment_method: str
-    order_status: str = "Placed"
-    tax: float
+    order_status: str
+    taxAmount: float
     discount: float
-    discount_code: str
+    discountCode: str
 
     class Config:
         from_attributes = True
 
 class OrderToPlace(Order):
-    cart: list[CartItemResponse]
+    # cart: list[CartItemResponse]
+
+    class Config:
+        from_attributes = True
 
 
 class OrderResponse(Order):

@@ -6,7 +6,12 @@ import { creditCardSchema, discountCodeSchema } from "../schemas";
 import axios from "axios";
 import { Toast } from "primereact/toast";
 
-const checkDiscount = async (discount, setDiscount, setDiscountError) => {
+const checkDiscount = async (
+    discount,
+    setDiscount,
+    setDiscountError,
+    setDiscountCode
+) => {
     const headers = {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
@@ -18,6 +23,7 @@ const checkDiscount = async (discount, setDiscount, setDiscountError) => {
             { headers: headers }
         );
         setDiscount(data.discount);
+        setDiscountCode(discount);
     } catch (error) {
         setDiscountError(error.response.data.detail);
     }
@@ -98,7 +104,8 @@ const CheckoutDialog = ({
                         await checkDiscount(
                             values.discountCode,
                             setDiscount,
-                            setDiscountError
+                            setDiscountError,
+                            setDiscountCode
                         );
                     }}
                 >
@@ -137,13 +144,15 @@ const CheckoutDialog = ({
                         cardNumber: "",
                         expirationDate: "",
                         cvv: "",
+                        shippingAddress: "",
                     }}
                     onSubmit={async (values) => {
                         handlePlaceOrder(
                             taxAmount,
                             orderTotal,
                             discount,
-                            discountCode
+                            discountCode,
+                            values.shippingAddress
                         );
                         setShowCheckoutDialog(false);
                     }}
@@ -206,6 +215,21 @@ const CheckoutDialog = ({
                                 />
                                 <ErrorMessage
                                     name="cvv"
+                                    component="div"
+                                    className="p-error"
+                                />
+                            </div>
+                            <div className="shippingAddress">
+                                <InputText
+                                    id="shippingAddress"
+                                    name="shippingAddress"
+                                    placeholder="Shipping Address"
+                                    value={values.shippingAddress}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                                <ErrorMessage
+                                    name="shippingAddress"
                                     component="div"
                                     className="p-error"
                                 />

@@ -6,12 +6,25 @@ import { Dialog } from "primereact/dialog";
 import { ConfirmDialog } from "primereact/confirmdialog";
 import CheckoutDialog from "../components/CheckoutDialog";
 
-const placeOrder = async (cart, taxAmount, orderTotal) => {
+const placeOrder = async (
+    cart,
+    taxAmount,
+    orderTotal,
+    discount,
+    discountCode,
+    address
+) => {
     const dataToSend = {
-        cart,
         orderTotal,
+        address,
+        payment_method: "Credit Card",
+        order_status: "Placed",
         taxAmount,
+        discount,
+        discountCode,
+        cart,
     };
+    console.log(dataToSend);
     const headers = {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
@@ -100,13 +113,26 @@ const Cart = () => {
     const prices = [];
     const prodNames = [];
 
-    const handlePlaceOrder = async (taxAmount, orderTotal) => {
-        const response = await placeOrder(cart, taxAmount, orderTotal);
-        console.log(response);
-        if (response.status === 200) {
-            console.log("Order placed successfully");
-            fetchCart();
-        }
+    const handlePlaceOrder = async (
+        taxAmount,
+        orderTotal,
+        discount,
+        discountCode,
+        address
+    ) => {
+        const response = await placeOrder(
+            cart,
+            taxAmount,
+            orderTotal,
+            discount,
+            discountCode,
+            address
+        );
+        // console.log(response);
+        // if (response.status === 200) {
+        //     console.log("Order placed successfully");
+        //     fetchCart();
+        // }
     };
 
     const getCartTotal = () => {

@@ -13,7 +13,7 @@ router = APIRouter()
     response_model=schemas.OrderResponse,
 )
 def add_order(
-    cart: schemas.OrderToPlace,
+    dataToSend: schemas.OrderToPlace,
     db: Session = Depends(get_db),
     current_user=Depends(get_current_user),
 ):
@@ -29,6 +29,7 @@ def add_order(
     """
     user_id = current_user.user_id
     print(user_id)
+    print(dataToSend)
     # cart = db.query(models.Cart).filter_by(user_id=user_id).first()
     # items_to_add = db.query(models.CartItem).filter_by(cart_id=cart.cart_id).all()
 
