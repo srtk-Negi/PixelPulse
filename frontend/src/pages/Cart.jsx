@@ -6,8 +6,12 @@ import { Dialog } from "primereact/dialog";
 import { ConfirmDialog } from "primereact/confirmdialog";
 import CheckoutDialog from "../components/CheckoutDialog";
 
-const placeOrder = async (cart) => {
-    console.log(cart);
+const placeOrder = async (cart, taxAmount, orderTotal) => {
+    const dataToSend = {
+        cart,
+        orderTotal,
+        taxAmount,
+    };
     const headers = {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
@@ -15,7 +19,7 @@ const placeOrder = async (cart) => {
     try {
         const { data } = await axios.post(
             "/api/order/add",
-            { cart },
+            { dataToSend: dataToSend },
             { headers: headers }
         );
     } catch (error) {
@@ -91,13 +95,16 @@ const Cart = () => {
     const [showCheckoutDialog, setShowCheckoutDialog] = useState(false);
     const [showRemoveProductDialog, setShowRemoveProductDialog] =
         useState(false);
+    const [discountApplied, setDiscountApplied] = useState(false);
     const token = localStorage.getItem("token");
     const prices = [];
     const prodNames = [];
 
-    const handlePlaceOrder = async () => {
-        const response = await placeOrder(cart);
-        if (response === "Order placed successfully") {
+    const handlePlaceOrder = async (taxAmount, orderTotal) => {
+        const response = await placeOrder(cart, taxAmount, orderTotal);
+        console.log(response);
+        if (response.status === 200) {
+            console.log("Order placed successfully");
             fetchCart();
         }
     };
@@ -199,6 +206,8 @@ const Cart = () => {
                                 cartTotal={cartTotal}
                                 setCartTotal={setCartTotal}
                                 handlePlaceOrder={handlePlaceOrder}
+                                discountApplied={discountApplied}
+                                setDiscountApplied={setDiscountApplied}
                             />
                         </Dialog>
                     }

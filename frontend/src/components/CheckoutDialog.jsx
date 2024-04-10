@@ -28,12 +28,15 @@ const CheckoutDialog = ({
     cartTotal,
     setCartTotal,
     handlePlaceOrder,
+    discountApplied,
+    setDiscountApplied,
 }) => {
     const tax = 8.25;
     const [taxAmount, setTaxAmount] = useState(0);
     const [orderTotal, setOrderTotal] = useState(0);
     const [discount, setDiscount] = useState(0);
     const [discountError, setDiscountError] = useState("");
+    const [discountCode, setDiscountCode] = useState("");
     const toast = useRef(null);
 
     const showDiscountApplied = () => {
@@ -61,7 +64,6 @@ const CheckoutDialog = ({
 
     const applyDiscount = async (setCartTotal) => {
         setCartTotal((prev) => prev - (prev * discount) / 100);
-        setDiscount(0);
     };
 
     useEffect(() => {
@@ -75,6 +77,7 @@ const CheckoutDialog = ({
     useEffect(() => {
         if (discount) {
             showDiscountApplied();
+            setDiscountApplied(true);
             applyDiscount(setCartTotal);
         }
     }, [discount]);
@@ -118,7 +121,9 @@ const CheckoutDialog = ({
                                 label="Submit"
                                 type="submit"
                                 className="p-button-raised p-button-rounded"
-                                disabled={!values.discountCode | (discount > 0)}
+                                disabled={
+                                    !values.discountCode | discountApplied
+                                }
                             />
                         </Form>
                     )}
@@ -134,7 +139,12 @@ const CheckoutDialog = ({
                         cvv: "",
                     }}
                     onSubmit={async (values) => {
-                        handlePlaceOrder(taxAmount, orderTotal);
+                        handlePlaceOrder(
+                            taxAmount,
+                            orderTotal,
+                            discount,
+                            discountCode
+                        );
                         setShowCheckoutDialog(false);
                     }}
                 >

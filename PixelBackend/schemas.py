@@ -138,48 +138,6 @@ class DiscounCodeUserResponse(BaseModel):
 
     class Config:
         from_attributes = True
-
-
-class Order(BaseModel):
-    user_id: int
-    total_price: float
-    address: str
-    payment_method: str
-    order_status: str
-    tax: float
-    discount: float
-    discount_code: str
-
-    class Config:
-        from_attributes = True
-
-
-class OrderResponse(Order):
-    order_id: int
-
-    class Config:
-        from_attributes = True
-
-
-class Token(BaseModel):
-    access_token: str
-    token_type: str
-
-    class Config:
-        from_attributes = True
-
-
-class TokenData(BaseModel):
-    user_id: Optional[int] = None
-    user_type: Optional[str] = None
-
-    class Config:
-        from_attributes = True
-
-
-########################################################
-
-
 class CartItem(BaseModel):
     cart_id: int
     prod_id: int
@@ -205,3 +163,45 @@ class CartItemResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+class Order(BaseModel):
+    user_id: int
+    total_price: float
+    address: str
+    payment_method: str
+    order_status: str = "Placed"
+    tax: float
+    discount: float
+    discount_code: str
+
+    class Config:
+        from_attributes = True
+
+class OrderToPlace(Order):
+    cart: list[CartItemResponse]
+
+
+class OrderResponse(Order):
+    order_id: int
+
+    class Config:
+        from_attributes = True
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+    class Config:
+        from_attributes = True
+
+
+class TokenData(BaseModel):
+    user_id: Optional[int] = None
+    user_type: Optional[str] = None
+
+    class Config:
+        from_attributes = True
+
+
+
