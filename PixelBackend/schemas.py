@@ -132,12 +132,15 @@ class DiscountCodeResponse(DiscountCode):
 
     class Config:
         from_attributes = True
-    
+
+
 class DiscounCodeUserResponse(BaseModel):
     discount: float
 
     class Config:
         from_attributes = True
+
+
 class CartItem(BaseModel):
     cart_id: int
     prod_id: int
@@ -164,6 +167,7 @@ class CartItemResponse(BaseModel):
     class Config:
         from_attributes = True
 
+
 class Order(BaseModel):
     orderTotal: float
     address: str
@@ -176,8 +180,9 @@ class Order(BaseModel):
     class Config:
         from_attributes = True
 
+
 class OrderToPlace(Order):
-    # cart: list[CartItemResponse]
+    cart: list[CartItemResponse]
 
     class Config:
         from_attributes = True
@@ -204,6 +209,3 @@ class TokenData(BaseModel):
 
     class Config:
         from_attributes = True
-
-
-

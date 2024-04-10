@@ -10,10 +10,9 @@ router = APIRouter()
 @router.post(
     "/add",
     status_code=status.HTTP_201_CREATED,
-    response_model=schemas.OrderResponse,
 )
 def add_order(
-    dataToSend: schemas.OrderToPlace,
+    order_data: schemas.OrderToPlace,
     db: Session = Depends(get_db),
     current_user=Depends(get_current_user),
 ):
@@ -28,8 +27,8 @@ def add_order(
         schemas.OrderResponse: The order id of the order that was added.
     """
     user_id = current_user.user_id
-    print(user_id)
-    print(dataToSend)
+    order_data = order_data.model_dump()
+
     # cart = db.query(models.Cart).filter_by(user_id=user_id).first()
     # items_to_add = db.query(models.CartItem).filter_by(cart_id=cart.cart_id).all()
 

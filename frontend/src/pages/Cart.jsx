@@ -15,16 +15,15 @@ const placeOrder = async (
     address
 ) => {
     const dataToSend = {
-        orderTotal,
-        address,
-        payment_method: "Credit Card",
+        address: address,
+        cart: cart,
+        discount: discount,
+        discountCode: discountCode,
+        orderTotal: orderTotal,
         order_status: "Placed",
-        taxAmount,
-        discount,
-        discountCode,
-        cart,
+        payment_method: "Credit Card",
+        taxAmount: taxAmount,
     };
-    console.log(dataToSend);
     const headers = {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
@@ -32,7 +31,7 @@ const placeOrder = async (
     try {
         const { data } = await axios.post(
             "/api/order/add",
-            { dataToSend: dataToSend },
+            dataToSend,
             { headers: headers }
         );
     } catch (error) {
