@@ -188,8 +188,17 @@ class OrderToPlace(Order):
         from_attributes = True
 
 
-class OrderResponse(Order):
+class OrderResponse(BaseModel):
     order_id: int
+    user_id: int
+    created_at: datetime
+    total_price: float
+    address: str
+    payment_method: str
+    order_status: str
+    tax: float
+    discount: float
+    discount_code: str
 
     class Config:
         from_attributes = True

@@ -109,7 +109,7 @@ def delete_user(
         raise HTTPException(status_code=404, detail="User not found")
 
 
-@router.get("/orders", response_model=list[schemas.Order])
+@router.get("/orders", response_model=list[schemas.OrderResponse])
 def get_orders(
     db: Session = Depends(get_db), current_user=Depends(OAuth.get_current_user)
 ):

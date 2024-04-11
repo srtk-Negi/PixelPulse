@@ -32,13 +32,13 @@ def add_order(
     try:
         order = models.Order(
             user_id=user_id,
-            total_price=order_data["total_price"],
+            total_price=order_data["orderTotal"],
             address=order_data["address"],
             payment_method=order_data["payment_method"],
-            order_status="Pending",
-            tax=order_data["tax"],
+            order_status=order_data["order_status"],
+            tax=order_data["taxAmount"],
             discount=order_data["discount"],
-            discount_code=order_data["discount_code"],
+            discount_code=order_data["discountCode"],
         )
         db.add(order)
         db.commit()

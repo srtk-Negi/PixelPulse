@@ -35,7 +35,7 @@ const placeOrder = async (
             { headers: headers }
         );
     } catch (error) {
-        return error.response.data.detail;
+        console.log(error);
     }
 };
 
