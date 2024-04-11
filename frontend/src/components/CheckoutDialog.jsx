@@ -65,7 +65,7 @@ const CheckoutDialog = ({
 
     const getTaxes = () => {
         setTaxAmount(parseFloat((cartTotal * (tax / 100)).toFixed(2)));
-        setOrderTotal(cartTotal + taxAmount);
+        setOrderTotal((cartTotal + taxAmount).toFixed(2));
     };
 
     const applyDiscount = async (setCartTotal) => {

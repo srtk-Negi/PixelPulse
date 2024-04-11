@@ -29,23 +29,46 @@ def add_order(
     user_id = current_user.user_id
     order_data = order_data.model_dump()
 
-    # cart = db.query(models.Cart).filter_by(user_id=user_id).first()
-    # items_to_add = db.query(models.CartItem).filter_by(cart_id=cart.cart_id).all()
+    try:
+        order = models.Order(
+            user_id=user_id,
+            total_price=order_data["total_price"],
+            address=order_data["address"],
+            payment_method=order_data["payment_method"],
+            order_status="Pending",
+            tax=order_data["tax"],
+            discount=order_data["discount"],
+            discount_code=order_data["discount_code"],
+        )
+        db.add(order)
+        db.commit()
+        db.refresh(order)
+    except Exception:
+        db.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Error occurred while adding order to the database.",
+        )
 
-    # new_order = models.Order(user_id=user_id)
-    # db.add(new_order)
-    # db.commit()
-    # for cart_item in items_to_add:
-    #     order_item = db.query(models.OrderItem).filter_by(order_id=new_order.order_id)
-    #     if order_item:
-    #         pass
-    #     new_order_item = models.OrderItem(
-    #         order_id=new_order.order_id,
-    #         prod_id=cart_item.prod_id,
-    #         prod_name=cart_item.prod_name,
-    #         quantity=cart_item.quantity,
-    #         total_price=cart_item.total_price,
-    #     )
-    #     pass
+    order_items = []
+    for item in order_data["cart"]:
+        order_item = models.OrderItem(
+            order_id=order.order_id,
+            prod_id=item["prod_id"],
+            prod_name=item["prod_name"],
+            quantity=item["quantity"],
+            total_price=item["total_price"],
+        )
+        order_items.append(order_item)
 
-    # return new_order
+    try:
+        db.add_all(order_items)
+        db.commit()
+    except Exception:
+        db.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Error occurred while adding order items to the database.",
+        )
+
+    return {"order_id": order.order_id}
