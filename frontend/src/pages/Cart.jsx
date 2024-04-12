@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { Button } from "primereact/button";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { Dialog } from "primereact/dialog";
 import { ConfirmDialog } from "primereact/confirmdialog";
 import CheckoutDialog from "../components/CheckoutDialog";
+import { Toast } from "primereact/toast";
 
 const placeOrder = async (
     cart,
@@ -33,7 +34,7 @@ const placeOrder = async (
             headers: headers,
         });
     } catch (error) {
-        console.log(error);
+        throw error;
     }
 };
 
@@ -106,9 +107,19 @@ const Cart = () => {
     const [showRemoveProductDialog, setShowRemoveProductDialog] =
         useState(false);
     const [discountApplied, setDiscountApplied] = useState(false);
+    const toast = useRef(null);
     const token = localStorage.getItem("token");
     const prices = [];
     const prodNames = [];
+
+    const showOrderPlaced = () => {
+        toast.current.show({
+            severity: "success",
+            summary: "Order Placed",
+            detail: "Your order has been placed successfully",
+            life: 3000,
+        });
+    };
 
     const handlePlaceOrder = async (
         taxAmount,
@@ -117,19 +128,25 @@ const Cart = () => {
         discountCode,
         address
     ) => {
-        const response = await placeOrder(
-            cart,
-            taxAmount,
-            orderTotal,
-            discount,
-            discountCode,
-            address
-        );
-        // console.log(response);
-        // if (response.status === 200) {
-        //     console.log("Order placed successfully");
-        //     fetchCart();
-        // }
+        try {
+            const response = await placeOrder(
+                cart,
+                taxAmount,
+                orderTotal,
+                discount,
+                discountCode,
+                address
+            );
+            axios.delete("/api/cart/carts", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setCart([]);
+            showOrderPlaced();
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     const getCartTotal = () => {
@@ -165,6 +182,7 @@ const Cart = () => {
 
     return (
         <div className="cart">
+            <Toast ref={toast} position="center" />
             {!cart && <LoadingSpinner />}
             {cart && cart.length === 0 && <h1>Your cart is empty</h1>}
             {cart && cart.length > 0 && (
