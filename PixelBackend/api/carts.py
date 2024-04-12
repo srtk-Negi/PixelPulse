@@ -149,3 +149,33 @@ def add_to_cart(
     db.commit()
 
     return {"message": "Product added to cart successfully."}
+
+
+@router.delete("/carts")
+def clear_cart(
+    db: Session = Depends(get_db),
+    current_user=Depends(get_current_user),
+):
+    """Clear the cart for a specific user.
+
+    Args:
+        db (Session): The database session.
+        current_user (dict): The current user.
+
+    Returns:
+        dict: A message indicating success or failure.
+    """
+    user_id = current_user.user_id
+    cart = db.query(models.Cart).filter_by(user_id=user_id).first()
+
+    if not cart:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Cart not found for the user.",
+        )
+
+    # delete the cart for the user
+    db.query(models.Cart).filter_by(user_id=user_id).delete()
+    db.commit()
+
+    return {"message": "Cart cleared successfully."}

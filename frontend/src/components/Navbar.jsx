@@ -27,10 +27,6 @@ function NavElements({ navType }) {
                 },
             },
             {
-                label: "Settings",
-                href: "/settings",
-            },
-            {
                 label: "Cart",
                 href: "/cart",
             },
