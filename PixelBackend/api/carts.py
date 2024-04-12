@@ -174,7 +174,6 @@ def clear_cart(
             detail="Cart not found for the user.",
         )
 
-    # delete the cart for the user
     db.query(models.Cart).filter_by(user_id=user_id).delete()
     db.commit()
 

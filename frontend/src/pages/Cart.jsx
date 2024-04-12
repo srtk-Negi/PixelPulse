@@ -29,11 +29,9 @@ const placeOrder = async (
         "Content-Type": "application/json",
     };
     try {
-        const { data } = await axios.post(
-            "/api/order/add",
-            dataToSend,
-            { headers: headers }
-        );
+        const { data } = await axios.post("/api/order/add", dataToSend, {
+            headers: headers,
+        });
     } catch (error) {
         console.log(error);
     }
@@ -143,12 +141,18 @@ const Cart = () => {
     };
 
     const fetchCart = async () => {
-        const response = await axios.get("/api/cart/cartItems", {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
-        setCart(response.data);
+        try {
+            const response = await axios.get("/api/cart/cartItems", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setCart(response.data);
+        } catch (error) {
+            if (error.response.data.detail === "Cart not found for the user.") {
+                setCart([]);
+            }
+        }
     };
 
     useEffect(() => {
