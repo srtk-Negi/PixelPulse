@@ -8,12 +8,31 @@
     align-items: center;
     flex-direction: column;
 
+    .cartHeader {
+        font-size: 2.5rem;
+        font-weight: 700;
+        background: linear-gradient(
+            to right,
+            $main-text-color-left,
+            $main-text-color-right
+        );
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        font-size: 3.5rem;
+        margin: 4rem 0;
+    }
+
     .mainContent {
         display: flex;
-        width: 100%;
+        width: 90%;
         height: 100%;
         max-width: 120rem;
         justify-content: center;
+        background-color: $cart-table-color;
+        padding: 3rem;
+        border-radius: 100px;
+        margin: 2rem 0;
 
         .cartItemsContainer {
             width: 70%;
@@ -22,12 +41,13 @@
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
+            padding: 3rem;
 
             .cartItem {
-                width: 22rem;
-                height: 13rem;
-                background-color: $cart-bg-color;
-                color: black;
+                width: 25rem;
+                height: 15rem;
+                background-color: $product-card-color;
+                color: $main-text-color;
                 border-radius: 30px;
                 box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
                 margin: 1rem;
@@ -51,8 +71,17 @@
                     justify-content: center;
                     padding: 1rem;
 
-                    h2 {
-                        margin: 0;
+                    .prodName {
+                        font-size: 1.4rem;
+                        font-weight: 400;
+                        background: linear-gradient(
+                            to right,
+                            $main-text-color-left,
+                            $main-text-color-right
+                        );
+                        background-clip: text;
+                        -webkit-background-clip: text;
+                        color: transparent;
                     }
                 }
 
@@ -60,9 +89,15 @@
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    margin-top: 0;
+                    margin-top: 1rem;
                     width: 50%;
                     justify-content: space-between;
+
+                    Button {
+                        border: none;
+                        border-radius: 30px;
+                        cursor: pointer;
+                    }
                 }
 
                 img {
@@ -87,17 +122,45 @@
                 flex-direction: column;
                 justify-content: space-between;
 
-                h3 {
+                .summaryItem {
+                    display: flex;
+                    justify-content: space-between;
+                    margin: 1rem 0;
+                }
+
+                .cartTotal {
+                    display: flex;
+                    justify-content: center;
+                    margin: 2rem 0;
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    background: linear-gradient(
+                        to right,
+                        $main-text-color-left,
+                        $main-text-color-right
+                    );
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    color: transparent;
+                }
+
+                .summaryHeader {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                     font-size: 2rem;
+                    font-weight: 700;
+                    background: linear-gradient(
+                        to right,
+                        $main-text-color-left,
+                        $main-text-color-right
+                    );
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    color: transparent;
                 }
             }
         }
-    }
-
-    h1 {
-        font-size: 4rem;
-        margin-bottom: 20px;
-        color: $main-text-color;
     }
 }
 

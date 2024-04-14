@@ -71,7 +71,7 @@ const ItemCard = ({ item, setShowRemoveProductDialog }) => {
         <div className="cartItem">
             {image}
             <div className="body">
-                <h2>{item.prod_name}</h2>
+                <div className="prodName">{item.prod_name}</div>
                 <div className="category">{item.category}</div>
                 {item.description}
                 {footer}
@@ -83,13 +83,15 @@ const ItemCard = ({ item, setShowRemoveProductDialog }) => {
 const CartSummary = ({ cartTotal, prodNames, setShowCheckoutDialog }) => {
     return (
         <div className="cartSummary">
-            <h2>Summary</h2>
+            <div className="summaryHeader">Summary</div>
             <ul>
                 {prodNames.map((name) => (
-                    <li key={name}>{name}</li>
+                    <li key={name} className="summaryItem">
+                        - {name}
+                    </li>
                 ))}
             </ul>
-            <h3>Cart Total: ${cartTotal}</h3>
+            <div className="cartTotal">Cart Total: ${cartTotal}</div>
             <Button
                 label="Proceed to Checkout"
                 icon="pi pi-shopping-cart"
@@ -187,7 +189,7 @@ const Cart = () => {
             {cart && cart.length === 0 && <h1>Your cart is empty</h1>}
             {cart && cart.length > 0 && (
                 <>
-                    <h1>
+                    <div className="cartHeader">
                         <i
                             className="pi pi-shopping-cart"
                             style={{
@@ -196,7 +198,7 @@ const Cart = () => {
                             }}
                         />
                         Cart
-                    </h1>
+                    </div>
                     <div className="mainContent">
                         <div className="cartItemsContainer">
                             {cart.map((item) => {
