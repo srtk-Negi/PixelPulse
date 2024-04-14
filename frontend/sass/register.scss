@@ -1,18 +1,23 @@
 @import "variables";
 
 #signUpPage {
-    color: $main-text-color;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100%;
     font-size: 1.5rem;
-    width: 60%;
+    width: 50%;
     min-width: 30rem;
+    color: $main-text-color;
+    margin-bottom: 5rem;
 
     Button {
-        background-color: $button-color;
+        background: linear-gradient(
+            to right,
+            $button-color-left,
+            $button-color-right
+        );
         color: $button-text-color;
         margin-top: 30px;
         border: none;
@@ -23,7 +28,7 @@
         width: 150px;
 
         &:hover {
-            background-color: $button-hover-color;
+            transform: scale(1.1);
         }
     }
 
@@ -39,8 +44,16 @@
         width: 80%;
         min-width: 30rem;
 
-        h2 {
-            margin-bottom: 0;
+        .registerHeader {
+            background: linear-gradient(
+                to right,
+                $main-text-color-left,
+                $main-text-color-right
+            );
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            font-size: 3.5rem;
         }
 
         Form {
@@ -64,11 +77,19 @@
                     align-items: center;
                     justify-content: center;
                     flex-direction: column;
+
+                    .label {
+                        font-size: 1.8rem;
+                    }
                 }
             }
 
             Button {
-                background-color: $button-color;
+                background: linear-gradient(
+                    to right,
+                    $button-color-left,
+                    $button-color-right
+                );
                 color: $button-text-color;
                 border: none;
                 border-radius: 5px;
@@ -78,7 +99,7 @@
                 width: 200px;
 
                 &:hover {
-                    background-color: $button-hover-color;
+                    transform: scale(1.1);
                 }
             }
         }

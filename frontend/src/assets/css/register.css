@@ -6,18 +6,19 @@
 }
 
 #signUpPage {
-  color: #fefcff;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
   font-size: 1.5rem;
-  width: 60%;
+  width: 50%;
   min-width: 30rem;
+  color: #fefcff;
+  margin-bottom: 5rem;
 }
 #signUpPage Button {
-  background-color: #070f2b;
+  background: linear-gradient(to right, #8d72f8, #e789f7);
   color: #fffffe;
   margin-top: 30px;
   border: none;
@@ -28,7 +29,7 @@
   width: 150px;
 }
 #signUpPage Button:hover {
-  background-color: #3e065f;
+  transform: scale(1.1);
 }
 #signUpPage .registrationContainer {
   background-color: #19191d;
@@ -42,8 +43,12 @@
   width: 80%;
   min-width: 30rem;
 }
-#signUpPage .registrationContainer h2 {
-  margin-bottom: 0;
+#signUpPage .registrationContainer .registerHeader {
+  background: linear-gradient(to right, #8d72f8, #e789f7);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  font-size: 3.5rem;
 }
 #signUpPage .registrationContainer Form {
   display: flex;
@@ -67,8 +72,11 @@
   justify-content: center;
   flex-direction: column;
 }
+#signUpPage .registrationContainer Form .formFieldGroup .formField .label {
+  font-size: 1.8rem;
+}
 #signUpPage .registrationContainer Form Button {
-  background-color: #070f2b;
+  background: linear-gradient(to right, #8d72f8, #e789f7);
   color: #fffffe;
   border: none;
   border-radius: 5px;
@@ -78,7 +86,7 @@
   width: 200px;
 }
 #signUpPage .registrationContainer Form Button:hover {
-  background-color: #3e065f;
+  transform: scale(1.1);
 }
 #signUpPage .registrationContainer .success {
   color: green;

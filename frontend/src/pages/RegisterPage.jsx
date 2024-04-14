@@ -25,7 +25,7 @@ const RegisterPage = () => {
     return (
         <div id="signUpPage">
             <div className="registrationContainer">
-                <h2>Sign Up!</h2>
+                <h2 className="registerHeader">Sign Up!</h2>
                 <Formik
                     validationSchema={registrationSchema}
                     initialValues={initialValues}
