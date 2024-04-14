@@ -20,15 +20,15 @@ function NavElements({ navType }) {
                 href: "/home",
             },
             {
+                label: "Cart",
+                href: "/cart",
+            },
+            {
                 label: "LogOut",
                 href: "/login",
                 onclick: () => {
                     localStorage.removeItem("token");
                 },
-            },
-            {
-                label: "Cart",
-                href: "/cart",
             },
         ];
     }

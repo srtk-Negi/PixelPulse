@@ -186,7 +186,9 @@ const Cart = () => {
         <div className="cart">
             <Toast ref={toast} position="center" />
             {!cart && <LoadingSpinner />}
-            {cart && cart.length === 0 && <h1>Your cart is empty</h1>}
+            {cart && cart.length === 0 && (
+                <div className="cartHeader">Your cart is empty</div>
+            )}
             {cart && cart.length > 0 && (
                 <>
                     <div className="cartHeader">
