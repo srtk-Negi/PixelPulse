@@ -9,8 +9,56 @@
     font-size: 1.5rem;
     width: 100%;
 
-    Button {
-        margin: 20px;
+    .adminPageHeader {
+        background: linear-gradient(
+            to right,
+            $main-text-color-left,
+            $main-text-color-right
+        );
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        font-size: 3.5rem;
+        font-weight: 900;
+        margin: 3rem;
+    }
+
+    .controlButtons {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-evenly;
+        width: 100%;
+        max-width: 120rem;
+        margin: 20px 0;
+
+        Button {
+            background: linear-gradient(
+                to right,
+                $button-color-left,
+                $button-color-right
+            );
+            border: none;
+            border-radius: 5px;
+            color: $button-text-color;
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            transition: 0.3s;
+            margin: 10px;
+            width: 12rem;
+            height: 4rem;
+
+            &:hover {
+                background: linear-gradient(
+                    to right,
+                    $button-hover-color,
+                    $button-color-right
+                );
+                cursor: pointer;
+            }
+        }
     }
 
     .card {

@@ -14,8 +14,41 @@
   font-size: 1.5rem;
   width: 100%;
 }
-#adminPageContainer Button {
-  margin: 20px;
+#adminPageContainer .adminPageHeader {
+  background: linear-gradient(to right, #8d72f8, #e789f7);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  font-size: 3.5rem;
+  font-weight: 900;
+  margin: 3rem;
+}
+#adminPageContainer .controlButtons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  max-width: 120rem;
+  margin: 20px 0;
+}
+#adminPageContainer .controlButtons Button {
+  background: linear-gradient(to right, #8d72f8, #e789f7);
+  border: none;
+  border-radius: 5px;
+  color: #fffffe;
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: 0.3s;
+  margin: 10px;
+  width: 12rem;
+  height: 4rem;
+}
+#adminPageContainer .controlButtons Button:hover {
+  background: linear-gradient(to right, #3e065f, #e789f7);
+  cursor: pointer;
 }
 #adminPageContainer .card {
   border-radius: 5px;
