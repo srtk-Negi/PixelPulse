@@ -1,1 +1,1 @@
-{"version":3,"sources":["../../../sass/_variables.scss","unauthorized.css","../../../sass/unauthorized.scss"],"names":[],"mappings":"AASA;EACI,yBAJwB;EAKxB,cAVc;EAWd,WAAA;ACRJ;;ACFA;EACI,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;EACA,cFNc;EEOd,iBAAA;ADKJ","file":"unauthorized.css"}
+{"version":3,"sources":["../../../sass/_variables.scss","unauthorized.css","../../../sass/unauthorized.scss"],"names":[],"mappings":"AAYA;EACI,yBAPwB;EAQxB,cAbc;EAcd,WAAA;ACXJ;;ACFA;EACI,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;EACA,cFNc;EEOd,iBAAA;ADKJ","file":"unauthorized.css"}

@@ -44,7 +44,7 @@ const RegisterPage = () => {
                         }
                     }}
                 >
-                    {({ values, handleSubmit, handleChange, setValues }) => (
+                    {({ values, handleSubmit, handleChange }) => (
                         <Form onSubmit={handleSubmit}>
                             <div className="formFieldGroup">
                                 {/* first_name*/}

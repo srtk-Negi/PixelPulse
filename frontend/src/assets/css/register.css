@@ -12,7 +12,8 @@
   align-items: center;
   height: 100%;
   font-size: 1.5rem;
-  width: 50%;
+  width: 60%;
+  min-width: 30rem;
 }
 #signUpPage Button {
   background-color: #ffc0ad;
@@ -38,6 +39,7 @@
   margin-top: 60px;
   padding: 20px;
   width: 80%;
+  min-width: 30rem;
 }
 #signUpPage .registrationContainer h2 {
   margin-bottom: 0;
@@ -52,6 +54,9 @@
 }
 #signUpPage .registrationContainer Form .formFieldGroup {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 #signUpPage .registrationContainer Form .formFieldGroup .formField {
   margin: 20px;
