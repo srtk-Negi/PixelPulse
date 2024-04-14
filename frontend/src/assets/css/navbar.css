@@ -7,6 +7,7 @@
 
 #header {
   width: 100%;
+  height: 8rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -24,25 +25,30 @@
   margin: 0 2rem;
 }
 #header .menu .nav-element {
-  font-size: 1.5rem;
-  text-decoration: none;
   color: #fefcff;
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: 700;
 }
 #header .menu .nav-element:hover {
-  color: #3e065f;
+  background: linear-gradient(to right, #8d72f8, #e789f7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 #header .menu .nav-element.active {
-  color: #3e065f;
+  background: linear-gradient(to right, #8d72f8, #e789f7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 #header .logo {
-  margin-left: 3rem;
-  font-size: 2rem;
-  font-weight: 900;
-  color: #fefcff;
-  text-decoration: none;
-}
-#header .logo:hover {
-  color: #3e065f;
+  background: linear-gradient(to right, #8d72f8, #e789f7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 2.5rem;
+  font-weight: 700;
 }
 @media (max-width: 948px) {
   #header .menu .nav-element {
