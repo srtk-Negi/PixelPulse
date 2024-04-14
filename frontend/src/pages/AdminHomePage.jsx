@@ -82,7 +82,7 @@ const AdminHomePage = () => {
     return (
         <AdminContext.Provider value={{ token, setToken }}>
             <div id="adminPageContainer">
-                <h1>{pageHeader}</h1>
+                <div className="adminPageHeader">{pageHeader}</div>
                 <div className="controlButtons">
                     <Button
                         label="Get All Users"
