@@ -173,6 +173,7 @@ const AdminHomePage = () => {
                             }
                         />
                         <Button
+                            className="addItemButton"
                             label="Add Product"
                             onClick={() => setShowAddProductForm(true)}
                         />
@@ -201,6 +202,7 @@ const AdminHomePage = () => {
                             }
                         />
                         <Button
+                            className="addItemButton"
                             label="Add Discount Code"
                             onClick={() => setShowAddDiscountForm(true)}
                         />

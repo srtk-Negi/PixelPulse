@@ -8,6 +8,21 @@
     color: $main-text-color;
     font-size: 1.5rem;
     width: 100%;
+    padding-bottom: 5rem;
+
+    .addItemButton {
+        background: linear-gradient(
+            to right,
+            $button-color-left,
+            $button-color-right
+        );
+        border: none;
+        border-radius: 5px;
+        color: $button-text-color;
+        font-size: 1rem;
+        cursor: pointer;
+        margin: 5rem;
+    }
 
     .adminPageHeader {
         background: linear-gradient(
@@ -47,7 +62,7 @@
             text-decoration: none;
             transition: 0.3s;
             margin: 10px;
-            width: 12rem;
+            width: 10rem;
             height: 4rem;
 
             &:hover {
@@ -62,9 +77,22 @@
     }
 
     .card {
-        border-radius: 5px;
+        border-radius: 30px;
         width: 90%;
-        margin: 20px 0;
+        margin-top: 5rem;
+
+        Button {
+            background: linear-gradient(
+                to right,
+                $button-color-left,
+                $button-color-right
+            );
+            border: none;
+            border-radius: 5px;
+            color: $button-text-color;
+            font-size: 1rem;
+            cursor: pointer;
+        }
     }
 }
 
@@ -75,6 +103,19 @@
     justify-content: center;
     width: 100%;
     margin: 20px 0;
+
+    Button {
+        background: linear-gradient(
+            to right,
+            $button-color-left,
+            $button-color-right
+        );
+        border: none;
+        border-radius: 5px;
+        color: $button-text-color;
+        font-size: 1rem;
+        cursor: pointer;
+    }
 
     .inputsContainer {
         display: flex;
