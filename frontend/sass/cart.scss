@@ -179,6 +179,20 @@
         justify-content: space-evenly;
         align-items: start;
         padding-left: 5rem;
+        font-size: 1.5rem;
+
+        .form Button {
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: linear-gradient(
+                to right,
+                $main-text-color-left,
+                $main-text-color-right
+            );
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+        }
     }
 
     .cardInfo {
@@ -192,6 +206,19 @@
             flex-direction: column;
             justify-content: space-evenly;
             align-items: center;
+
+            Button {
+                font-size: 1.2rem;
+                font-weight: 700;
+                background: linear-gradient(
+                    to right,
+                    $main-text-color-left,
+                    $main-text-color-right
+                );
+                border: none;
+                border-radius: 30px;
+                cursor: pointer;
+            }
         }
     }
 }
