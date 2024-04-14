@@ -13,6 +13,16 @@
   color: #fefcff;
   font-size: 1.5rem;
   width: 100%;
+  padding-bottom: 5rem;
+}
+#adminPageContainer .addItemButton {
+  background: linear-gradient(to right, #8d72f8, #e789f7);
+  border: none;
+  border-radius: 5px;
+  color: #fffffe;
+  font-size: 1rem;
+  cursor: pointer;
+  margin: 5rem;
 }
 #adminPageContainer .adminPageHeader {
   background: linear-gradient(to right, #8d72f8, #e789f7);
@@ -43,7 +53,7 @@
   text-decoration: none;
   transition: 0.3s;
   margin: 10px;
-  width: 12rem;
+  width: 10rem;
   height: 4rem;
 }
 #adminPageContainer .controlButtons Button:hover {
@@ -51,9 +61,17 @@
   cursor: pointer;
 }
 #adminPageContainer .card {
-  border-radius: 5px;
+  border-radius: 30px;
   width: 90%;
-  margin: 20px 0;
+  margin-top: 5rem;
+}
+#adminPageContainer .card Button {
+  background: linear-gradient(to right, #8d72f8, #e789f7);
+  border: none;
+  border-radius: 5px;
+  color: #fffffe;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
 .updateForm {
@@ -63,6 +81,14 @@
   justify-content: center;
   width: 100%;
   margin: 20px 0;
+}
+.updateForm Button {
+  background: linear-gradient(to right, #8d72f8, #e789f7);
+  border: none;
+  border-radius: 5px;
+  color: #fffffe;
+  font-size: 1rem;
+  cursor: pointer;
 }
 .updateForm .inputsContainer {
   display: flex;
