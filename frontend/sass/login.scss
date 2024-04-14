@@ -5,7 +5,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: $main-text-color;
     height: 100%;
 
     .loginContainer {
@@ -18,6 +17,23 @@
         border-radius: 100px;
         margin-top: 100px;
         padding: 20px;
+        box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
+        transition: 0.3s;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+
+        .loginHeader {
+            background: linear-gradient(
+                to right,
+                $main-text-color-left,
+                $main-text-color-right
+            );
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
 
         .success {
             color: green;
@@ -56,7 +72,11 @@
                 justify-content: space-evenly;
 
                 Button {
-                    background-color: $button-color;
+                    background: linear-gradient(
+                        to right,
+                        $button-color-left,
+                        $button-color-right
+                    );
                     border: none;
                     border-radius: 5px;
                     color: $button-text-color;
@@ -65,14 +85,18 @@
                     transition: 0.3s;
 
                     &:hover {
-                        background-color: $button-hover-color;
+                        transform: scale(1.1);
                     }
                 }
             }
         }
     }
     Button {
-        background-color: $button-color;
+        background: linear-gradient(
+            to right,
+            $button-color-left,
+            $button-color-right
+        );
         border: none;
         border-radius: 5px;
         color: $button-text-color;
@@ -81,7 +105,7 @@
         transition: 0.3s;
 
         &:hover {
-            background-color: $button-hover-color;
+            transform: scale(1.1);
         }
     }
 }

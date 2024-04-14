@@ -1,6 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap");
 .prodCard {
-  background-color: #271c19;
-  color: #fffffe;
+  background-color: #19191d;
+  color: #fefcff;
   width: 100%;
 }
 
@@ -10,7 +11,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 30px 40px;
-  background-color: #271c19;
+  background-color: #19191d;
   box-shadow: 0 0 10px 0 rgb(0, 0, 0);
 }
 #header .menu {
@@ -25,23 +26,23 @@
 #header .menu .nav-element {
   font-size: 1.5rem;
   text-decoration: none;
-  color: #fffffe;
+  color: #fefcff;
 }
 #header .menu .nav-element:hover {
-  color: #ff8c71;
+  color: #3e065f;
 }
 #header .menu .nav-element.active {
-  color: #ff8c71;
+  color: #3e065f;
 }
 #header .logo {
   margin-left: 3rem;
   font-size: 2rem;
   font-weight: 900;
-  color: #fffffe;
+  color: #fefcff;
   text-decoration: none;
 }
 #header .logo:hover {
-  color: #ff8c71;
+  color: #3e065f;
 }
 @media (max-width: 948px) {
   #header .menu .nav-element {

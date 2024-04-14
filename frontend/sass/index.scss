@@ -5,8 +5,13 @@ body {
     padding: 0;
     width: 100%;
     height: 100%;
-    background-color: $background-color;
-    font-family: $font-fam;
+    background: linear-gradient(
+        to right,
+        $background-color-left,
+        $background-color-right
+    );
+    font-family: "Nanum Gothic Coding", monospace;
+    font-style: normal;
 
     #root {
         height: 100%;

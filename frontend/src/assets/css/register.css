@@ -1,11 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap");
 .prodCard {
-  background-color: #271c19;
-  color: #fffffe;
+  background-color: #19191d;
+  color: #fefcff;
   width: 100%;
 }
 
 #signUpPage {
-  color: #fffffe;
+  color: #fefcff;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -16,8 +17,8 @@
   min-width: 30rem;
 }
 #signUpPage Button {
-  background-color: #ffc0ad;
-  color: #271c19;
+  background-color: #070f2b;
+  color: #fffffe;
   margin-top: 30px;
   border: none;
   border-radius: 5px;
@@ -27,10 +28,10 @@
   width: 150px;
 }
 #signUpPage Button:hover {
-  background-color: #ff8c71;
+  background-color: #3e065f;
 }
 #signUpPage .registrationContainer {
-  background-color: #271c19;
+  background-color: #19191d;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -67,8 +68,8 @@
   flex-direction: column;
 }
 #signUpPage .registrationContainer Form Button {
-  background-color: #ffc0ad;
-  color: #271c19;
+  background-color: #070f2b;
+  color: #fffffe;
   border: none;
   border-radius: 5px;
   font-size: 1rem;
@@ -77,7 +78,7 @@
   width: 200px;
 }
 #signUpPage .registrationContainer Form Button:hover {
-  background-color: #ff8c71;
+  background-color: #3e065f;
 }
 #signUpPage .registrationContainer .success {
   color: green;

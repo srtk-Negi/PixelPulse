@@ -41,7 +41,7 @@ const LoginPage = () => {
     return (
         <div id="loginPage">
             <div className="loginContainer">
-                <h2>Login</h2>
+                <h2 className="loginHeader">Login</h2>
                 <Formik
                     validationSchema={loginSchema}
                     initialValues={{

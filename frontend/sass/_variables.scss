@@ -1,14 +1,31 @@
-$background-color: #55423d;
-$main-text-color: #fffffe;
-$font-fam: 'font-family: Georgia, " Times New Roman ", Times, serif;';
-$button-color: #ffc0ad;
-$button-hover-color: #ff8c71;
-$button-text-color: #271c19;
-$login-register-card-color: #271c19;
-$navbar-color: #271c19;
-$cart-bg-color: #fffffe;
-$summary-container-color: #271c19;
-$product-card-color: #271c19;
+// $background-color: #55423d;
+// $main-text-color: #fffffe;
+// $font-fam: 'font-family: Georgia, " Times New Roman ", Times, serif;';
+// $button-color: #ffc0ad;
+// $button-hover-color: #ff8c71;
+// $button-text-color: #271c19;
+// $login-register-card-color: #271c19;
+// $navbar-color: #271c19;
+// $cart-bg-color: #fffffe;
+// $summary-container-color: #271c19;
+// $product-card-color: #271c19;
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap");
+
+$background-color-left: #0a0a0c;
+$background-color-right: #0a0a0d;
+$main-text-color: #fefcff;
+$main-text-color-left: #8d72f8;
+$main-text-color-right: #e789f7;
+$button-color: #070f2b;
+$button-color-left: #8d72f8;
+$button-color-right: #e789f7;
+$button-hover-color: #3e065f;
+$button-text-color: #fffffe;
+$login-register-card-color: #19191d;
+$navbar-color: #19191d;
+$cart-bg-color: #19191d;
+$summary-container-color: #19191d;
+$product-card-color: #19191d;
 
 .prodCard {
     background-color: $login-register-card-color;

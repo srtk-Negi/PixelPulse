@@ -1,6 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap");
 .prodCard {
-  background-color: #271c19;
-  color: #fffffe;
+  background-color: #19191d;
+  color: #fefcff;
   width: 100%;
 }
 
@@ -9,7 +10,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #fffffe;
+  color: #fefcff;
   font-size: 1.5rem;
   width: 100%;
 }
