@@ -153,6 +153,15 @@
   justify-content: space-evenly;
   align-items: start;
   padding-left: 5rem;
+  font-size: 1.5rem;
+}
+.checkoutDialog .bill .form Button {
+  font-size: 1.2rem;
+  font-weight: 700;
+  background: linear-gradient(to right, #8d72f8, #e789f7);
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
 }
 .checkoutDialog .cardInfo {
   width: 50%;
@@ -165,4 +174,12 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+}
+.checkoutDialog .cardInfo .form Button {
+  font-size: 1.2rem;
+  font-weight: 700;
+  background: linear-gradient(to right, #8d72f8, #e789f7);
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
 }/*# sourceMappingURL=cart.css.map */

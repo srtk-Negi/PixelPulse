@@ -249,6 +249,7 @@ const Cart = () => {
                                 maxHeight: "40rem",
                                 maxWidth: "50rem",
                             }}
+                            className="checkDiag"
                         >
                             <CheckoutDialog
                                 setShowCheckoutDialog={setShowCheckoutDialog}
