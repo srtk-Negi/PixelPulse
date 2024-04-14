@@ -12,8 +12,18 @@
   align-items: center;
   justify-content: center;
   color: #fefcff;
-  width: 80%;
+  width: 90%;
   max-width: 120rem;
+}
+#homePageContainer .welcomeUser {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(to right, #8d72f8, #e789f7);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  font-size: 3.5rem;
+  margin-bottom: 4rem;
 }
 #homePageContainer .filters {
   width: 100%;
@@ -22,35 +32,66 @@
   flex-direction: column;
   align-items: center;
 }
+#homePageContainer .filters .textSearch {
+  width: 20rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+#homePageContainer .filters .textSearch Button {
+  background: linear-gradient(to right, #8d72f8, #e789f7);
+  color: #fffffe;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+#homePageContainer .filters .textSearch Button:hover {
+  transform: scale(1.1);
+}
+#homePageContainer .filters .textSearch .searchBar {
+  width: 80%;
+}
 #homePageContainer .filters .dropdowns {
   width: 100%;
   display: flex;
   justify-content: space-around;
   margin-bottom: 2rem;
 }
+#homePageContainer .filters .dropdowns .dropdown {
+  width: 20rem;
+}
 #homePageContainer .productTable {
   margin-top: 3rem;
+  padding: 1rem;
   margin-bottom: 3rem;
+  border-radius: 100px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   color: #fefcff;
+  background-color: #19191d;
   width: 100%;
   max-width: 110rem;
 }
 #homePageContainer .productTable .productCard {
   display: flex;
   justify-content: space-around;
-  width: 40%;
-  margin: 2rem;
+  width: 45%;
+  margin: 1rem;
   height: 25rem;
-  background-color: #19191d;
+  background-color: #0a0a0c;
   border-radius: 30px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  transition: 0.3s;
+}
+#homePageContainer .productTable .productCard:hover {
+  transform: scale(1.02);
 }
 #homePageContainer .productTable .productCard .productImg {
-  width: 250px;
+  width: 240px;
   height: auto;
   border-radius: 10px;
   margin: 2rem 0;
@@ -62,21 +103,34 @@
   width: 180px;
   height: auto;
   border-radius: 10px;
+  transition: 0.3s;
+}
+#homePageContainer .productTable .productCard .productImg img:hover {
+  transform: scale(1.1);
 }
 #homePageContainer .productTable .productCard .details {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
-  width: 50%;
+  justify-content: space-evenly;
+  width: 55%;
   margin: 2rem 0;
 }
 #homePageContainer .productTable .productCard .details .prodName {
-  font-size: 1.7rem;
-  font-weight: 700;
+  font-size: 2rem;
+  font-weight: 400;
+  background: linear-gradient(to right, #8d72f8, #e789f7);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
 #homePageContainer .productTable .productCard .details .category {
   font-size: 1.2rem;
+  font-weight: 400;
+  margin-bottom: 2rem;
+}
+#homePageContainer .productTable .productCard .details .description {
+  font-size: 1.5rem;
   font-weight: 400;
   margin-bottom: 2rem;
 }
@@ -90,16 +144,16 @@
   font-size: 1.5rem;
   font-weight: 700;
 }
+#homePageContainer .productTable .productCard .details .priceStock .tag {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
 #homePageContainer .productTable .productCard .details Button {
   padding: 0.5rem 1rem;
-  background-color: #070f2b;
   font-size: 1.3rem;
   font-weight: 400;
   cursor: pointer;
-  transition: background-color 0.5s ease;
-}
-#homePageContainer .productTable .productCard .details Button:hover {
-  background-color: #3e065f;
+  background: linear-gradient(to right, #8d72f8, #e789f7);
 }
 @media (max-width: 971px) {
   #homePageContainer .productTable .productCard {

@@ -49,7 +49,11 @@ const ProductCard = ({ product, showProductAdded, prodAddWarning }) => {
                 <div className="description">{product.description}</div>
                 <div className="priceStock">
                     <div className="price">${product.price}</div>
-                    <Tag value={severityString} severity={severity} />
+                    <Tag
+                        className="tag"
+                        value={severityString}
+                        severity={severity}
+                    />
                 </div>
                 <Button
                     label="Add to Cart"

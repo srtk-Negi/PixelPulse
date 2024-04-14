@@ -100,10 +100,11 @@ const HomePage = () => {
                 )}
                 {!loading && !errorMessage && (
                     <>
-                        <h1>Welcome {user}</h1>
+                        <div className="welcomeUser">Welcome {user}</div>
                         <div className="filters">
                             <div className="dropdowns">
                                 <Dropdown
+                                    className="dropdown"
                                     value={category}
                                     options={categories}
                                     onChange={(e) => {
@@ -114,6 +115,7 @@ const HomePage = () => {
                                     placeholder="Select a Category"
                                 />
                                 <Dropdown
+                                    className="dropdown"
                                     value={sortConstraint}
                                     options={sortOptions}
                                     onChange={(e) => setSortConstraint(e.value)}
@@ -122,6 +124,7 @@ const HomePage = () => {
                                 />
 
                                 <Dropdown
+                                    className="dropdown"
                                     value={availability}
                                     options={availabilityOptions}
                                     onChange={(e) => {
@@ -134,12 +137,11 @@ const HomePage = () => {
 
                             <div className="textSearch">
                                 <InputText
-                                    className="p-mr-2"
+                                    className="searchBar"
                                     placeholder="Search"
                                     id="searchBar"
                                 />
                                 <Button
-                                    label="Search"
                                     icon="pi pi-search"
                                     className="p-button-raised p-button-rounded"
                                     onClick={() => {
