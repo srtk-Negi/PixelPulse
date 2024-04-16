@@ -159,7 +159,7 @@ export const deleteDiscount = async (discountId, setDiscounts, token) => {
         await axios.delete(`/api/admin/discounts/delete/${discountId}`, {
             headers: headers,
         });
-        getAllDiscounts(setDiscounts);
+        getAllDiscounts(setDiscounts, token);
     } catch (error) {
         console.error(error);
     }
