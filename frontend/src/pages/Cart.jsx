@@ -50,7 +50,7 @@ const removeFromCart = async (cart_item_id, fetchCart) => {
     fetchCart();
 };
 
-const ItemCard = ({ item, setShowRemoveProductDialog }) => {
+const ItemCard = ({ item, setShowRemoveProductDialog, setSelectedItem }) => {
     const image = (
         <div className="imageContainer">
             <img alt="Card" src={item.image_url} />
@@ -62,7 +62,10 @@ const ItemCard = ({ item, setShowRemoveProductDialog }) => {
             <Button
                 icon="pi pi-trash"
                 className="p-button-raised p-button-rounded p-button-danger"
-                onClick={() => setShowRemoveProductDialog(true)}
+                onClick={() => {
+                    setSelectedItem(item);
+                    setShowRemoveProductDialog(true);
+                }}
             />
         </div>
     );
@@ -109,6 +112,7 @@ const Cart = () => {
     const [showRemoveProductDialog, setShowRemoveProductDialog] =
         useState(false);
     const [discountApplied, setDiscountApplied] = useState(false);
+    const [selectedItem, setSelectedItem] = useState();
     const toast = useRef(null);
     const token = localStorage.getItem("token");
     const prices = [];
@@ -213,6 +217,7 @@ const Cart = () => {
                                         setShowRemoveProductDialog={
                                             setShowRemoveProductDialog
                                         }
+                                        setSelectedItem={setSelectedItem}
                                     />
                                 );
                             })}
@@ -234,7 +239,10 @@ const Cart = () => {
                             icon="pi pi-exclamation-triangle"
                             acceptClassName="p-button-danger"
                             accept={() => {
-                                removeFromCart(cart[0].cart_item_id, fetchCart);
+                                removeFromCart(
+                                    selectedItem.cart_item_id,
+                                    fetchCart
+                                );
                                 setShowRemoveProductDialog(false);
                             }}
                             reject={() => setShowRemoveProductDialog(false)}
