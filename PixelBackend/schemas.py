@@ -101,6 +101,8 @@ class OrderItem(BaseModel):
 
 class OrderItemResponse(OrderItem):
     order_item_id: int
+    order_id: int
+    created_at: datetime
 
     class Config:
         from_attributes = True
