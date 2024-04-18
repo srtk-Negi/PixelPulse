@@ -47,11 +47,51 @@
                 height: 100%;
                 width: 50%;
                 color: $main-text-color;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                font-size: 1.5rem;
+
+                .orderDetailsHeader {
+                    font-size: 2rem;
+                    font-weight: 700;
+                    background: linear-gradient(
+                        to right,
+                        $main-text-color-left,
+                        $main-text-color-right
+                    );
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    color: transparent;
+                    font-size: 3rem;
+                    margin: 2rem 0;
+                }
             }
             .orderItems {
                 height: 100%;
                 width: 50%;
                 color: $main-text-color;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                font-size: 1.5rem;
+
+                .orderItemsHeader {
+                    font-size: 2rem;
+                    font-weight: 700;
+                    background: linear-gradient(
+                        to right,
+                        $main-text-color-left,
+                        $main-text-color-right
+                    );
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    color: transparent;
+                    font-size: 3rem;
+                    margin: 2rem 0;
+                }
             }
         }
     }

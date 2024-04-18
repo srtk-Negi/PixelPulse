@@ -47,9 +47,39 @@
   height: 100%;
   width: 50%;
   color: #fefcff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+}
+.ordersPage .mainContent .ordersContainer .orderDetails .orderDetailsHeader {
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(to right, #8d72f8, #e789f7);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  font-size: 3rem;
+  margin: 2rem 0;
 }
 .ordersPage .mainContent .ordersContainer .orderItems {
   height: 100%;
   width: 50%;
   color: #fefcff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+}
+.ordersPage .mainContent .ordersContainer .orderItems .orderItemsHeader {
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(to right, #8d72f8, #e789f7);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  font-size: 3rem;
+  margin: 2rem 0;
 }/*# sourceMappingURL=orders.css.map */
