@@ -120,11 +120,9 @@ def get_order(db: Session = Depends(get_db), current_user=Depends(get_current_us
 
     order_data = {
         "order_id": latest_order.order_id,
-        "user_id": latest_order.user_id,
         "created_at": latest_order.created_at,
         "total_price": latest_order.total_price,
         "address": latest_order.address,
-        "payment_method": latest_order.payment_method,
         "order_status": latest_order.order_status,
         "tax": latest_order.tax,
         "discount": latest_order.discount,

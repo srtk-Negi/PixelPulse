@@ -2,22 +2,16 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import LoadingSpinner from "../components/LoadingSpinner";
 
-const OrderSummary = ({ orderTotal, orderItems }) => {
+const OrderSummary = ({ orderItems }) => {
     return (
         <div className="orderSummary">
-            <div className="summaryHeader">Order Summary</div>
-            {orderItems.map((name) => (
-                <div key={name} className="summaryItem">
-                    - {name}
-                </div>
-            ))}
-            <div className="orderTotal">Order Total: ${orderTotal}</div>
+            {orderItems.map((item) => item.prod_name)}
         </div>
     );
 };
 
 const OrdersPage = () => {
-    const [orders, setOrders] = useState([]);
+    const [orders, setOrders] = useState();
 
     const fetchOrders = async () => {
         const headers = {
@@ -44,7 +38,7 @@ const OrdersPage = () => {
             {orders && orders.length === 0 && (
                 <div className="ordersHeader">No orders placed yet</div>
             )}
-            {orders && orders.length > 0 && (
+            {orders && (
                 <>
                     <div className="ordersHeader">
                         <i
@@ -57,7 +51,25 @@ const OrdersPage = () => {
                         Orders
                     </div>
                     <div className="mainContent">
-                        <div className="ordersContainer"></div>
+                        <div className="ordersContainer">
+                            <div className="orderDetails">
+                                <div>Order ID - {orders.order_id}</div>
+                                <div>Created At - {orders.created_at}</div>
+                                {orders.discount != 0 && (
+                                    <div>Discount - {orders.discount}</div>
+                                )}
+                                {orders.discount_code && (
+                                    <div>
+                                        Discount Code - {orders.discount_code}
+                                    </div>
+                                )}
+                                <div>Tax - {orders.tax}</div>
+                                <div>Order Total - {orders.total_price}</div>
+                            </div>
+                            <div className="orderItems">
+                                <OrderSummary orderItems={orders.order_items} />
+                            </div>
+                        </div>
                     </div>
                 </>
             )}

@@ -35,7 +35,7 @@
         margin: 2rem 0;
 
         .ordersContainer {
-            width: 70%;
+            width: 100%;
             height: 100%;
             display: flex;
             justify-content: center;
@@ -43,181 +43,15 @@
             flex-wrap: wrap;
             padding: 3rem;
 
-            .cartItem {
-                width: 25rem;
-                height: 15rem;
-                background-color: $product-card-color;
+            .orderDetails {
+                height: 100%;
+                width: 50%;
                 color: $main-text-color;
-                border-radius: 30px;
-                box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-                margin: 1rem;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                .imageContainer {
-                    height: 100%;
-                    width: 30%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
-
-                .body {
-                    height: 100%;
-                    width: 70%;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    padding: 1rem;
-
-                    .prodName {
-                        font-size: 1.4rem;
-                        font-weight: 400;
-                        background: linear-gradient(
-                            to right,
-                            $main-text-color-left,
-                            $main-text-color-right
-                        );
-                        background-clip: text;
-                        -webkit-background-clip: text;
-                        color: transparent;
-                    }
-                }
-
-                .footer {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    margin-top: 1rem;
-                    width: 50%;
-                    justify-content: space-between;
-
-                    Button {
-                        border: none;
-                        border-radius: 30px;
-                        cursor: pointer;
-                    }
-                }
-
-                img {
-                    width: 100px;
-                    height: auto;
-                }
             }
-        }
-
-        .cartSummaryContainer {
-            width: 30%;
-            padding: 2rem;
-
-            .cartSummary {
-                width: 100%;
-                background-color: $summary-container-color;
+            .orderItems {
+                height: 100%;
+                width: 50%;
                 color: $main-text-color;
-                border-radius: 30px;
-                box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-                padding: 1rem;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-
-                .summaryItem {
-                    display: flex;
-                    justify-content: space-between;
-                    margin: 1rem 0;
-                }
-
-                .cartTotal {
-                    display: flex;
-                    justify-content: center;
-                    margin: 2rem 0;
-                    font-size: 1.5rem;
-                    font-weight: 700;
-                    background: linear-gradient(
-                        to right,
-                        $main-text-color-left,
-                        $main-text-color-right
-                    );
-                    background-clip: text;
-                    -webkit-background-clip: text;
-                    color: transparent;
-                }
-
-                .summaryHeader {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    font-size: 2rem;
-                    font-weight: 700;
-                    background: linear-gradient(
-                        to right,
-                        $main-text-color-left,
-                        $main-text-color-right
-                    );
-                    background-clip: text;
-                    -webkit-background-clip: text;
-                    color: transparent;
-                }
-            }
-        }
-    }
-}
-
-.checkoutDialog {
-    display: flex;
-    align-items: start;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-
-    .bill {
-        width: 50%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        align-items: start;
-        padding-left: 5rem;
-        font-size: 1.5rem;
-
-        .form Button {
-            font-size: 1.2rem;
-            font-weight: 700;
-            background: linear-gradient(
-                to right,
-                $main-text-color-left,
-                $main-text-color-right
-            );
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-        }
-    }
-
-    .cardInfo {
-        width: 50%;
-        height: 100%;
-
-        .form {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-evenly;
-            align-items: center;
-
-            Button {
-                font-size: 1.2rem;
-                font-weight: 700;
-                background: linear-gradient(
-                    to right,
-                    $main-text-color-left,
-                    $main-text-color-right
-                );
-                border: none;
-                border-radius: 30px;
-                cursor: pointer;
             }
         }
     }
