@@ -24,6 +24,10 @@ function NavElements({ navType }) {
                 href: "/cart",
             },
             {
+                label: "Orders",
+                href: "/orders",
+            },
+            {
                 label: "LogOut",
                 href: "/login",
                 onclick: () => {

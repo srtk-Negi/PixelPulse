@@ -24,6 +24,7 @@ import HomePage from "./pages/HomePage";
 import AdminHomePage from "./pages/AdminHomePage";
 import Unauthorized from "./pages/Unauthorized";
 import Cart from "./pages/Cart";
+import OrdersPage from "./pages/OrdersPage";
 
 //STYLES IMPORTS
 import "./assets/css/adminHomePage.css";
@@ -34,6 +35,7 @@ import "./assets/css/register.css";
 import "./assets/css/unauthorized.css";
 import "./assets/css/navbar.css";
 import "./assets/css/cart.css";
+import "./assets/css/orders.css";
 
 const App = () => {
     return (
@@ -57,6 +59,14 @@ const App = () => {
                             element={
                                 <Layout navType="user">
                                     <Cart />
+                                </Layout>
+                            }
+                        />
+                        <Route
+                            path="/orders"
+                            element={
+                                <Layout navType="user">
+                                    <OrdersPage />
                                 </Layout>
                             }
                         />
