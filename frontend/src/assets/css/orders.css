@@ -51,10 +51,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 .ordersPage .mainContent .ordersContainer .orderDetails .orderDetailsHeader {
-  font-size: 2rem;
+  font-size: 2.3rem;
   font-weight: 700;
   background: linear-gradient(to right, #8d72f8, #e789f7);
   background-clip: text;
@@ -71,10 +71,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 .ordersPage .mainContent .ordersContainer .orderItems .orderItemsHeader {
-  font-size: 2rem;
+  font-size: 2.3rem;
   font-weight: 700;
   background: linear-gradient(to right, #8d72f8, #e789f7);
   background-clip: text;

@@ -6,15 +6,19 @@ import { formatLocalISODate } from "../adminHelperFunctions";
 const OrderSummary = ({ orderItems }) => {
     return (
         <div className="orderSummary">
-            {orderItems.map((item) => (
-                <div className="orderItem">- {item.prod_name}</div>
+            {orderItems.map((item, index) => (
+                <div className="orderItem" key={index}>
+                    {index + 1}. {item.prod_name} x {item.quantity} - $
+                    {item.total_price}
+                </div>
             ))}
         </div>
     );
 };
 
 const OrdersPage = () => {
-    const [orders, setOrders] = useState();
+    const [order, setOrder] = useState();
+    const [orderItems, setOrderItems] = useState();
 
     const fetchOrders = async () => {
         const headers = {
@@ -24,9 +28,13 @@ const OrdersPage = () => {
             const response = await axios.get("/api/order/orders", {
                 headers,
             });
-            console.log(response.data);
-            setOrders(response.data);
+            setOrder(response.data);
+            setOrderItems(response.data.order_items);
         } catch (error) {
+            if (error.response.data.detail === "Order not found") {
+                setOrder([]);
+                setOrderItems([]);
+            }
             console.error(error);
         }
     };
@@ -37,11 +45,11 @@ const OrdersPage = () => {
 
     return (
         <div className="ordersPage">
-            {!orders && <LoadingSpinner />}
-            {orders && orders.length === 0 && (
+            {!order && <LoadingSpinner />}
+            {orderItems && orderItems.length == 0 && (
                 <div className="ordersHeader">No orders placed yet</div>
             )}
-            {orders && (
+            {orderItems && orderItems.length > 0 && (
                 <>
                     <div className="ordersHeader">
                         <i
@@ -59,27 +67,40 @@ const OrdersPage = () => {
                                 <div className="orderDetailsHeader">
                                     Order Details
                                 </div>
-                                <div>Order ID - {orders.order_id}</div>
                                 <div>
-                                    Placed On -{" "}
-                                    {formatLocalISODate(orders.created_at)}
-                                </div>
-                                {orders.discount != 0 && (
-                                    <div>Discount - {orders.discount}%</div>
-                                )}
-                                {orders.discount_code && (
+                                    <div>Order ID - {order.order_id}</div>
                                     <div>
-                                        Discount Code - {orders.discount_code}
+                                        Placed On -{" "}
+                                        {formatLocalISODate(order.created_at)}
                                     </div>
-                                )}
-                                <div>Tax - ${orders.tax}</div>
-                                <div>Order Total - ${orders.total_price}</div>
+                                    {order.address && (
+                                        <div>
+                                            Shipping Address - {order.address}
+                                        </div>
+                                    )}
+                                    <div>
+                                        Order Status - {order.order_status}
+                                    </div>
+                                    {order.discount != 0 && (
+                                        <div>Discount - {order.discount}%</div>
+                                    )}
+                                    {order.discount_code && (
+                                        <div>
+                                            Discount Code -{" "}
+                                            {order.discount_code}
+                                        </div>
+                                    )}
+                                    <div>Tax - ${order.tax}</div>
+                                    <div>
+                                        Order Total - ${order.total_price}
+                                    </div>
+                                </div>
                             </div>
                             <div className="orderItems">
                                 <div className="orderItemsHeader">
                                     Order Items
                                 </div>
-                                <OrderSummary orderItems={orders.order_items} />
+                                <OrderSummary orderItems={order.order_items} />
                             </div>
                         </div>
                     </div>

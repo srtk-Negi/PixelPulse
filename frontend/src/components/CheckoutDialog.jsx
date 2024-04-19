@@ -138,7 +138,7 @@ const CheckoutDialog = ({
             </div>
             <div className="cardInfo">
                 <Formik
-                    // validationSchema={creditCardSchema}
+                    validationSchema={creditCardSchema}
                     initialValues={{
                         nameOnCard: "",
                         cardNumber: "",
