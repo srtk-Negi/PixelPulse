@@ -165,6 +165,24 @@ export const deleteDiscount = async (discountId, setDiscounts, token) => {
     }
 };
 
+export const sortOrders = async (sortOption, setOrders, token) => {
+    const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+    };
+    try {
+        const response = await axios.get(
+            `/api/admin/orders/sorted/${sortOption}`,
+            {
+                headers: headers,
+            }
+        );
+        setOrders(response.data);
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 export const formatLocalISODate = (dateInput) => {
     const date = new Date(dateInput);
     const timezoneOffset = date.getTimezoneOffset() * 60000;

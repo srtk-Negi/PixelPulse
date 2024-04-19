@@ -21,6 +21,7 @@ import CartItemsDashboard from "../components/CartItemsDashboard";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { ConfirmDialog } from "primereact/confirmdialog";
+import { Dropdown } from "primereact/dropdown";
 
 // Helper function imports
 import * as hf from "../adminHelperFunctions";
@@ -59,6 +60,15 @@ const AdminHomePage = () => {
     const [showAddDiscountForm, setShowAddDiscountForm] = React.useState(false);
     const [showDiscountDeleteDialog, setShowDiscountDeleteDialog] =
         React.useState(false);
+
+    const sortOptions = [
+        {
+            label: "Order Total",
+            value: "total_price",
+        },
+        { label: "Order Date", value: "created_at" },
+        { label: "User ID", value: "user_id" },
+    ];
 
     const closeAllTables = (currentTable) => {
         const allTables = {
@@ -159,7 +169,21 @@ const AdminHomePage = () => {
                     />
                 )}
                 {/* RENDER THE ORDERS TABLE */}
-                {orders && <OrdersDashboard orders={orders} />}
+                {orders && (
+                    <>
+                        <Dropdown
+                            value={sortOptions}
+                            options={sortOptions}
+                            onChange={(e) =>
+                                hf.sortOrders(e.value, setOrders, token)
+                            }
+                            optionLabel="label"
+                            placeholder="Sort by"
+                        />
+
+                        <OrdersDashboard orders={orders} />
+                    </>
+                )}
 
                 {/* RENDER THE PRODUCTS TABLE */}
                 {products && (
