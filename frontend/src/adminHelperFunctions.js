@@ -129,7 +129,7 @@ export const deleteUser = async (userId, setUsers, token) => {
         await axios.delete(`/api/admin/users/delete/${userId}`, {
             headers: headers,
         });
-        getAllUsers(setUsers);
+        getAllUsers(setUsers, token);
     } catch (error) {
         console.error(error);
     }
@@ -144,7 +144,7 @@ export const deleteProduct = async (productId, setProducts, token) => {
         await axios.delete(`/api/admin/products/delete/${productId}`, {
             headers: headers,
         });
-        getAllProducts(setProducts);
+        getAllProducts(setProducts, token);
     } catch (error) {
         console.error(error);
     }

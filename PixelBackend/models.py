@@ -67,8 +67,12 @@ class CartItem(Base):
     cart_id = Column(
         Integer, ForeignKey("Carts.cart_id", ondelete="CASCADE"), nullable=False
     )
-    prod_id = Column(Integer, ForeignKey("Products.prod_id"), nullable=False)
-    prod_name = Column(String, ForeignKey("Products.name"), nullable=False)
+    prod_id = Column(
+        Integer, ForeignKey("Products.prod_id", ondelete="CASCADE"), nullable=False
+    )
+    prod_name = Column(
+        String, ForeignKey("Products.name", ondelete="CASCADE"), nullable=False
+    )
     quantity = Column(Integer, nullable=False)
     total_price = Column(Float, nullable=False)
     created_at = Column(
@@ -102,8 +106,12 @@ class OrderItem(Base):
     order_id = Column(
         Integer, ForeignKey("Orders.order_id", ondelete="CASCADE"), nullable=False
     )
-    prod_id = Column(Integer, ForeignKey("Products.prod_id"), nullable=False)
-    prod_name = Column(String, ForeignKey("Products.name"), nullable=False)
+    prod_id = Column(
+        Integer, ForeignKey("Products.prod_id", ondelete="CASCADE"), nullable=False
+    )
+    prod_name = Column(
+        String, ForeignKey("Products.name", ondelete="CASCADE"), nullable=False
+    )
     quantity = Column(Integer, nullable=False)
     total_price = Column(Float, nullable=False)
     created_at = Column(
@@ -130,7 +138,9 @@ class DiscountedProduct(Base):
     discounted_product_id = Column(
         Integer, primary_key=True, index=True, nullable=False
     )
-    prod_id = Column(Integer, ForeignKey("Products.prod_id"), nullable=False)
+    prod_id = Column(
+        Integer, ForeignKey("Products.prod_id", ondelete="CASCADE"), nullable=False
+    )
     discount_code_id = Column(
         Integer, ForeignKey("DiscountCodes.discount_code_id"), nullable=False
     )
