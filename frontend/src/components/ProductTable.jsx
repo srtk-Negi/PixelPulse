@@ -51,6 +51,11 @@ const ProductCard = ({ product, showProductAdded, prodAddWarning }) => {
                     <div className="price">${product.price}</div>
                     <Tag
                         className="tag"
+                        value={product.items_in_stock}
+                        severity={severity}
+                    />
+                    <Tag
+                        className="tag"
                         value={severityString}
                         severity={severity}
                     />
