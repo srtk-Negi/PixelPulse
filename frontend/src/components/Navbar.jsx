@@ -6,7 +6,7 @@ function NavElements({ navType }) {
     if (navType === "admin") {
         items = [
             {
-                label: "LogOut",
+                label: "Log Out",
                 href: "/login",
                 onclick: () => {
                     localStorage.removeItem("token");
