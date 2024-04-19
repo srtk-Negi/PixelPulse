@@ -71,6 +71,15 @@ def add_order(
             detail="Error occurred while adding order items to the database.",
         )
 
+    for item in order_items:
+        product = (
+            db.query(models.Product)
+            .filter(models.Product.prod_id == item.prod_id)
+            .first()
+        )
+        product.items_in_stock -= 1
+        db.commit()
+
     return {"order_id": order.order_id}
 
 

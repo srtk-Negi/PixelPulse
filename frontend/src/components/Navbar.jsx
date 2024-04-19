@@ -28,7 +28,7 @@ function NavElements({ navType }) {
                 href: "/orders",
             },
             {
-                label: "LogOut",
+                label: "Log Out",
                 href: "/login",
                 onclick: () => {
                     localStorage.removeItem("token");

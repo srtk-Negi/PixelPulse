@@ -32,12 +32,18 @@ def get_products(
                     (models.Product.name.ilike(f"%{search_string}%"))
                     | (models.Product.description.ilike(f"%{search_string}%"))
                 )
+                .order_by(models.Product.prod_id)
                 .all()
             )
         elif category:
-            products = db.query(models.Product).filter_by(category=category).all()
+            products = (
+                db.query(models.Product)
+                .filter_by(category=category)
+                .order_by(models.Product.prod_id)
+                .all()
+            )
         else:
-            products = db.query(models.Product).all()
+            products = db.query(models.Product).order_by(models.Product.prod_id).all()
 
     except Exception:
         raise HTTPException(
